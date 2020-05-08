@@ -10,14 +10,21 @@ header:
 
 It groups distributed nodes into a logical Ethernet. EdgeVPN has built-in support for packet capture, encryption, tunneling, forwarding, and NAT traversal, EdgeVPN builds on standard protocols, flexible software-defined networking, and a scalable overlay network architecture
 
-### Scalable and self-configuring
-Designed based on principles used in scalable, ring-structured key/value stores and peer-to-peer overlays, there are no central VPN traffic bottlenecks, and the network scales and configures itself as nodes are added/removed
 
-### Run existing software
-EdgeVPN exposes virtual network interfaces and private IP addresses allowing existing and future Ethernet/IP based software stacks to run, unmodified. EdgeVPN can provide a virtual cluster of Docker containers across edge/cloud resources
+<img src="https://github.com/EdgeVPN/edgevpn.github.io/blob/master/assets/images/network-1614045_160.png"
+     alt="text"
+     style="float: left;" />
+**Scalable and self-configuring** Designed based on principles used in scalable, ring-structured key/value stores and peer-to-peer overlays, there are no central VPN traffic bottlenecks, and the network scales and configures itself as nodes are added/removed
 
-### Deploy anywhere
-EdgeVPN transparently handles edge devices behind NATs and firewalls, encrypting and tunneling traffic across the Internet.
+<img src="https://github.com/EdgeVPN/edgevpn.github.io/blob/master/assets/images/network-cables-494650_160.jpg"
+     alt="text"
+     style="float: left;" />
+**Run existing software** EdgeVPN exposes virtual network interfaces and private IP addresses allowing existing and future Ethernet/IP based software stacks to run, unmodified. EdgeVPN can provide a virtual cluster of Docker containers across edge/cloud resources
+
+<img src="https://github.com/EdgeVPN/edgevpn.github.io/blob/master/assets/images/it-4072549_160.png"
+     alt="text"
+     style="float: left;" />
+**Deploy anywhere** EdgeVPN transparently handles edge devices behind NATs and firewalls, encrypting and tunneling traffic across the Internet
 
 **Structured topology:** 
 EdgeVPN currently implements a structured overlay topology where nodes self-organize into a ring ordered by unique node IDs, and with randomly-assigned “long-distance” links, following the Symphony peer-to-peer system. This topology is such that the average distance between two nodes can scale as a log(N) function, where N is the number of nodes. Topology handling is modular, such that other topologies can be implemented.
