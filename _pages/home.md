@@ -6,9 +6,9 @@ header:
   #overlay_image: /assets/images/banner.jpg
 ---
 
-### EdgeVPN is an open-source software for deploying scalable Virtual Private Networks (VPNs) across distributed edge resources for distributed, containerized applications
+### EdgeVPN is an open-source software for deploying scalable VPNs across distributed edge resources 
 
-It groups distributed nodes into a logical Ethernet. EdgeVPN has built-in support for packet capture, encryption, tunneling, forwarding, and NAT traversal, EdgeVPN builds on standard protocols, flexible software-defined networking, and a scalable overlay network architecture
+It groups distributed nodes into a logical Ethernet. EdgeVPN has built-in support for packet capture, encryption, tunneling, forwarding, and NAT traversal, EdgeVPN builds on standard protocols, flexible software-defined networking, and a scalable overlay network architecture suitable for containerized applications
 
 
 <img src="/assets/images/network-1614045_160.png"
@@ -25,6 +25,7 @@ It groups distributed nodes into a logical Ethernet. EdgeVPN has built-in suppor
      alt="text"
      style="float: left;" />
 **Deploy anywhere** EdgeVPN transparently handles edge devices behind NATs and firewalls, encrypting and tunneling traffic across the Internet
+
 
 ### Key EdgeVPN features
 
