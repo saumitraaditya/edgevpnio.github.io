@@ -24,7 +24,7 @@ It groups distributed nodes into a logical Ethernet. EdgeVPN has built-in suppor
 <img src="/assets/images/it-4072549_100.png"
      alt="text"
      style="float: left;" />
-**Deploy anywhere** EdgeVPN transparently handles edge devices behind NATs and firewalls, encrypting and tunneling traffic across the Internet
+**Deploy anywhere** EdgeVPN transparently connects edge devices with private addresses behind Network Address Translators (NATs) and firewalls, encrypting and tunneling traffic peer-to-peer across the Internet
 
 
 ### Key EdgeVPN features
