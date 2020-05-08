@@ -3,7 +3,7 @@ permalink: /
 title: "EdgeVPN"
 header:
   overlay_color: "#5e616c"
-  #overlay_image: /assets/images/banner.jpg
+excerpt: "Virtual Private Network for Edge Computing"  
 ---
 
 ### EdgeVPN is an open-source software for deploying scalable VPNs across distributed edge resources 
