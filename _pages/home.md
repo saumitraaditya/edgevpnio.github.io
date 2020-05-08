@@ -21,10 +21,12 @@ It groups distributed nodes into a logical Ethernet. EdgeVPN has built-in suppor
      style="float: left;" />
 **Run existing software** EdgeVPN exposes virtual network interfaces and private IP addresses allowing existing and future Ethernet/IP based software stacks to run, unmodified. EdgeVPN can provide a virtual cluster of Docker containers across edge/cloud resources
 
-<img src="/assets/images/it-4072549_160.png"
+<img src="/assets/images/it-4072549_100.png"
      alt="text"
      style="float: left;" />
 **Deploy anywhere** EdgeVPN transparently handles edge devices behind NATs and firewalls, encrypting and tunneling traffic across the Internet
+
+### Key EdgeVPN features
 
 **Structured topology:** 
 EdgeVPN currently implements a structured overlay topology where nodes self-organize into a ring ordered by unique node IDs, and with randomly-assigned “long-distance” links, following the Symphony peer-to-peer system. This topology is such that the average distance between two nodes can scale as a log(N) function, where N is the number of nodes. Topology handling is modular, such that other topologies can be implemented.
