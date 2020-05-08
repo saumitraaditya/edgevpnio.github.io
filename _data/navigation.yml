@@ -1,0 +1,12 @@
+# main links
+main:
+  - title: "About"
+    url: /about/
+  - title: "Documentation"
+    url: /documentation/
+  - title: "Code"
+    url: /code/
+  - title: "Community"
+    url: /community/    
+  - title: "Contact"
+    url: /contact/
