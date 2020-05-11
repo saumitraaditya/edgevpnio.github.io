@@ -46,4 +46,4 @@ EdgeVPN exposes a virtual Ethernet to its endpoints, and supports the ARP protoc
 The core packet-switching in EdgeVPN is programmable, using the [OpenFlow protocol for Software-Defined Networking](https://www.opennetworking.org/). EdgeVPN integrates with [Open vSwitch](https://www.openvswitch.org/) virtual switches, and endpoint interfaces are exposed via a virtual tap device. EdgeVPN can be deployed on physical and virtual machines, and in [Docker](https://www.docker.com/) containers
 
 **Built on standards:**
-EdgeVPN leverages standards for NAT traversal (STUN, TURN, ICE), transport-layer security (TLS, DTLS), software-defined networking (OpenFlow), and short messaging (XMPP), and reuses the WebRTC open-source framework 
+EdgeVPN leverages standards for NAT traversal ([ICE](https://tools.ietf.org/html/rfc5245) with STUN and TURN), transport-layer security (TLS, DTLS), software-defined networking (OpenFlow), and short messaging (XMPP), and reuses the WebRTC open-source framework 
