@@ -6,9 +6,9 @@ header:
   #overlay_image: /assets/images/banner.jpg
 ---
 
-Keep in touch with other users and developers by [joining the EdgeVPN user’s group](https://groups.io/g/EdgeVPN)
+[Join the EdgeVPN user's group](https://groups.io/g/EdgeVPN) to ask questions and for important announcements
 
-Join our developer’s Slack channel if you are interested in contributing to the project
+Join our developer’s Slack channel if you are interested in contributing to the project - instructions are available in the user's group
 
 [Submit an issue on GitHub](https://github.com/EdgeVPN) if you would like to report a bug or feature request
 
