@@ -22,3 +22,30 @@ html {
     font-size: 20px; // change to whatever
   }
 }
+
+.page__hero--overlay {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  top: 0;
+}
+
+#main {
+  margin-top: 200px;
+}
+
+#site-nav {
+  background-color: transparent;
+}
+
+.masthead {
+  border-bottom: none;
+}
+
+.greedy-nav .visible-links a {
+    color: #ffffff;;
+}
+
+.greedy-nav a:hover {
+    color: #fefefe;
+}
