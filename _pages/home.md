@@ -1,9 +1,9 @@
 ---
 permalink: /
-title: "EdgeVPN"
+title: "Open-source VPN for Edge Computing"
 header:
   overlay_color: "#5e616c"
-excerpt: "Virtual Private Network for Edge Computing"  
+excerpt: "Seamlessly connect edge resources with a software-defined virtual Ethernet"  
 ---
 
 ### EdgeVPN is an open-source software for deploying scalable VPNs across distributed edge resources 
