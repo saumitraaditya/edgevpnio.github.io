@@ -10,7 +10,7 @@ header:
 
 #### EdgeVPN-in-a-box
 
-Quickly deploy a demo EdgeVPN on your own computer using Docker
+[Quickly deploy a demo EdgeVPN on your own computer using Docker](/edgevpninabox)
 
 #### EdgeVPN in multiple boxes
 
