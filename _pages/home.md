@@ -3,7 +3,7 @@ permalink: /
 title: "Open-source VPN for Edge Computing"
 header:
   overlay_color: "#5e616c"
-excerpt: "Seamlessly connect edge resources with a software-defined virtual Ethernet"  
+excerpt: "Seamlessly connect edge resources with a scalable virtual Ethernet"  
 ---
 
 ### EdgeVPN is an open-source software for deploying scalable VPNs across distributed edge resources 
@@ -31,19 +31,19 @@ It groups distributed nodes into a logical Ethernet. EdgeVPN has built-in suppor
 ### Key EdgeVPN features
 
 **Structured topology:** 
-EdgeVPN currently implements a structured overlay topology where nodes self-organize into a ring ordered by unique node IDs, and with randomly-assigned “long-distance” links, following the Symphony peer-to-peer system. This topology is such that the average distance between two nodes can scale as a log(N) function, where N is the number of nodes. Topology handling is modular, such that other topologies can be implemented.
+EdgeVPN implements a structured peer-to-peer overlay topology where nodes self-organize into a ring ordered by unique node IDs, and with randomly-assigned “long-distance” links, based on the approach described in [Symphony](http://infolab.stanford.edu/~bawa/Pub/symphony.pdf). *This topology is scalable:* the average distance between two nodes can scale as a log(N) function, where N is the number of nodes. Topology handling is modular, such that other topologies can be implemented.
 
 **Encrypted links:**
-EdgeVPN links are encrypted and authenticated with standard SSL-based transport-layer security. It supports UDP-based DTLS over NAT hole-punched tunnels.
+EdgeVPN links are encrypted and authenticated with standard SSL-based transport-layer security implemented by the open-source [WebRTC framework](https://webrtc.org/). *Communication among EdgeVPN nodes is private:* links use UDP-based Datagram TLS (DTLS) over NAT hole-punched tunnels
 
 **Easy grouping:**
-EdgeVPN uses the standard XMPP protocol with short messages to discover and exchange connection information with peers. Membership in private EdgeVPN groups can be easily configured for networks small to large in an XMPP server, such as the open-source OpenFire and eJabberd systems.
+EdgeVPN uses the standard [XMPP protocol](https://xmpp.org/) with short messages to discover and exchange connection information with peers. While packet switching and routing is decentralized and based on a scalable P2P overlay, *membership can be managed centrally:*  EdgeVPN groups can be easily configured for networks small to large in an XMPP server, such as the open-source [OpenFire](https://www.igniterealtime.org/projects/openfire/) and [eJabberd](https://www.ejabberd.im/) servers
 
-**Layer-2 networks:**
-EdgeVPN exposes a virtual Ethernet to its endpoints, and supports the ARP protocol, and unicast and multicast IP applications. 
+**Layer-2 virtual network:**
+EdgeVPN exposes a virtual Ethernet to its endpoints, and supports the ARP protocol, and unicast and IGMP-based multicast IP applications. *You can run existing IP-based applications over EdgeVPN without modifications*
 
 **Programmable and extensible:**
-The core packet-switching in EdgeVPN is performed by programmable, software-defined Open vSwitch virtual switches, and endpoint interfaces are exposed via a virtual tap device. EdgeVPN can be deployed on physical and virtual machines, and in Docker containers.
+The core packet-switching in EdgeVPN is programmable, using the [OpenFlow protocol for Software-Defined Networking](https://www.opennetworking.org/). EdgeVPN integrates with [Open vSwitch](https://www.openvswitch.org/) virtual switches, and endpoint interfaces are exposed via a virtual tap device. EdgeVPN can be deployed on physical and virtual machines, and in [Docker](https://www.docker.com/) containers
 
 **Built on standards:**
 EdgeVPN leverages standards for NAT traversal (STUN, TURN, ICE), transport-layer security (TLS, DTLS), software-defined networking (OpenFlow), and short messaging (XMPP), and reuses the WebRTC open-source framework 
