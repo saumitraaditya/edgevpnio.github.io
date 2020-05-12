@@ -197,9 +197,25 @@ Example:
 
 ## LinkManager module
 
-*TODO* Need Ken's input
+This module creates and manages the WebRTC based tunnels, which are the overlay edges between peers
 
-*TODO* add TURN
+* _Stun_ specifies a list of one or more STUN servers for NAT traversal. EdgeVPN needs at least one STUN server configured in order to support NAT traversal. STUN server endpoints are specifies in the format address:port
+
+* _Turn_ specifies a list of dictionaries, which specify the TURN server(s) and corresponding credentials. TURN servers are needed to allow nodes behind symmetric NATs to communicate, when STUN-based NAT traversal fails.
+
+_Address_ specifies the TURN server endpoint IP address and port, in format address:port
+
+_User_ specifies the TURN user name
+
+_Password_ specifies a corresponding TURN password for _User_
+
+* _Overlays_ specifies a configuration for each overlay being managed by this controller, starting with the UUID (a hexadecimal value matching one in the CFx Overlays list (see above) *Note*: currently, EdgeVPN only supports a single overlay.
+
+* _Type_ currently, the only value allowed is TUNNEL
+
+* _TapName_ specifies the prefix used for creating the EdgeVPN tap virtual network interface devices. Each EdgeVPN tunnel created by the link manager is bound to a tap device of the operating system; the full name of the tap device consists of this prefix, appended with the first 7 characters of the link ID (e.g. *tnl-1234567*)
+
+* _IgnoredNetInterfaces_ specifies a list of TAP device names that should not be used for tunneling. No tunnel endpoints points to these network interfaces will be generated
 
 ```
   "LinkManager": {
@@ -212,6 +228,11 @@ Example:
       "stun.l.google.com:19302",
       "stun1.l.google.com:19302"
     ],
+    "Turn": [{
+      "Address": "w2.xirsys.com:80",
+      "User": "your-user-id-string",
+      "Password": "your-password-string"
+     }],
     "Overlays": {
       "101000F": {
         "Type": "TUNNEL",
@@ -246,11 +267,22 @@ This module configures information for an (optional) overlay visualizer service
 ```
 ## BridgeController module
 
-This module configures the software switch/bridge used by EdgeVPN
+This module manages the network bridge interaction with the EdgeVPN tap devices
 
-*TODO* Why/what are dependencies?
+* _Overlays_ A configuration for each overlay being managed by this controller, starting with the UUID (a hexadecimal value matching one in the CFx Overlays list (see above) *Note*: currently, EdgeVPN only supports a single overlay.
 
-*TODO* need Ken's input
+* _Type_ specifies the type of network bridge to instantiate. Supported values are OVS (for Open vSwitch), VNIC (virtual NIC), and LXBR (Linux bridge). A node connected to an EdgeVPN in Switch tole structured overlay requires OVS. Set this value to VNIC if Topology’s Role is set to Leaf
+
+* _BridgeName_ specifies a mnemonic used for naming the bridge instance.
+
+* _IP4_ specifies the IPv4 address to assign to the bridge. This is an optional parameter; if your deployment does not require assigning an IP configuration to the bridge, it can be omitted
+
+* _PrefixLen_ specifies the network prefix length to apply to the bridge. (Optional parameter)
+
+* _MTU_ specifies the maximum transmission unit size to be applied to the bridge. Optional parameter; by default, it is set to 1410
+
+* _AutoDelete_ specifies whether to remove the bridge device that was specified when the controller shuts down. Possible values: True, False (default)
+
 
 Example:
 
@@ -265,11 +297,10 @@ Example:
     "Overlays": {
       "101000F": {
         "Type": "OVS",
-        "BridgeName": "ipopbr",
+        "BridgeName": "edgebr",
         "IP4": "10.10.10.1",
         "PrefixLen": 16,
         "MTU": 1410,
-        "STP": false,
         "AutoDelete": true,
         "SDNController": {
           "ConnectionType": "tcp",
