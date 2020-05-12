@@ -12,7 +12,7 @@ This tutorial guides you through the process of deploying two EdgeVPN nodes usin
 
 ## Dependences
 
-The tutorial assumes you have installed Docker, and you an XMPP server up and running, with user accounts and a group setup, [as described in the tutorial on deploying an XMPP server using Docker](Deploy-a-test-XMPP-server-with-Docker)
+The tutorial assumes you have installed Docker, and you an XMPP server up and running, with user accounts and a group setup, [as described in the tutorial on deploying an XMPP server using Docker](/openfiredocker)
 
 ## Configure host network and directories
 
