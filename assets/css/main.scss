@@ -7,6 +7,10 @@
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
 
+
+/**************
+* Page
+**************/
 html {
   font-size: 14px; // change to whatever
 
@@ -27,6 +31,20 @@ body {
   color: #000;
 }
 
+a, a:visited, a:hover {
+  color: #3371E3;
+  text-decoration: none;
+}
+
+
+/**************
+* Banner
+**************/
+
+.page__content a:not(.btn):not(#goog-wm-sb):hover {
+  text-decoration: none;
+}
+
 .initial-content {
   margin-top: -60px; 
 }
@@ -34,20 +52,50 @@ body {
 .page__hero--overlay {
   width: 100%;
   top: 0;
+  background-color: #303030 !important;
+  background-image: url("/assets/images/texture.png") !important;
+  padding: 5em 0 0.5em;
+  margin-bottom: 3em;
+  font-size: 0.8em;
 }
 
-#main {
-  margin-top: 60px;
+.layout--splash-home .page__hero--overlay {
+  text-align: center;
 }
 
-#site-nav {
-  background-color: transparent;
+.page__lead {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  font-size: 1em;
 }
+
+layout--splash-home .page__lead {
+  text-align: center;
+}
+
+.page__title {
+  font-weight: normal;
+}
+
+
+/**************
+* Navigation
+**************/
+
 
 .masthead {
   border-bottom: none;
   width: 100%;
   font-size: 16px;
+}
+
+.greedy-nav {
+  background-color: transparent;
+}
+
+.greedy-nav a {
+  margin: 0 0.5rem;
 }
 
 .greedy-nav a, .greedy-nav a:link, .greedy-nav a:visited, .greedy-nav a:hover, .greedy-nav a:active {
@@ -66,45 +114,13 @@ body {
   background-color: #3371E3;
 }
 
-.navicon:hover, .navicon::before:hover, .navicon::after:hover {
-  background-color: #ffffff;
-}
+
+/**************
+* Footer
+**************/
 
 .page__footer {
   color: #aaa;
   background-color: #303030;
   background-image: url("/assets/images/texture.png");
-}
-
-a, a:visited, a:hover {
-  color: #3371E3;
-  text-decoration: none;
-}
-
-.page__title {
-  font-weight: normal;
-}
-
-.layout--splash-home .page__hero--overlay {
-  text-align: center;
-}
-
-.page__hero--overlay {
-  padding: 5em 0 0;
-  font-size: 0.8em;
-}
-
-layout--splash-home .page__lead {
-  text-align: center;
-}
-
-.page__lead {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  font-size: 1em;
-}
-
-.page__content a:not(.btn):not(#goog-wm-sb):hover {
-  text-decoration: none;
 }
