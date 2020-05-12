@@ -8,17 +8,19 @@ header:
 
 # Introduction
 
-Each EdgeVPN node uses a JSON configuration file, with contents as described below. Each section describes one of the main configuration file's modules, with snippets of JSON. At the end of this document, a complete configuration file example is shown.
+The EdgeVPN configuration file uses the JSON format, and specifies the parameterized options for the various controller modules that make up the EdgeVPN controller. A valid config.json file is required to run EdgeVPN, with contents as described below. Each section describes one of the main configuration file's modules, with snippets of JSON. At the end of this document, a complete configuration file example is shown.
 
 ## CFx module
 
-This module configures unique identifiers for the overlay and the node. Currently, only an EdgeVPN node can be bound to a single overlay ID.
+This module is used to configure the overall EdgeVPN controller framework. It configures unique identifiers for the overlay and the node. Currently, only an EdgeVPN node can be bound to a single overlay ID
 
-*TODO* What does "Model" mean? Are the ID formats correct below?
+* _Model_ specifies a mnemonic to describe customized IPOP controllers. You can develop and add your own modules, or remove or replace existing modules. For the vast majority of uses, set it to "Default" 
 
-* _Overlays_ specifies the overlay ID, a 28-bit number encoded in hexadecimal format
+* _Overlays_ specifies the overlay ID, a 28-bit number encoded in hexadecimal format. *Note: currently, EdgeVPN only supports a single overlay*
 
-* _NodeId_ specifies the node's unique ID. NodeId is a 128-bit number also in hexadecimal format. The example below shows an overlay with ID "101000F" and NodeID "a100001feb6040628e5fb7e70b04f001"
+* _NodeId_ specifies the node's unique ID. NodeId is a 128-bit number also in hexadecimal format. You may specify a unique ID, or, if left blank, the framework will generate a random ID. The example below shows an overlay with ID "101000F" and NodeID "a100001feb6040628e5fb7e70b04f001"
+
+* _NidFileName_ specifies a fully qualified file name for storing a framework-generated NodeId
 
 ```
   "CFx": {
@@ -32,24 +34,26 @@ This module configures unique identifiers for the overlay and the node. Currentl
 
 ## Logger module
 
-This module specifies logging configuration.
+The controller logger module. Used by all other modules for logging. Supports disk file and console streams.
 
 *TODO* any other logging levels? 
 *TODO* What is MaxArchives?
 
-* _LogLevel_ specifies the desired level of logging: DEBUG (most verbose logging), WARN (less verbose, logs warnings), INFO (least verbose)
+* _LogLevel_ specifies the desired level of logging. Must be one of (in order of verbosity): NONE, ERROR, WARNING, INFO, or DEBUG
 
-* _Device_ specifies the output device for logging. Currently, "File" is supported
+* _ConsoleLevel_ specifies a separate logging level to be used for the console; applies when *Device* is set to All
+
+* _Device_ specifies the output stream for logging. Supported values: File, Console, All
 
 * _Directory_ specifies the directory where logs are to be stored
 
 * _CtrlLogFileName_ specifies the name of the log file for the EdgeVPN controller
 
-* _TincanLogFileName_ specifies the name of the log file for the tincan WebRTC tunnel datapath
+* _TincanLogFileName_ specifies the name of the log file for the TinCan WebRTC tunnel datapath
 
-* _MaxFileSize_ specifies the maximum size for log files
+* _MaxFileSize_ specifies the maximum size for individual log files
 
-* _MaxArchives_ specifies
+* _MaxArchives_ specifies the number of log files to archive before overwriting
 
 ```
   "Logger": {
@@ -63,13 +67,34 @@ This module specifies logging configuration.
   },
 ```
 
+## TincanInterface module
+
+This module configures parameters relevant to the connection between EdgeVPN controller and TinCan module. These are not needed to be modified from defaults for the vast majority of use cases.
+
+* _MaxReadSize_ specifies the maximum buffer size for Tincan Messages
+
+* _SocketReadWaitTime_ specifies the socket read wait time for Tincan Messages
+
+* _RcvServiceAddress_ specifies the controller server IPv4 address
+
+* _SndServiceAddress_ specifies the Tincan server IPv4 address
+
+* _RcvServiceAddress6_ specifies the controller server IPv6 address
+
+* _SndServiceAddress6_ specifies the Tincan server IPv6 address
+
+* _CtrlRecvPort_ specifies the controller listening port
+
+* _CtrlSendPort_ specifies the Tincan listening port
+
 ## Signal module
 
-This model specifies how to connect to XMPP services to establish a signaling channel for creating tunnels
+This model specifies how to connect to XMPP services to establish a signaling channel for bootstrapping the creation of tunnels
 
-*TODO* x509 configuration options
 
 * _Enabled_ should be set to true
+
+* _CacheExpiry_ specifies the minimum duration (in seconds) that an entry remains in the NodeID -> JID mapping cache
 
 * _Overlays_ specifies each overlay to be configured. This needs to match overlays described in the CFx module (in the example below, "101000F")
 
@@ -77,7 +102,7 @@ This model specifies how to connect to XMPP services to establish a signaling ch
 
 * _Port_ specifies the port to connect to the MXPP server. This is usually 5222 for password-based authentication, and 5223 for certificate-based authentication
 
-* _AuthenticationMethod_ specifies the method for authenticating the user with the XMPP server
+* _AuthenticationMethod_ specifies the method for authenticating the user with the XMPP server. Possible values: PASSWORD, x509
 
 * _Username_ specifies the name of the XMPP user
 
@@ -108,7 +133,7 @@ Example:
 
 * _CertFile_ specifies the name of the file storing the user's certificate
 
-* _Keyfile_ specifies the name of the file storing the user's private key
+* _KeyFile_ specifies the name of the file storing the user's private key
 
 Example:
 
@@ -123,7 +148,7 @@ Example:
         "Username": "user@xmppsite.com",
         "CertDirectory": "/home/user/edgevpn/cacerts/",
         "CertFile": "edgevpn.crt",
-        "Keyfile": "edgevpn.key"
+        "KeyFile": "edgevpn.key"
       }
     }
   },
@@ -131,7 +156,29 @@ Example:
 
 ## Topology module
 
-*TODO* Need Ken's input
+Module that defines and enforces the overlay's topology. Currently, EdgeVPN supports a Symphony-based structured peer-to-peer topology for its tunnels
+
+* _Overlays_ specifies a configuration for each overlay being managed by this controller. Each overlay is specified by its UUID - a hexadecimal value matching one in the CFx Overlays list (see above). *Note*: currently, EdgeVPN supports only a single overlay. 
+
+* _Name_ a mnemonic string to name the overlay
+
+* _Description_ a description string of the overlay
+
+* _EnforcedEdges_ specifies a list of NodeIds for which that a tunnel should alwayes be created to. Optional for most deployments, as the topology manages links according to its own policies, but can be used if you would like to manually create links. Example: [ “1234..5”, 1234..6”, 1234..7” ]
+
+* _ManualTopology_ specifies if the topology module should only create EnforcedEdges. Values: true or false (default)
+
+* _PeerDiscoveryCoalesce_ specifies the number of new peer notifications to wait on before attempting to update the overlay edges. If this threshold is not reached, the overlay will be refreshed on its periodic TimerInterval
+
+* _MaxSuccessors_ specifies the maximum number of successors links to create in the Symphony topology. These are the outgoing links that connect to the neighbors "to the right" in the overlay’s ring. Typically, values in the 2-4 range are sufficient. Larger values improve fault tolerance, but also generate more tunnel maintenance overhead
+
+* _MaxLongDistEdges_ specifies the maximum number of outgoing long distance Symphony edges to initiate
+
+* _MaxConcurrentEdgeSetup_ specifies the maximum number of edges to be created concurrently. This can help prevent a "stampede" effect when joining an existing large overlay
+
+* _Role_ specifies whether this one acts as a full virtual switch node in an overlay (*Switch*), or as a *Leaf* node that joins the overlay by connecting to a Switch node. In *Switch* role, a node will perform switching operations and accept incoming connection requests to create edges. In *Leaf* role, a node is a client/edge device that must connect to a Switch node. *Leaf* nodes reject any incoming requests for an edge.
+
+Example:
 
 ```
   "Topology": {
@@ -233,3 +280,7 @@ Example:
     }
   }
 ```
+
+## Additional information
+
+The configuration file tells the controller framework which modules to load and with what parameters. If a module is not specified in the configuration, it is not loaded. Certain keys occur in multiple modules with the same meaning and effect. Each module has an Enabled key that, when set to false, will cause the controller framework to skip loading it. TimerInterval specifies how often a module’s timer event fires in seconds. Dependencies specify which modules are used a module and must be loaded before hand. In your installed EdgeVPN package, you will find in controller/framework/fxlib.py a file that contains the full set of default values in the CONFIG dictionary. This dictionary is loaded first, and any values specified in config file will override them. Therefore, changes should always be made to the config.json file and not the fxlib.py file. 
