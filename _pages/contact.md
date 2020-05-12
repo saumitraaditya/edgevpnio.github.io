@@ -2,8 +2,8 @@
 permalink: /contact/
 title: "Contact"
 header:
-  overlay_color: "#5e616c"
-  #overlay_image: /assets/images/banner.jpg
+  overlay_color: "#303030"
+  overlay_image: /assets/images/texture.png
 ---
 
 [Join the EdgeVPN user's group](https://groups.io/g/EdgeVPN) to ask questions and for important announcements

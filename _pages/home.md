@@ -1,8 +1,10 @@
 ---
+layout: splash-home
 permalink: /
 title: "Open-source VPN for Edge Computing"
 header:
-  overlay_color: "#5e616c"
+  overlay_color: "#303030"
+  overlay_image: /assets/images/texture.png
 excerpt: "Seamlessly connect edge resources with a scalable virtual Ethernet"  
 ---
 

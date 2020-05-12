@@ -2,8 +2,8 @@
 permalink: /documentation/
 title: "Documentation"
 header:
-  overlay_color: "#5e616c"
-  #overlay_image: /assets/images/banner.jpg
+  overlay_color: "#303030"
+  overlay_image: /assets/images/texture.png
 ---
 
 ### Try EdgeVPN
