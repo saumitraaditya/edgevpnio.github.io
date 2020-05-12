@@ -24,7 +24,7 @@ Installing EdgeVPN nodes
 
 Configuring EdgeVPN nodes - commonly-used parameters 
 
-Configuring XMPP server
+Configuring Openfire XMPP server with password or certificate-based auth
 
 Set up STUN and TURN servers
 
