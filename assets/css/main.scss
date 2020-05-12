@@ -33,7 +33,6 @@ body {
 
 .page__hero--overlay {
   width: 100%;
-  height: 200px;
   top: 0;
 }
 
@@ -56,7 +55,19 @@ body {
 }
 
 .greedy-nav button, .greedy-nav .visible-links a:before {
-  background-color: #fff;
+  background-color: transparent;
+}
+
+.greedy-nav .hidden-links a {
+  background-color: #303030;  
+}
+
+.navicon, .navicon::before, .navicon::after {
+  background-color: #3371E3;
+}
+
+.navicon:hover, .navicon::before:hover, .navicon::after:hover {
+  background-color: #ffffff;
 }
 
 .page__footer {
@@ -79,7 +90,7 @@ a, a:visited, a:hover {
 }
 
 .page__hero--overlay {
-  padding: 5em 0;
+  padding: 5em 0 0;
   font-size: 0.8em;
 }
 
