@@ -16,7 +16,7 @@ header:
 
 [Configure and deploy your own Openfire XMPP server for EdgeVPN](/openfiredocker)
 
-Deploy EdgeVPN nodes using Docker
+[Deploy EdgeVPN nodes using Docker](/dockeredgevpn)
 
 ### Set up an EdgeVPN
 
