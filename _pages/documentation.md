@@ -40,7 +40,7 @@ Retrieving log files
 
 ### Look up reference information
 
-EdgeVPN configuration file - complete description
+[EdgeVPN configuration file - complete description](/configfile)
 
 [EdgeVPN wiki](https://github.com/EdgeVPN/edgevpn.github.io/wiki)
 
