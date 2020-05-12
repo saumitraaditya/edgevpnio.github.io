@@ -77,4 +77,4 @@ Then, create a group:
 
 ### Step 5: Configure EdgeVPN
 
-[Follow the instructions on how to install EdgeVPN using Docker](Deploy-EdgeVPN-with-Docker) to setup two containers for users test1 and test2
+You are now ready to configure EdgeVPN to use this XMPP server. [Follow the instructions on how to install EdgeVPN using Docker](/dockeredgevpn) to setup two containers for users test1 and test2
