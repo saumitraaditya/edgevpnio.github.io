@@ -84,13 +84,13 @@ xmpp.client.certificate.verify.root         -> true
 sasl.mechs                                  -> EXTERNAL
 ```
 
-2. Upload user certificates:
+2. Upload CA certificate:
 
 In the Openfire admin Web interface, navigate to Server -> TLS/SSL certificates
 
 In the section "Trust store used for connections from clients", navigate to "Manage store contents", then click on "import form"
 
-Then, copy over the user certificate (the myusername.crt file as described above). Set the username "myusername" as the alias, and save
+Then, copy over the CA's certificate (the myCA.pem file as described above). Set the CA's name as the alias, and save
 
 ## EdgeVPN configuration
 
