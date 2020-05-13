@@ -10,7 +10,7 @@ header:
 
 The EdgeVPN package is released with a sample configuration file that serves as a good starting point for many use cases. This document describes basic configuration parameters that you need to configure for your deployment, as well as the typical parameters you might want to tweak for your deployment. [Please refer to this document for a full description of configuration parameteres](/configfile)
 
-# Configure your XMPP server and credentials
+# Configure your XMPP server endpoint and user credentials
 
 This is a required configuration for your deployment - you must setup every EdgeVPN node to connect to an XMPP server. This is part of the _Signal_ module, and includes the IP address and port (typically 5222) of the server. The simplest for uses password-based authentication, where you must add the username and password:
 
@@ -89,7 +89,6 @@ An example of the console output of _ip address_ of how such a deployment would 
        valid_lft forever preferred_lft forever
 ```
 
-
 For this deployment, you need to configure the IP4 address of the node, and PrefixLen to match the subnet your EdgeVPN virtual network uses. In the example below, we configure a 16-bit subnet, and IP4 address 10.10.10.1 for Linux bridge _edgebr_ :
 
 ```
@@ -118,18 +117,63 @@ For this deployment, you need to configure the IP4 address of the node, and Pref
   }
 ```
 
+## Bridge with no IP address
 
-# Configure logging
+This configuration is currently not supported, and will be added in a later release
 
-Depending on whether you are testing things out, troubleshooting, or deploying a production environment, you should configure your logging appropriately, e.g. with INFO, DEBUG, or NONE:
+# Configure NAT traversal
+
+EdgerVPN requires at least one STUN server in order to traverse the most common types of [NATs - the "cone" type (full, address-, or port-restricted)](https://en.wikipedia.org/wiki/Network_address_translation). If EdgeVPN nodes are behind symmetric NATs, you will also need a TURN server.
+
+If you use STUN only, you will be able to use existing, freely-available STUN servers on the Internet (see example below), or deploy your own STUN server(s). If you plan to use TURN as well, you need to either deploy and manage your own TURN server, or use a TURN service - commercial TURN-as-a-service options exist, e.g. [Xirsys](http://www.xirsys.net). [This document provides information on how to deploy STUN/TURN services](/stunturn)
+
+The setup in the configuration file is simple. An example with STUN only, configured with a list of two freely-available Google STUN servers (you may add your own STUN servers to this list if you wish):
+
 ```
-  "Logger": {
-    "LogLevel": "DEBUG",
-    "Device": "File",
-    "Directory": "/var/log/edgevpn/",
-    "CtrlLogFileName": "ctrl.log",
-    "TincanLogFileName": "tincan_log",
-    "MaxFileSize": 10000000,
-    "MaxArchives": 1
+  "LinkManager": {
+    "Dependencies": [
+      "Logger",
+      "TincanInterface",
+      "Signal"
+    ],
+    "Stun": [
+      "stun.l.google.com:19302",
+      "stun1.l.google.com:19302"
+    ],
+    "Overlays": {
+      "101000F": {
+        "Type": "TUNNEL",
+        "TapName": "tnl-"
+      }
+    }
   },
 ```
+
+An example with a TURN server added (in this example, a TURN server hosted by Xirsys - substitute username and password as appropriate):
+
+```
+  "LinkManager": {
+    "Dependencies": [
+      "Logger",
+      "TincanInterface",
+      "Signal"
+    ],
+    "Stun": [
+      "stun.l.google.com:19302",
+      "stun1.l.google.com:19302"
+    ],
+    "Turn": [{
+      "Address": "w2.xirsys.com:80",
+      "User": "your-user-id-string",
+      "Password": "your-password-string"
+     }],
+    "Overlays": {
+      "101000F": {
+        "Type": "TUNNEL",
+        "TapName": "tnl-"
+      }
+    }
+  },
+```
+
+
