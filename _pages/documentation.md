@@ -6,19 +6,19 @@ header:
   overlay_image: /assets/images/texture.png
 ---
 
-### Try EdgeVPN
+## Try EdgeVPN
 
-#### EdgeVPN-in-a-box
+##### EdgeVPN-in-a-box
 
 [Quickly deploy a demo EdgeVPN on your own computer using Docker](/edgevpninabox)
 
-#### EdgeVPN in multiple boxes
+##### EdgeVPN in multiple boxes
 
 [Configure and deploy your own Openfire XMPP server for EdgeVPN](/openfiredocker)
 
 [Deploy EdgeVPN nodes using Docker](/dockeredgevpn)
 
-### Set up an EdgeVPN
+## Set up an EdgeVPN
 
 Installing EdgeVPN nodes
 
@@ -30,17 +30,17 @@ Installing EdgeVPN nodes
 
 [Set up STUN and TURN servers](/stunturn)
 
-Set up EdgeVPN visualization service
-
-### Understand the basics 
+## Understand the basics 
 
 EdgeVPN architecture overview
 
-### Troubleshoot EdgeVPN
+## Troubleshoot EdgeVPN
+
+Set up EdgeVPN visualization service
 
 Retrieving log files
 
-### Additional documentation reference information
+## Additional documentation reference information
 
 [EdgeVPN wiki](https://github.com/EdgeVPN/edgevpn.github.io/wiki)
 
