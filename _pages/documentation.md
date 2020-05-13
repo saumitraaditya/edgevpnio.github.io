@@ -32,7 +32,7 @@ header:
 
 ## Understand the basics 
 
-EdgeVPN architecture overview
+[EdgeVPN architecture overview](/architecture)
 
 ## Troubleshoot EdgeVPN
 
