@@ -36,9 +36,6 @@ This module is used to configure the overall EdgeVPN controller framework. It co
 
 The controller logger module. Used by all other modules for logging. Supports disk file and console streams.
 
-*TODO* any other logging levels? 
-*TODO* What is MaxArchives?
-
 * _LogLevel_ specifies the desired level of logging. Must be one of (in order of verbosity): NONE, ERROR, WARNING, INFO, or DEBUG
 
 * _ConsoleLevel_ specifies a separate logging level to be used for the console; applies when *Device* is set to All
@@ -90,7 +87,6 @@ This module configures parameters relevant to the connection between EdgeVPN con
 ## Signal module
 
 This model specifies how to connect to XMPP services to establish a signaling channel for bootstrapping the creation of tunnels
-
 
 * _Enabled_ should be set to true
 
@@ -271,7 +267,7 @@ This module manages the network bridge interaction with the EdgeVPN tap devices
 
 * _Overlays_ A configuration for each overlay being managed by this controller, starting with the UUID (a hexadecimal value matching one in the CFx Overlays list (see above) *Note*: currently, EdgeVPN only supports a single overlay.
 
-* _Type_ specifies the type of network bridge to instantiate. Supported values are OVS (for Open vSwitch), VNIC (virtual NIC), and LXBR (Linux bridge). A node connected to an EdgeVPN in Switch tole structured overlay requires OVS. Set this value to VNIC if Topology’s Role is set to Leaf
+* _Type_ specifies the type of network bridge to instantiate. Supported values are OVS (for Open vSwitch), VNIC (virtual NIC), and LXBR (Linux bridge). For most use cases, OVS is used - a node connected to an EdgeVPN in Switch tole structured overlay requires OVS. You should only use VNIC if Topology’s Role is set to _Leaf_. You should onlye use LXBR when you have an overlay that is "hardwired" with _ManualTopology_ (see Topology module section)
 
 * _BridgeName_ specifies a mnemonic used for naming the bridge instance.
 
