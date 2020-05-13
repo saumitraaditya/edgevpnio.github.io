@@ -20,7 +20,7 @@ header:
 
 ## Set up an EdgeVPN
 
-Installing EdgeVPN nodes
+[Installing EdgeVPN nodes](/install)
 
 [Configuring EdgeVPN nodes - basic configuration](/configbasics) 
 
