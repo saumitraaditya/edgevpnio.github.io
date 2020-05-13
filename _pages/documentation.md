@@ -24,6 +24,8 @@ Installing EdgeVPN nodes
 
 [Configuring EdgeVPN nodes - basic configuration](/configbasics) 
 
+[Configuring EdgeVPN nodes - complete description](/configfile)
+
 [Configuring Openfire XMPP server with password or certificate-based authentication](/openfireconfig)
 
 [Set up STUN and TURN servers](/stunturn)
@@ -38,9 +40,7 @@ EdgeVPN architecture overview
 
 Retrieving log files
 
-### Look up reference information
-
-[EdgeVPN configuration file - complete description](/configfile)
+### Additional documentation reference information
 
 [EdgeVPN wiki](https://github.com/EdgeVPN/edgevpn.github.io/wiki)
 
