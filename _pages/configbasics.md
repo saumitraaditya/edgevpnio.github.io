@@ -125,7 +125,7 @@ This configuration is currently not supported, and will be added in a later rele
 
 EdgerVPN requires at least one STUN server in order to traverse the most common types of [NATs - the "cone" type (full, address-, or port-restricted)](https://en.wikipedia.org/wiki/Network_address_translation). If EdgeVPN nodes are behind symmetric NATs, you will also need a TURN server.
 
-If you use STUN only, you will be able to use existing, freely-available STUN servers on the Internet (see example below), or deploy your own STUN server(s). If you plan to use TURN as well, you need to either deploy and manage your own TURN server, or use a TURN service - commercial TURN-as-a-service options exist, e.g. [Xirsys](http://www.xirsys.net). [This document provides information on how to deploy STUN/TURN services](/stunturn)
+If you use STUN only, you will be able to use existing, freely-available STUN servers on the Internet (see example below), or deploy your own STUN server(s). If you plan to use TURN as well, you need to either deploy and manage your own TURN server, or use a TURN service - commercial TURN-as-a-service options exist, e.g. [Xirsys](http://www.xirsys.com). [This document provides information on how to deploy STUN/TURN services](/stunturn)
 
 The setup in the configuration file is simple. An example with STUN only, configured with a list of two freely-available Google STUN servers (you may add your own STUN servers to this list if you wish):
 
