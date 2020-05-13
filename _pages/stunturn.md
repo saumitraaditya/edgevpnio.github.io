@@ -12,7 +12,7 @@ EdgeVPN supports NAT traversal using two mechanisms: [STUN](https://en.wikipedia
 
 STUN works for the majority of deployed NATs: the [cone-type NATs, including full-cone, port-restricted cone, and address-restricted cone](https://en.wikipedia.org/wiki/Network_address_translation). If your deployment only has cone-type NATs, STUN is sufficient. However, if your nodes are behind symmetric NATs, you will need also TURN.
 
-This document describes a couple of possible ways you can deploy your own STUN and TURN servers - they assume you are using Ubuntu Linux 14.04 or later. You may also use existing Internet services - free STUN servers are available (such as the Google STUN servers EdgeVPN is configured with by default), and pay-per-use TURN services also exist, e.g. [Xirsys](http://www.xirsys.net).
+This document describes a couple of possible ways you can deploy your own STUN and TURN servers - they assume you are using Ubuntu Linux 14.04 or later. You may also use existing Internet services - free STUN servers are available (such as the Google STUN servers EdgeVPN is configured with by default), and pay-per-use TURN services also exist, e.g. [Xirsys](http://www.xirsys.com).
 
 Open-source XMPP servers [eJabberd](https://www.ejabberd.im/) and [Openfire](https://www.igniterealtime.org/projects/openfire/) both offer STUN services, facilitating deployment if you are using either of these as your XMPP servers. eJabberd also offers a TURN service.
 
