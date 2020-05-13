@@ -22,11 +22,11 @@ header:
 
 Installing EdgeVPN nodes
 
-Configuring EdgeVPN nodes - commonly-used parameters 
+[Configuring EdgeVPN nodes - basic configuration](/configbasics) 
 
 [Configuring Openfire XMPP server with password or certificate-based authentication](/openfireconfig)
 
-Set up STUN and TURN servers
+[Set up STUN and TURN servers](/stunturn)
 
 Set up EdgeVPN visualization service
 
