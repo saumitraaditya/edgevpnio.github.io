@@ -44,5 +44,12 @@ The following diagram provides an overview of the various EdgeVPN modules
 
 * EdgeVPN controller: a Python-based program responsible for the control of various aspects of EdgeVPN, including: tincan link management, topology management, and signaling through XMPP
 
-* Ryu SDN controller: [Ryu](https://github.com/faucetsdn/ryu) is a a Python-based framework for SDN controllers. EdgeVPN implements a Ryu-based controller that is responsible for programming flow rules that govern packet switching in an EdgeVPN OVS switch
+* Ryu SDN controller: [Ryu](https://github.com/faucetsdn/ryu) is a Python-based framework for SDN controllers. EdgeVPN implements a Ryu-based controller that is responsible for programming flow rules that govern packet switching in an EdgeVPN OVS switch
 
+* Topology: EdgeVPN nodes belonging to the same overlay are logically organized according to a graph topology, where each node is a vertex, and each TinCan link is an edge
+
+* node ID: a unique 128-bit ID associated with each EdgeVPN node
+
+* Symphony: the current topology implemented in EdgeVPN is a structured peer-to-peer overlay topology where nodes self-organize into a ring ordered by unique node IDs, and with randomly-assigned “long-distance” links, based on the approach described in [Symphony](http://infolab.stanford.edu/~bawa/Pub/symphony.pdf). This topology is scalable: the average distance between two nodes can scale as a log(N) function, where N is the number of EdgeVPN nodes, while each node has log(N) TinCan links
+
+* Bounded flood: the protocol used among EdgeVPN to support broadcast (e.g. ARP) and form a basis for multicast. Bounded flood refers to the fact that, in a broadcast, nodes forward messages to "flood" their topology neighbors, but the flooding is bound by a range of node IDs to prevent loops
