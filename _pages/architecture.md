@@ -16,6 +16,10 @@ EdgeVPN is the evolution of IP-over-P2P (IPOP) codebase. IPOP has gone through s
 
 # Preliminaries and useful terminology
 
+The following diagram provides an overview of the various EdgeVPN modules
+
+![EdgeVPN architecture](/assets/images/edgevpn_architecture.png)
+
 * NAT: A Network Address Translator
 
 * EdgeVPN node: a (virtual) machine that runs the EdgeVPN software. An EdgeVPN deployment consists of a set of EdgeVPN nodes, whereas nodes may have private addresses and subject to NAT(s).
