@@ -33,26 +33,26 @@ This step is not necessary if you use password-based authentication; it is neces
 
 You will need a Certificate Authority (CA) in order to issue certificates for your setup. There are many different ways and several documents you can find on how to configure a CA, depending on your use case. For instance, [you may configure a simple CA using openssl tools in Linux](https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/):
 
-1. Create a directory to hold the certificates and keys:
+Step 1: Create a directory to hold the certificates and keys:
 
 ```
 mkdir cacerts ; cd cacerts/ 
 ```
 
-2. Create a certificate signing authority and key pair:
+Step 2: Create a certificate signing authority and key pair:
 
 ```
 openssl genrsa -des3 -out myCA.key 2048
 openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1825 -out myCA.pem
 ```
 
-3. Create private key for own certificate:
+Step 3: Create private key for own certificate:
 
 ```
 openssl genrsa -out myusername.key 2048
 ```
 
-4. Prepare a certificate signing request
+Step 4: Prepare a certificate signing request
 
 Here, the common name **must** be your username on the XMPP server. This should be just the user name part of the full XMPP name@domain string. For instance, for "myusername@local", where "local" is the domain portion, the common name in the certificate request should be just "myusername"
 
@@ -60,7 +60,7 @@ Here, the common name **must** be your username on the XMPP server. This should 
 openssl req -new -key myusername.key -out myusername.csr
 ```
 
-5. Sign and create a certificate using the CA credentials
+Step 5: Sign and create a certificate using the CA credentials
 
 ```
 openssl x509 -req -in myusername.csr -CA myCA.pem -CAkey myCA.key -CAcreateserial -out myusername.crt -days 1825 -sha256
@@ -68,15 +68,15 @@ openssl x509 -req -in myusername.csr -CA myCA.pem -CAkey myCA.key -CAcreateseria
 
 ## Server-side configuration
 
-Once you have a CA and have issued certificates for your EdgeVPN nodes (each node should have its own unique XMPP user name and certificate as explained above), you need to 1) configure the XMPP server to support certificate auth, and 2) upload certificates.
+Once you have a CA and have issued certificates for your EdgeVPN nodes (each node should have its own unique XMPP user name and certificate as explained above), you need to 1) configure the XMPP server to support certificate auth, and 2) upload the CA's certificate.
 
-1. Your Openfire XMPP server needs to be configured for certificate-based authentication, by ensuring the following properties are set. 
+Step 1: Your Openfire XMPP server needs to be configured for certificate-based authentication, by ensuring the following properties are set. 
 
 You can set properties by navigating, in the admin Web interface, to: Server->Server Manager->System properties
 
 ```
 Property                                       Value
-xmpp.client.cert.policy                     -> "needed"
+xmpp.client.cert.policy                     -> needed
 xmpp.client.certificate.accept-selfsigned   -> true
 xmpp.client.certificate.verify              -> true
 xmpp.client.certificate.verify.chain        -> true
@@ -84,13 +84,13 @@ xmpp.client.certificate.verify.root         -> true
 sasl.mechs                                  -> EXTERNAL
 ```
 
-2. Upload CA certificate:
+Step 2: Upload CA certificate:
 
 In the Openfire admin Web interface, navigate to Server -> TLS/SSL certificates
 
 In the section "Trust store used for connections from clients", navigate to "Manage store contents", then click on "import form"
 
-Then, copy over the CA's certificate (the myCA.pem file as described above). Set the CA's name as the alias, and save
+Then, copy over the CA's certificate (the myCA.pem file as described above). Set the CA's common name as the alias, and save
 
 ## EdgeVPN configuration
 
