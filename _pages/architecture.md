@@ -100,4 +100,18 @@ Up to now in this discussion, our virtual network interface devices are connecte
 
 ## Software-defined networking
 
+SSN technology allows programming flexible behavior in network devices (e.g. switches and routers) through a standard API (OpenFlow). In particular, EdgeVPN relies on a software implementation of an SDN switch (OVS, Open vSwitch) to implement forwarding rules that match the structured peer-to-peer overlay topology.
+
+EdgeVPN integrates SDN technology as follows: 1) each TinCan link's tap device is bound to a port of the OVS switch, and 2) a Ryu-based SDN controller is responsible for programming the OVS to handle frames that are either originating from the local computer or being received in one of its ports. An analogy with a system administrator managing a network can be drawn as follows: every EdgeVPN node deployed in the network is akin to installing and powering up an Ethernet switch; every TinCan link that is created is akin to laying a cable connecting ports of two switches. Conversely, every TinCan link that is removed is akin from pulling a cable out, and every EdgeVPN node that is removed is akin to removing a switch.
+
+There are different things at play here. First, creating a new switch is the responsibility of the EdgeVPN controller when it starts up. Second, creating a new TinCan link is also the responsibility of the EdgeVPN controller - it has a Link Manager module that manages the lifetime of a link, and a Topology module that enforces invariants to ensure a connected structured Symphony graph. Third, programming the switch to implement forwarding is the responsibility of the EdgeVPN Ryu SDN controller. Fourth, the actual packet switching, which is performed by OVS. And fifth, tunneling, is, as described above, implemented by the tincan process.
+
+Without diving into the details of the SDN rules used by EdgeVPN, the key ideas are as follows:
+
+* Broadcast messages (e.g. ARP) are handled by the EdgeVPN controller using a "bounded flood" approach, where messages are forwarded to progressively smaller segments of the "ring" from the source of the broadcast to all nodes. Here, we leverage the invariant that nodes are sorted by their node IDs along the ring to avoid cycles and duplicates. In essence, when a node IDn receives a request to broadcast a message, it is also given a range IDstart...IDend. Node IDn only forwards messages along to neighbors which have node IDs within the specified range; furthermore, IDn computes a different range for each of its neighbors, effectively progressively partitioning the address space into smaller segments as broadcast messages are forwarded. In a network with N nodes where each node has O(log(N)) links, the depth of the forwarding tree that is implied by this bounded flood approach is also O(log(N))
+
+* Unicast IP messages are handled by the OVS switches. For IP unicast, EdgeVPN uses the bounded flood process just described to also program OVS switches along the way, such that essentially the path between a source MAC address to a destination MAC address initiated with ARP is discovered during bounded flood, and programmed in SDN flow rules
+
+* Multicast messages are also handled by the OVS switches. Skipping much of the details, switches learn a multicast tree based on information picked from IGMP messages that allow subscribers to send messages to join a multicast group
+
 ## Putting it all together
