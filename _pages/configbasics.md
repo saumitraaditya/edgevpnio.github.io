@@ -12,7 +12,7 @@ The EdgeVPN package is released with a sample configuration file that serves as 
 
 # Configure your XMPP server endpoint and user credentials
 
-This is a required configuration for your deployment - you must setup every EdgeVPN node to connect to an XMPP server. This is part of the _Signal_ module, and includes the IP address and port (typically 5222) of the server. The simplest for uses password-based authentication, where you must add the username and password:
+This is a required configuration for your deployment - you must setup every EdgeVPN node to connect to an XMPP server. This is part of the _Signal_ module, and includes the IP address and port (typically 5222) of the server. The simplest approach uses password-based authentication, where you must add the username and password:
 
 
 ```
