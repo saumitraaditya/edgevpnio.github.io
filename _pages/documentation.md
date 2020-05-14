@@ -40,9 +40,10 @@ Set up EdgeVPN visualization service
 
 Retrieving log files
 
-## Additional documentation reference information
+## Additional documentation and helpful resources
 
-[EdgeVPN wiki](https://github.com/EdgeVPN/edgevpn.github.io/wiki)
+[The EdgeVPN wiki](https://github.com/EdgeVPN/edgevpn.github.io/wiki)
 
+[An introduction to NAT traversal and STUN/TURN](https://temasys.io/webrtc-ice-sorcery/)
 
 
