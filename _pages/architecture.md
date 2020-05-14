@@ -78,9 +78,15 @@ Once a packet has been captures, it is then written to the TinCan/WebRTC tunnel.
 
 Through virtualizartion, the whole process is essentially hidden from the applications - the client and server do not see a difference between sending messages over EdgeVPN compared to sending messages over a local-area network. The important thing is to configure the network interfaces properly, so messages are carried over this link.
 
-## From one link to many
+## Signalling
 
+So far, we've sketched out how to build a single link across NATed devices, and to carry Ethernet traffic. We need to build more complexity to create a full-blown virtual network: we need to determine which nodes belong to the network, and we need to organize them in a logical structure - an overlay network.
 
+Signalling through XMPP in EdgeVPN enables the system to configure which nodes belong to the network by establishing _users_ and _groups_ in an XMPP server. The general approach is to abstract every device as an XMPP user, and to abstract membership in the network as membership of each device (user) in an XMPP group.
+
+Once users and groups are configured in the XMPP server, EdgeVPN nodes can send short messages using the XMPP protocol to eschange endpoint information for ICE NAT traversal. Furthermore, nodes can send public key certificate fingerprints used to generate symmetric keys to encrypt messages that go across the link.
+
+Up to now, we built the capability of creating private links between devices that belong to the same group, using XMPP, ICE,  WebRTC, and tap devices. This may be sufficient for very small networks - where you could conceivably create all-to-all links among all participants. However, such approach would not scale. Instead, EdgeVPN creates and manages an _overlay_ topology that organizes devices in the same group using a scalable graph.
 
 ## Overlay networking
 
