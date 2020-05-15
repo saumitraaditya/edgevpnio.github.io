@@ -115,3 +115,23 @@ Without diving into the details of the SDN rules used by EdgeVPN, the key ideas 
 * Multicast messages are also handled by the OVS switches. Skipping much of the details, switches learn a multicast tree based on information picked from IGMP messages that allow subscribers to send messages to join a multicast group
 
 ## Putting it all together
+
+Now that we have gone through an overview, let's revisit the figure above to highlight the overall sequence of steps in the lifetime of an EdgeVPN node, with a high-level roadmap of which EdgeVPN modules are responsible for the different steps:
+
+![EdgeVPN architecture: putting it all together](/assets/images/arch_putting_all_together.png)
+
+1. Once an EdgeVPN node starts, the first thing it does is authenticate with an XMPP server and send a presence message to other peers in the group to advertise itself. The XMPP server endpoint and credentials are taken from the configuration file, and the _Signal_ EdgeVPN controller module implements the XMPP client functionality
+
+2. The EdgeVPN node periodically queries STUN (and TURN, if configured) servers on the Internet to discover what public IP:port endpoint it might be reachable by other peers. This functionality is implemented as part of the WebRTC framework used by the tincan process
+
+3. Now the node is able to begin creating tunnels. To this end, for each peer that is deemed a candidate for a link (i.e. a successor and/or a "long-distance" node in the Symphony ring), the node sends a connection request, with a list of its candidate endpoints (e.g. local, STUN, and TURN IP:port pairs) and certificate fingerprints via the XMPP server. The algorithm to select which links should be created to maintain a Symphony graph is implemented by the _Topology_ EdgeVPN controller module. 
+
+4. Once a candidate peer is selected, the process of actually creating an encrypted TinCan link is orchestrated by the _LinkManager_ module in the EdgeVPN controller. The _LinkManager_ communicates with the tincan process through the EdgeVPN controller API to initiate and query peer-to-peer link requests. These leverage WebRTC's implementation.
+
+5. Once a TinCan link is successfully created, it is bound to OVS switch ports on both ends of the link via a tap device. This is the first step needed to allow the switch to be able to forward messages along the link.
+
+6. Focusing on TCP/IP applications, consider two nodes **A** and **B**, with respective MAC addresses **MACa**, **MACb** and IP addresses **IPa** and **IPb**. When a TCP/IP application in the EdgeVPN node **IPa** wishes to communicate with **IPb** address, the first step it takes is to broadcast an ARP request - querying all nodes with a "who has **IPb**" message. This request is forwarded by the switch through multiple tunnels/ports, and then by other switches "downstream" along the ring, according to the bounded flood protocol outlined earlier. When node **B** matches the requested **IPb**, it sends an ARP reply, which is eventually received by node **A** through port **Px** of the OVS switch port, where **Px** is the port bound to the TinCan link from which the ARP reply was received. The ARP reply inclused the matching Ethernet MAC address **MACb**.
+
+7. Upon receiving the ARP reply for **IPb**, the SDN controller in node **A** programs a flow rule in OVS that specifies that Ethernet frames with source address **MACa** and destination address **MACb** should be forwarded to port **Px**. 
+
+8. Now, further messages sent by **A** with source **MACa** and destination **MACb** will be forwarded along port **Px** by the OVS switch, whenever they are injected to the virtual network. Note that, not shown in this diagram, every node along the ARP reply path from **B** to **A** also programs a flow rule to forward source **MACa** to destination **MACb** (and vice-versa) through the port from which the reply was received, thus creating a path along the network for future communication between the two peers. Other paths are discovered for other nodes, following the same principle.
