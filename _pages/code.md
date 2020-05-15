@@ -21,7 +21,7 @@ Of course submitting the relevant information that will help us reproduce and di
 
 * Additionally, provide the EdgeVPN version, the platform being used, and configuration file(s) used (please ensure you remove sensitive information, such as XMPP and TURN user name/password)
 
-## Enhance and Feature Suggestions
+## Enhancements and Feature Suggestions
 While using our software you may envision new and interesting ways that it can be used. As a research group we are always excited to hear these ideas - [please get in touch with us, let us know, and join the user's group and developer's Slack channel](/about). We have finite resources and cannot guarantee that any requested feature will be implemented, but others in the community could be interested. 
  
 ## How you use EdgeVPN
@@ -33,9 +33,7 @@ We try to make keep our documentation in the EdgeVPN Wiki current, accurate and 
 ## Contributing Code
 There is always more code to write than we can get to as quickly as we like. If you have an interest in Python, C++, SDN, and system level network development you may want to participate in developing some of EdgeVPN features. 
 
-We generally attempt to adhere the Google Style Guides for C++ and Python. They can be found here:
-* https://google.github.io/styleguide/pyguide.html
-* https://google.github.io/styleguide/cppguide.html
+We generally attempt to adhere the Google Style Guides for [C++](https://google.github.io/styleguide/cppguide.html) and [Python](https://google.github.io/styleguide/pyguide.html)
 
 We have one master version of the software. This software product is tested and subjected to a high degree of code review. In order for code to make it into the master version, it must be submitted for code review. Once a project member other than the author has reviewed the code, the code is accepted into our testing branch. Once the code has passed a rigorous suite of tests, it is moved into the master branch. Periodically, packaged releases and containers are made from the master branch. 
 
