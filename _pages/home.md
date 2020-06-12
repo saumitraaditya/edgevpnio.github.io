@@ -13,22 +13,16 @@ excerpt: "Seamlessly connect edge resources with a scalable virtual Ethernet"
 It groups distributed nodes into a logical Ethernet. EdgeVPN has built-in support for packet capture, encryption, tunneling, forwarding, and NAT traversal, EdgeVPN builds on standard protocols, flexible software-defined networking, and a scalable overlay network architecture suitable for containerized applications
 
 
-<img src="/assets/images/network-1614045_160.png"
-     alt="text"
-     style="float: left;" />
+
 **Scalable and self-configuring** Designed based on principles used in scalable, ring-structured key/value stores and peer-to-peer overlays, there are no central VPN traffic bottlenecks, and the network scales and configures itself as nodes are added/removed
 
-<img src="/assets/images/network-cables-494650_160.jpg"
-     alt="text"
-     style="float: left;" />
+
 **Run existing software** EdgeVPN exposes virtual network interfaces and private IP addresses allowing existing and future Ethernet/IP based software stacks to run, unmodified. EdgeVPN can provide a virtual cluster of Docker containers across edge/cloud resources
 
-<img src="/assets/images/it-4072549_100.png"
-     alt="text"
-     style="float: left;" />
+
 **Deploy anywhere** EdgeVPN transparently connects edge devices with private addresses behind Network Address Translators (NATs) and firewalls and cloud computing resources, encrypting and tunneling traffic peer-to-peer across the Internet
 
-<br/><br/>
+
 
 ### Key EdgeVPN features
 
