@@ -14,13 +14,13 @@ It groups distributed nodes into a logical Ethernet. EdgeVPN has built-in suppor
 
 
 
-**Scalable and self-configuring** Designed based on principles used in scalable, ring-structured key/value stores and peer-to-peer overlays, there are no central VPN traffic bottlenecks, and the network scales and configures itself as nodes are added/removed
+**Scalable and self-configuring:** EdgeVPN is designed based on principles used in scalable, ring-structured key/value stores and peer-to-peer overlays, there are no central VPN traffic bottlenecks, and the network scales and configures itself as nodes are added/removed
 
 
-**Run existing software** EdgeVPN exposes virtual network interfaces and private IP addresses allowing existing and future Ethernet/IP based software stacks to run, unmodified. EdgeVPN can provide a virtual cluster of Docker containers across edge/cloud resources
+**Run existing software:** EdgeVPN exposes virtual Ethernet network interfaces and private IP addresses allowing existing and future Ethernet/IP based software stacks to run, unmodified. EdgeVPN can provide a virtual cluster of Docker containers across edge/cloud resources
 
 
-**Deploy anywhere** EdgeVPN transparently connects edge devices with private addresses behind Network Address Translators (NATs) and firewalls and cloud computing resources, encrypting and tunneling traffic peer-to-peer across the Internet
+**Deploy anywhere:** EdgeVPN transparently connects edge devices with private addresses behind Network Address Translators (NATs) and firewalls, as well as cloud computing resources, encrypting and tunneling traffic peer-to-peer across the Internet
 
 
 
