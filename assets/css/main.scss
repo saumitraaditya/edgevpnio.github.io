@@ -46,7 +46,7 @@ a, a:visited, a:hover {
 }
 
 .initial-content {
-  margin-top: -60px; 
+  margin-top: -90px; 
 }
 
 .page__hero--overlay {
@@ -78,6 +78,9 @@ layout--splash-home .page__lead {
   font-weight: normal;
 }
 
+.site-logo img {
+  max-height: 2.8rem;
+}
 
 /**************
 * Navigation
