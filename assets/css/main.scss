@@ -63,6 +63,12 @@ a, a:visited, a:hover {
   text-align: center;
 }
 
+.layout--splash-home #main {
+  max-width: unset;
+  padding-left: unset;
+  padding-right: unset;
+}
+
 .page__lead {
   margin-left: auto;
   margin-right: auto;
@@ -81,6 +87,22 @@ layout--splash-home .page__lead {
 .site-logo img {
   max-height: 2.8rem;
 }
+
+.background-white {
+  background-color: #fff;
+}
+
+.background-grey {
+  background-color: #f7f7f7;
+}
+
+.center {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+}
+
 
 /**************
 * Navigation
