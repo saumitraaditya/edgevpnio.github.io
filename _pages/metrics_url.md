@@ -6,4 +6,4 @@ header:
   overlay_image: /assets/images/texture.png
 ---
 
-URL=https://2zkan9566m.execute-api.us-west-2.amazonaws.com/default/PythonEndpointMicroservice
+EdgeVPN_metrics_URL=https://2zkan9566m.execute-api.us-west-2.amazonaws.com/default/PythonEndpointMicroservice
