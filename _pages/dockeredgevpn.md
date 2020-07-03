@@ -120,9 +120,9 @@ To configure the second container, copy config-001.json to config-002.json, **an
 Now you will run two containers, named edgevpn001 and edgevpn002, mapping the different configuration file and the log directories to different mount points:
 
 ```
-docker run -d -v /home/$USER/edgevpn/config/config-001.json:/etc/opt/ipop-vpn/config.json -v /home/$USER/edgevpn/logs/edgevpn001:/var/log/ipop-vpn/ -v --rm --privileged --name edgevpn001 --network dkrnet ipopproject/ipop-vpn:1.0 /sbin/init
+docker run -d -v /home/$USER/edgevpn/config/config-001.json:/etc/opt/edge-vpn/config.json -v /home/$USER/edgevpn/logs/edgevpn001:/var/log/edge-vpn/ -v --rm --privileged --name edgevpn001 --network dkrnet kcratie/edge-vpn:20.7 /sbin/init
 
-docker run -d -v /home/$USER/edgevpn/config/config-002.json:/etc/opt/ipop-vpn/config.json -v /home/$USER/edgevpn/logs/edgevpn002:/var/log/ipop-vpn/ -v --rm --privileged --name edgevpn002 --network dkrnet ipopproject/ipop-vpn:1.0 /sbin/init
+docker run -d -v /home/$USER/edgevpn/config/config-002.json:/etc/opt/edge-vpn/config.json -v /home/$USER/edgevpn/logs/edgevpn002:/var/log/edge-vpn/ -v --rm --privileged --name edgevpn002 --network dkrnet kcratie/edge-vpn:20.7 /sbin/init
 ```
 
 ## Test your connection
@@ -130,7 +130,7 @@ docker run -d -v /home/$USER/edgevpn/config/config-002.json:/etc/opt/ipop-vpn/co
 Log into the container edgevpn001 (virtual IP address 10.10.10.21), and ping the edgevpn002 node (virtual IP 10.10.10.22):
 
 ```
-docker exec -it /bin/bash
+docker exec -it edgevpn001 /bin/bash
 # ping 10.10.10.22
 ```
 
