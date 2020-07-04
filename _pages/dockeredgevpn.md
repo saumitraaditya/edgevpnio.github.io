@@ -16,9 +16,10 @@ The tutorial assumes you have installed Docker, and you an XMPP server up and ru
 
 ## Configure host network and directories
 
-First, you need to create a network namespace in the host:
+First, you need to install Open vSwitch and create a network namespace in the Docker host:
 
 ```
+sudo apt-get install -y openvswitch-switch
 sudo docker network create dkrnet
 ```
 
