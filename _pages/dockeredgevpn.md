@@ -44,22 +44,23 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
 {
   "CFx": {
     "Model": "Default",
-    "Overlays": [ "1010001" ]
+    "Overlays": [
+      "1234567"
+    ]
   },
   "Logger": {
-    "LogLevel": "INFO",
+    "LogLevel": "DEBUG",
     "Device": "File",
-    "Directory": "/var/log/ipop-vpn/",
+    "Directory": "/var/log/edge-vpn/",
     "CtrlLogFileName": "ctrl.log",
     "TincanLogFileName": "tincan_log",
-    "MaxFileSize": 5000000,
-    "MaxArchives": 5
-  
+    "MaxFileSize": 10000000,
+    "MaxArchives": 1
   },
   "Signal": {
     "Enabled": true,
     "Overlays": {
-      "1010001": {
+      "1234567": {
         "HostAddress": "A.B.C.D",
         "Port": "5222",
         "Username": "test1@openfire.local",
@@ -69,42 +70,89 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
     }
   },
   "Topology": {
-    "PeerDiscoveryCoalesce": 3,
+    "PeerDiscoveryCoalesce": 1,
     "Overlays": {
-      "1010001": {
-        "Name": "Overlay1",
-        "Description": "Test overlay",
+      "1234567": {
+        "Name": "SymphonyRing",
+        "Description": "Scalable Symphony Ring Overlay for Bounded Flooding.",
         "MaxSuccessors": 2,
         "MaxOnDemandEdges": 1,
         "MaxConcurrentEdgeSetup": 5,
         "Role": "Switch"
-      }
+     }
     }
   },
   "LinkManager": {
-    "Dependencies": [ "Logger", "TincanInterface", "Signal" ],
-    "Stun": ["stun.l.google.com:19302", "stun1.l.google.com:19302"],
+    "Dependencies": [
+      "Logger",
+      "TincanInterface",
+      "Signal"
+    ],
+    "Stun": [
+      "stun.l.google.com:19302",
+      "stun1.l.google.com:19302"
+    ],
     "Overlays": {
-      "1010001": {
+      "1234567": {
         "Type": "TUNNEL",
-        "TapName": "tnl"
+        "TapName": "tnl-"
       }
     }
   },
+  "OverlayVisualizer": {
+    "Enabled": false,
+    "TimerInterval": 25,
+    "WebServiceAddress": "",
+    "NodeName": "n1"
+  },
   "BridgeController": {
+    "Dependencies": [
+      "Logger",
+      "LinkManager"
+    ],
+    "BoundedFlood": {
+      "OverlayId": "1234567",
+      "LogDir": "/var/log/edge-vpn/",
+      "LogFilename": "bf.log",
+      "LogLevel": "INFO",
+      "BridgeName": "edgbr",
+      "DemandThreshold": "100M",
+      "FlowIdleTimeout": 60,
+      "FlowHardTimeout": 60,
+      "MulticastBroadcastInterval": 60,
+      "MaxBytes": 10000000,
+      "BackupCount": 0,
+      "ProxyListenAddress": "",
+      "ProxyListenPort": 5802,
+      "MonitorInterval": 60,
+      "MaxOnDemandEdges": 0
+    },
     "Overlays": {
-      "1010001": {
-        "Type": "LXBR",
-        "BridgeName": "ipopbr",
-        "IP4": "10.10.10.21",
-        "PrefixLen": 24,
-        "MTU": 1410,
-        "STP": true,
-        "AutoDelete": true
+      "1234567": {
+        "NetDevice": {
+          "AutoDelete": true,
+          "Type": "OVS",
+          "SwitchProtocol": "BF",
+          "NamePrefix": "edgbr",
+          "MTU": 1410,
+          "AppBridge": {
+            "AutoDelete": true,
+            "Type": "OVS",
+            "NamePrefix": "brl",
+            "IP4": "10.10.10.21",
+            "PrefixLen": 24,
+            "MTU": 1410
+          }
+        },
+        "SDNController": {
+          "ConnectionType": "tcp",
+          "HostName": "127.0.0.1",
+          "Port": "6633"
+        }
       }
     }
   }
-}
+}      
 ```
 
 To configure the second container, copy config-001.json to config-002.json, **and replace the following entries in the json file**. These entries reflect the different user ID, password, and EdgeVPN IP address:
