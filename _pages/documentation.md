@@ -6,17 +6,15 @@ header:
   overlay_image: /assets/images/texture.png
 ---
 
-## Try EdgeVPN
+## Try EdgeVPN using Docker
 
-#### Run EdgeVPN for the first time using Docker
-
-[Quickly deploy a demo EdgeVPN on your own computer using Docker](/edgevpninabox)
+[Deploy a quick demo EdgeVPN on your own computer using Docker](/edgevpninabox)
 
 [Configure and deploy your own Openfire XMPP server for EdgeVPN](/openfiredocker)
 
 [Deploy EdgeVPN nodes using Docker](/dockeredgevpn)
 
-## Set up an EdgeVPN
+## Setup and configure an EdgeVPN
 
 [Installing EdgeVPN nodes](/install)
 
