@@ -280,27 +280,29 @@ Under BoundedFlood, you configure parameters related to the implementation of br
 
 * _LogLevel_ is the logging level for this module (e.g. INFO, DEBUG)
 
+* _MaxBytes_ maximum size of a log file archive
+
+* _BackupCount_ number of archives for the log file
+
 * _BridgeName_ specifies a mnemonic used for naming the bridge instance.
 
-* _DemandThreshold_ *need Ken's input* specifies the amount of data transferred over a link that triggers the creation of an on-demand link (e.g. 100M for 100MBytes)
+* _DemandThreshold_ specifies the amount of data transferred over a link that triggers the creation of an on-demand link (e.g. 100M for 100MBytes). Units supported included: K (Kilo), M (Mega) and G (Giga)
 
-* _FlowIdleTimeout_ *need Ken's input*
+* _MonitorInterval_ Interval in which on-demand thresholds are monitored for 
 
-* _FlowHardTimeout_ *need Ken's input*
+* _MaxOnDemandEdges_ maximum number of on-demand edges that this node may request; setting this to 0 disables creation of on-demand links
 
-* _MulticastBroadcastInterval_ *need Ken's input*
+* _FlowIdleTimeout_ if an SDN flow rule is not being used (no packet maches the rule) by the SDN switch within this interval, it is removed
 
-* _MaxBytes_ *need Ken's input*
+* _FlowHardTimeout_ a hard timeout for removing SDN flow rules (regardless of whether they are used or not)
 
-* _BackupCount_ *need Ken's input*
+* _MulticastBroadcastInterval_ interval in which a multicast sender will send broadcasts to program multicast trees
 
-* _ProxyListenAddress_ *need Ken's input*
+* _ProxyListenAddress_ listening address of the bridge module in the EdgeVPN controller - the SDN controller uses this to send requests to the EdgeVPN overlay controller
 
-* _ProxyListenPort_ *need Ken's input*
+* _ProxyListenPort_ listening TCP port of the bridge module in the EdgeVPN controller - the SDN controller uses this to send requests to the EdgeVPN overlay controller
 
-* _MonitorInterval_ *need Ken's input*
 
-* _MaxOnDemandEdges_ *need Ken's input - and why different from topology?*
 
 ### Overlays
 
@@ -308,23 +310,27 @@ Under BoundedFlood, you configure parameters related to the implementation of br
 
 #### NetDevice
 
-* _AutoDelete_ specifies whether to remove the bridge device that was specified when the controller shuts down. Possible values: True, False (default)
+* _AutoDelete_ specifies whether to remove the bridge device that was specified when the controller shuts down. Possible values: True, False. Setting this to False is useful if you want EdgeVPN to attach to an existing bridge device.
 
 * _Type_ specifies the type of network bridge to instantiate. Supported values are OVS (for Open vSwitch), VNIC (virtual NIC), and LXBR (Linux bridge). For most use cases, OVS is used - a node connected to an EdgeVPN in Switch tole structured overlay requires OVS. You should only use VNIC if Topology’s Role is set to _Leaf_. You should onlye use LXBR when you have an overlay that is "hardwired" with _ManualTopology_ (see Topology module section)
 
-* _SwitchProtocol* *need Ken's input*
+* _SwitchProtocol_ Use BF for Bounded Flood (default for Type OVS), STP for Spanning Tree Protocol (default for Type LXBR)
 
-* _NamePrefix_ is the prefix used to name the primary bridge/switch used by EdgeVPN
+* _NamePrefix_ is the prefix used to name the primary bridge/switch used by EdgeVPN; the prefix is appended with the Overlay ID string
 
-* _MTU* specifies the maximum transmission unit size to be applied to the bridge
+* _IP4_ specifies the IPv4 address to assign to the bridge. This is an optional parameter; if your deployment does not require assigning an IP configuration to the bridge, it can be omitted
+
+* _PrefixLen_ specifies the network prefix length to apply to the bridge. (Optional parameter)
+
+* _MTU_ specifies the maximum transmission unit size to be applied to the bridge
 
 #### AppBridge
 
-This section configures a secondary "patch" bridge that is connected to the primary EdgeVPN bridge in a configuration where the EdgeVPN node runs an endpoint with its own IP address
+This optional section configures a secondary "patch through" bridge that is connected to the primary EdgeVPN bridge in a configuration where the EdgeVPN node runs an endpoint with its own IP address
 
 * _AutoDelete_ specifies whether to remove the bridge device that was specified when the controller shuts down. Possible values: True, False (default)
 
-* _NamePrefix_ is the prefix used to name this bridge
+* _NamePrefix_ is the prefix used to name this bridge; the prefix is appended with the Overlay ID string
 
 * _IP4_ specifies the IPv4 address to assign to the bridge. This is an optional parameter; if your deployment does not require assigning an IP configuration to the bridge, it can be omitted
 
