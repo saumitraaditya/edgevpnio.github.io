@@ -38,7 +38,7 @@ mkdir edgevpn/logs/edgevpn002
 
 First, let's create a configuration file for a container for XMPP user test1.
 
-Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory you created in the previous step) - make sure you replace A.B.C.D with the IP address of your host:
+Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory you created in the previous step) - *make sure you replace A.B.C.D with the IP address of your XMPP host:*
 
 ```json
 {
