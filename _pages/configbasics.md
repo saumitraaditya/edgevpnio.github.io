@@ -20,7 +20,7 @@ This is a required configuration for your deployment - you must setup every Edge
     "Enabled": true,
     "Overlays": {
       "101000F": {
-        "HostAddress": "A.B.C.B",
+        "HostAddress": "A.B.C.D",
         "Port": "5222",
         "Username": "user@xmppsite.com",
         "Password": "password",
@@ -62,7 +62,7 @@ An example of the console output of _ip address_ of how such a deployment would 
 * lo is the loopback interface
 * eth0 is the main network interface
 * ovs-system is the Open vSwitch
-* edgebr101000F is the EdgeVPN bridge (the name is a concatenation of the prefix and overlay ID from the configuration)
+* edgbr101000F is the EdgeVPN bridge (the name is a concatenation of the prefix and overlay ID from the configuration)
 * brl10100F is the bridge configured with an IP address
 * tnl-* are the tap devices from which EdgeVPN packets are picked/injected from/into the virtual network
 
@@ -73,7 +73,7 @@ An example of the console output of _ip address_ of how such a deployment would 
        valid_lft forever preferred_lft forever
 2: ovs-system: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
     link/ether a2:a0:50:bf:79:d0 brd ff:ff:ff:ff:ff:ff
-3: edgebr101000F: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1410 qdisc noqueue state UNKNOWN group default qlen 1000
+3: edgbr101000F: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1410 qdisc noqueue state UNKNOWN group default qlen 1000
     link/ether d2:35:42:50:e9:42 brd ff:ff:ff:ff:ff:ff
 4: brl101000F: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1410 qdisc noqueue state UNKNOWN group default qlen 1000
     link/ether de:40:a2:aa:aa:4a brd ff:ff:ff:ff:ff:ff
@@ -89,7 +89,7 @@ An example of the console output of _ip address_ of how such a deployment would 
        valid_lft forever preferred_lft forever
 ```
 
-For this deployment, you need to configure the IP4 address of the node, and PrefixLen to match the subnet your EdgeVPN virtual network uses. In the example below, we configure a 16-bit subnet, and IP4 address 10.10.10.1 for Linux bridge _edgebr_ :
+For this deployment, you need to configure the IP4 address of the node, and PrefixLen to match the subnet your EdgeVPN virtual network uses. In the example below, we configure a 24-bit subnet, and IP4 address 10.10.10.1 for Linux bridge _edgbr_. Additional parameters under "BoundedFlood" configure various timeouts used by the node - please refer to the complete configuration documentation for more information.
 
 ```
   "BridgeController": {
@@ -97,16 +97,40 @@ For this deployment, you need to configure the IP4 address of the node, and Pref
       "Logger",
       "LinkManager"
     ],
-    "SdnListenAddress": "",
-    "SdnListenPort": 5802,
+    "BoundedFlood": {
+      "OverlayId": "E1492DC",
+      "LogDir": "/var/log/edge-vpn/",
+      "LogFilename": "bf.log",
+      "LogLevel": "INFO",
+      "BridgeName": "edgbr",
+      "DemandThreshold": "100M",
+      "FlowIdleTimeout": 60,
+      "FlowHardTimeout": 60,
+      "MulticastBroadcastInterval": 60,
+      "MaxBytes": 10000000,
+      "BackupCount": 0,
+      "ProxyListenAddress": "",
+      "ProxyListenPort": 5802,
+      "MonitorInterval": 60,
+      "MaxOnDemandEdges": 0
+    },
     "Overlays": {
-      "101000F": {
-        "Type": "OVS",
-        "BridgeName": "edgebr",
-        "IP4": "10.10.10.1",
-        "PrefixLen": 16,
-        "MTU": 1410,
-        "AutoDelete": true,
+      "E1492DC": {
+        "NetDevice": {
+          "AutoDelete": true,
+          "Type": "OVS",
+          "SwitchProtocol": "BF",
+          "NamePrefix": "edgbr",
+          "MTU": 1410,
+          "AppBridge": {
+            "AutoDelete": true,
+            "Type": "OVS",
+            "NamePrefix": "brl",
+            "IP4": "10.10.10.1",
+            "PrefixLen": 24,
+            "MTU": 1410
+          }
+        },
         "SDNController": {
           "ConnectionType": "tcp",
           "HostName": "127.0.0.1",
@@ -176,4 +200,23 @@ An example with a TURN server added (in this example, a TURN server hosted by Xi
   },
 ```
 
+# Configure P2P Topology
+
+The structured peer-to-peer topology used in your EdgeVPN deployment can be configured under "Topology", The key parameters you may modify are MaxSuccessors (maximum number of immediate successors a node has in the ring) and MaxOnDemandEdges (maximum number of on-demand edges that can be created in response to large flows measured between two nodes).
+
+```
+  "Topology": {
+    "PeerDiscoveryCoalesce": 1,
+    "Overlays": {
+      "E1492DC": {
+        "Name": "SymphonyRing",
+        "Description": "Scalable Symphony Ring Overlay for Bounded Flooding.",
+        "MaxSuccessors": 2,
+        "MaxOnDemandEdges": 1,
+        "MaxConcurrentEdgeSetup": 5,
+        "Role": "Switch"
+      }
+    }
+  },
+```
 
