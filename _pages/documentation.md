@@ -8,11 +8,9 @@ header:
 
 ## Try EdgeVPN
 
-##### EdgeVPN-in-a-box
+#### Run EdgeVPN for the first time using Docker
 
 [Quickly deploy a demo EdgeVPN on your own computer using Docker](/edgevpninabox)
-
-##### EdgeVPN in multiple boxes
 
 [Configure and deploy your own Openfire XMPP server for EdgeVPN](/openfiredocker)
 
