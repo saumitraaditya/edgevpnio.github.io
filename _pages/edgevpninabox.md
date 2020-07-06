@@ -17,7 +17,7 @@ You need at least one Linux computer with Docker and Open vSwitch installed
 We have created a Docker container pre-configured with two XMPP users test1, test2 for this tutorial, following the [instructions on deploying an XMPP server using Docker](/openfiredocker) (the OpenFire admin password for this container is *edgevpn_demo*). Deploy the XMPP server with this command:
 
 ```
-docker run --name openfire -d -p 9090:9090 -p 5222:5222 -p 5269:5269 -p 5223:5223 -p 7443:7443 -p 7777:7777 -p 7070:7070 -p 5229:5229 -p 5275:5275 edgevpn/openfire_edgevpn_demo
+docker run --name openfire -d -p 9090:9090 -p 5222:5222 -p 5269:5269 -p 5223:5223 -p 7443:7443 -p 7777:7777 -p 7070:7070 -p 5229:5229 -p 5275:5275 edgevpnio/openfire_edgevpn_demo
 ```
 
 ## Deploy two EdgeVPN nodes running Docker
