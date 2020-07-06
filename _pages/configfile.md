@@ -314,14 +314,33 @@ Under BoundedFlood, you configure parameters related to the implementation of br
 
 * _SwitchProtocol* *need Ken's input*
 
+* _NamePrefix_ is the prefix used to name the primary bridge/switch used by EdgeVPN
+
+* _MTU* specifies the maximum transmission unit size to be applied to the bridge
+
+#### AppBridge
+
+This section configures a secondary "patch" bridge that is connected to the primary EdgeVPN bridge in a configuration where the EdgeVPN node runs an endpoint with its own IP address
+
+* _AutoDelete_ specifies whether to remove the bridge device that was specified when the controller shuts down. Possible values: True, False (default)
+
+* _NamePrefix_ is the prefix used to name this bridge
+
 * _IP4_ specifies the IPv4 address to assign to the bridge. This is an optional parameter; if your deployment does not require assigning an IP configuration to the bridge, it can be omitted
 
 * _PrefixLen_ specifies the network prefix length to apply to the bridge. (Optional parameter)
 
 * _MTU_ specifies the maximum transmission unit size to be applied to the bridge. Optional parameter; by default, it is set to 1410
 
+#### SDNController
 
+This section configures the SDN controller endpoint
 
+* _ConnectionType_ configures the transport used; set this to tcp
+
+* _HostName_ configures the host where the SDN controller runs; set this to 127.0.0.1 (localhost)
+
+* _Port_ configures the port where the SDN controller listens to; set this to 6333
 
 Example:
 
@@ -331,16 +350,40 @@ Example:
       "Logger",
       "LinkManager"
     ],
-    "SdnListenAddress": "",
-    "SdnListenPort": 5802,
+    "BoundedFlood": {
+      "OverlayId": "101000F",
+      "LogDir": "/var/log/edge-vpn/",
+      "LogFilename": "bf.log",
+      "LogLevel": "INFO",
+      "BridgeName": "edgbr",
+      "DemandThreshold": "100M",
+      "FlowIdleTimeout": 60,
+      "FlowHardTimeout": 60,
+      "MulticastBroadcastInterval": 60,
+      "MaxBytes": 10000000,
+      "BackupCount": 0,
+      "ProxyListenAddress": "",
+      "ProxyListenPort": 5802,
+      "MonitorInterval": 60,
+      "MaxOnDemandEdges": 0
+    },
     "Overlays": {
       "101000F": {
-        "Type": "OVS",
-        "BridgeName": "edgebr",
-        "IP4": "10.10.10.1",
-        "PrefixLen": 16,
-        "MTU": 1410,
-        "AutoDelete": true,
+        "NetDevice": {
+          "AutoDelete": true,
+          "Type": "OVS",
+          "SwitchProtocol": "BF",
+          "NamePrefix": "edgbr",
+          "MTU": 1410,
+          "AppBridge": {
+            "AutoDelete": true,
+            "Type": "OVS",
+            "NamePrefix": "brl",
+            "IP4": "10.10.10.21",
+            "PrefixLen": 16,
+            "MTU": 1410
+          }
+        },
         "SDNController": {
           "ConnectionType": "tcp",
           "HostName": "127.0.0.1",
