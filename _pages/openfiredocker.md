@@ -61,13 +61,13 @@ docker run --name openfire -d -p 9090:9090 -p 5222:5222 -p 5269:5269 -p 5223:522
 
 ### Step 4: Let’s add test users and group them
 
-You will now use the Web admin interface to create two test users and assign them to a group (i.e. they will join the same EdgeVPN) 
+You will now use the Web admin interface to create two test users - *test1* and *test2* - and assign them to a group (i.e. they will join the same EdgeVPN) 
 
 Start by creating the two users:
 
 1. Navigate the user interface to Users/Groups -> Users -> Create New User
-2. Select username and password (We’ll use password_test1 and password_test2 for the user passwords in the examples below; you may leave name and email blank)
-3. Repeat for test2
+2. Select username and password - we’ll use (test1, password_test1) and (test2, password_test2) for the (user, password) pairs in the examples below; you may leave name and email blank
+3. Repeat creating the user test2 
 
 Then, create a group:
 
