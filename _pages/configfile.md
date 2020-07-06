@@ -113,7 +113,7 @@ Example:
     "Enabled": true,
     "Overlays": {
       "101000F": {
-        "HostAddress": "A.B.C.B",
+        "HostAddress": "A.B.C.D",
         "Port": "5222",
         "Username": "user@xmppsite.com",
         "Password": "password",
@@ -138,7 +138,7 @@ Example:
     "Enabled": true,
     "Overlays": {
       "101000F": {
-        "HostAddress": "A.B.C.B",
+        "HostAddress": "A.B.C.D",
         "Port": "5223",
         "AuthenticationMethod": "x509",
         "Username": "user@xmppsite.com",
@@ -261,15 +261,58 @@ This module configures information for an (optional) overlay visualizer service
     "NodeName": "nd-001"
   },
 ```
+
 ## BridgeController module
 
 This module manages the network bridge interaction with the EdgeVPN tap devices
 
-* _Overlays_ A configuration for each overlay being managed by this controller, starting with the UUID (a hexadecimal value matching one in the CFx Overlays list (see above) *Note*: currently, EdgeVPN only supports a single overlay.
+* _Dependencies_ lists EdgeVPN controller modules the BridgeController depends on. Currently, it depends on "Logger" and "LinkManager"
+
+### BoundedFlood
+
+Under BoundedFlood, you configure parameters related to the implementation of broadcast/multicast over the P2P topology.
+
+* _OverlayID_ is the 7-digit hexadecimal identifier for your overlay (e.g. 101000F)
+
+* _LogDir_ is the directory where bounded flood logs go to (typically the same as the other logs, e.g. /var/log/edge-vpn/)
+
+* _LogFilename_ is the file name for the bounded flood log (e.g. bf.log)
+
+* _LogLevel_ is the logging level for this module (e.g. INFO, DEBUG)
+
+* _BridgeName_ specifies a mnemonic used for naming the bridge instance.
+
+* _DemandThreshold_ *need Ken's input* specifies the amount of data transferred over a link that triggers the creation of an on-demand link (e.g. 100M for 100MBytes)
+
+* _FlowIdleTimeout_ *need Ken's input*
+
+* _FlowHardTimeout_ *need Ken's input*
+
+* _MulticastBroadcastInterval_ *need Ken's input*
+
+* _MaxBytes_ *need Ken's input*
+
+* _BackupCount_ *need Ken's input*
+
+* _ProxyListenAddress_ *need Ken's input*
+
+* _ProxyListenPort_ *need Ken's input*
+
+* _MonitorInterval_ *need Ken's input*
+
+* _MaxOnDemandEdges_ *need Ken's input - and why different from topology?*
+
+### Overlays
+
+* _Overlays_ specifies a configuration for each overlay being managed by this controller, starting with the UUID (a hexadecimal value matching one in the CFx Overlays list (see above). It holds configurations for the network interface device (NetDevice) and the SDN controller (SDNController) *Note*: currently, EdgeVPN only supports a single overlay.
+
+#### NetDevice
+
+* _AutoDelete_ specifies whether to remove the bridge device that was specified when the controller shuts down. Possible values: True, False (default)
 
 * _Type_ specifies the type of network bridge to instantiate. Supported values are OVS (for Open vSwitch), VNIC (virtual NIC), and LXBR (Linux bridge). For most use cases, OVS is used - a node connected to an EdgeVPN in Switch tole structured overlay requires OVS. You should only use VNIC if Topology’s Role is set to _Leaf_. You should onlye use LXBR when you have an overlay that is "hardwired" with _ManualTopology_ (see Topology module section)
 
-* _BridgeName_ specifies a mnemonic used for naming the bridge instance.
+* _SwitchProtocol* *need Ken's input*
 
 * _IP4_ specifies the IPv4 address to assign to the bridge. This is an optional parameter; if your deployment does not require assigning an IP configuration to the bridge, it can be omitted
 
@@ -277,7 +320,7 @@ This module manages the network bridge interaction with the EdgeVPN tap devices
 
 * _MTU_ specifies the maximum transmission unit size to be applied to the bridge. Optional parameter; by default, it is set to 1410
 
-* _AutoDelete_ specifies whether to remove the bridge device that was specified when the controller shuts down. Possible values: True, False (default)
+
 
 
 Example:
