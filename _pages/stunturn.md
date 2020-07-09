@@ -35,7 +35,7 @@ There is an open-source package _turnserver_ you can use to install your own TUR
 	sudo apt-get install turnserver
 	```
 
-2. If you are running your TURN server on the cloud (e.g. Amazon EC2), you must use IP aliasing to allow the TURN server to bind your public IP address. Replace <public-ip-of-turnserver> with the IP address of your TURN server (e.g. 1.2.3.4)
+2. If you are running your TURN server on the cloud (e.g. Amazon EC2), you must use IP aliasing to allow the TURN server to bind your public IP address. Replace <public-ip-of-turnserver> with the IP address of your TURN server (without the <, > characters, e.g. 1.2.3.4)
 
 	```bash
 	sudo ifconfig eth0:0 <public-ip-of-turnserver> up
@@ -102,7 +102,7 @@ There is an open-source package _turnserver_ you can use to install your own TUR
   
 9. Configure EdgeVPN
 
-You should now be able to configure your EdgeVPN nodes to use the TURN service, by replacing the <public-ip-of-turnserver>, <username> and <password> parameters with your own - see below for an example:
+You should now be able to configure your EdgeVPN nodes to use the TURN service, by replacing the <public-ip-of-turnserver>, <username> and <password> parameters with your own (without the <, > characters). See below for an example:
 
 ```
   "LinkManager": {
