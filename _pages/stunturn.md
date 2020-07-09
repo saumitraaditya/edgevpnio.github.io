@@ -35,13 +35,13 @@ There is an open-source package _turnserver_ you can use to install your own TUR
 	sudo apt-get install turnserver
 	```
 
-2. If you are running your TURN server on the cloud (e.g. Amazon EC2), you must use IP aliasing to allow the TURN server to bind your public IP address
+2. If you are running your TURN server on the cloud (e.g. Amazon EC2), you must use IP aliasing to allow the TURN server to bind your public IP address. Replace <public-ip-of-turnserver> with the IP address of your TURN server (e.g. 1.2.3.4)
 
 	```bash
 	sudo ifconfig eth0:0 <public-ip-of-turnserver> up
 	```
 
-3. Update the turnserver configuration file with the public IP address
+3. Update the turnserver configuration file with the public IP address. Again, replace <public-ip-of-turnserver> with the IP address of your TURN server (e.g. 1.2.3.4)
 
 	```bash
 	TURNIPv4="<public-ip-of-turnserver>"
@@ -56,24 +56,26 @@ There is an open-source package _turnserver_ you can use to install your own TUR
 
 	```data
 	## Max relay per username.
-	max_relay_per_username = 100000
+	max_relay_per_username = 20000
 
 	## Allocation lifetime.
 	allocation_lifetime = 720000
 	```
 
-5. (Optional) Set the file descriptor limit to allow for thousands of TURN connections. Note: you must re-login for these changes to take effect.
+5. (Optional) Set the file descriptor limit to allow for thousands of TURN connections. 
+
+*Notes*: here, ubuntu is the username. You must re-login for these changes to take effect.
 
 	```bash
 	sudo nano /etc/security/limits.conf
 	```
 
 	```data
-	ubuntu    hard    nofile    100000
-	ubuntu    soft    nofile    100000
+	ubuntu    hard    nofile    20000
+	ubuntu    soft    nofile    20000
 	```
 
-6. To control user accesses to the TURN service, create turnserver user credentials by modifying the `/etc/turnserver/turnusers.txt` file.
+6. To control user accesses to the TURN service, create user credentials (user names and passwords) by modifying the `/etc/turnserver/turnusers.txt` file.
 
 	```bash
 	sudo nano /etc/turnserver/turnusers.txt
