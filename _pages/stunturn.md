@@ -94,10 +94,10 @@ There is an open-source package _turnserver_ you can use to install your own TUR
 	sudo turnserver -c /etc/turnserver/turnserver.conf
 	```
 
-8. Verify that turnserver is running on port 19302
+8. Verify that turnserver is running; by default it runs on port 3478, which can be changed in the turnserver.conf file
 
 	```bash
-	netstat -aupn | grep 19302
+	netstat -aupn | grep 3478
 	```
   
 9. Configure EdgeVPN
@@ -116,7 +116,7 @@ You should now be able to configure your EdgeVPN nodes to use the TURN service, 
       "stun1.l.google.com:19302"
     ],
     "Turn": [{
-      "Address": "<public-ip-of-turnserver>:19302",
+      "Address": "<public-ip-of-turnserver>:3478",
       "User": "<username>",
       "Password": "<password>"
      }],
