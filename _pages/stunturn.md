@@ -26,81 +26,65 @@ Openfire supports STUN by adding a server plug-in. Currently, we are not aware o
 
 # Deploying your own TURN server
 
-There is an open-source package _turnserver_ you can use to install your own TURN server
+There is an open-source package [coturn](https://github.com/coturn/coturn) you can use to install your own TURN server
 
-1. Install turnserver
+Please refer to the coturn documentation to find out how to run it on the system(s) you choose to be TURN servers. 
 
-	```bash
-	sudo apt-get update
-	sudo apt-get install turnserver
-	```
+## Running coturn on Amazon EC2
 
-2. If you are running your TURN server on the cloud (e.g. Amazon EC2), you must use IP aliasing to allow the TURN server to bind your public IP address. Replace <public-ip-of-turnserver> with the IP address of your TURN server (without the <, > characters, e.g. 1.2.3.4)
+If you'd like to run coturn on an Amazon EC2 instance, [it's relatively straightforward to get started](https://medium.com/@omidborjian/setup-your-own-turn-stun-signal-relay-server-on-aws-ec2-78a8bfcb71c3). In particular, if you run an Ubuntu 18.04 AMI:
 
-	```bash
-	sudo ifconfig eth0:0 <public-ip-of-turnserver> up
-	```
+1. Setup security group incoming rules for your instance:
 
-3. Update the turnserver configuration file with the public IP address. Again, replace <public-ip-of-turnserver> with the IP address of your TURN server (e.g. 1.2.3.4)
+```
+80 : TCP # if you need to setup with SSL
+443 : TCP # if you need to setup with SSL
+3478 : UDP
+3478 : TCP
+10000–20000 : UDP
+```
 
-	```bash
-	TURNIPv4="<public-ip-of-turnserver>"
-	sudo sed -i "s/listen_address = .*/listen_address = { \"$TURNIPv4\" }/g" /etc/turnserver/turnserver.conf
-	```
+2. Install coturn
 
-4. (Optional) Set the number of sessions per user
+sudo apt-get install coturn
 
-	```bash
-	sudo nano /etc/turnserver/turnserver.conf
-	```
+3. Setup your configuration file
 
-	```data
-	## Max relay per username.
-	max_relay_per_username = 20000
+sudo vi /etc/turnserver.conf to configure:
 
-	## Allocation lifetime.
-	allocation_lifetime = 720000
-	```
+```
+realm=yourdomain.com
+fingerprint
+external-ip=<ec2-public-ip-address>
+listening-port=3478
+min-port=10000
+max-port=20000
+log-file=/var/log/turnserver.log
+verbose                    # if you want a verbose log for debugging
+user=<username>:<password> # replace with username and password for TURN user
+```
 
-5. (Optional) Set the file descriptor limit to allow for thousands of TURN connections. 
+3. Setup coturn service
 
-*Notes*: here, ubuntu is the username. You must re-login for these changes to take effect.
+sudo vi /etc/default/coturn and uncomment the following line
 
-	```bash
-	sudo nano /etc/security/limits.conf
-	```
+```
+TURNSERVER_ENABLED=1
+```
 
-	```data
-	ubuntu    hard    nofile    20000
-	ubuntu    soft    nofile    20000
-	```
-
-6. To control user accesses to the TURN service, create user credentials (user names and passwords) by modifying the `/etc/turnserver/turnusers.txt` file.
+4. Start the service
 
 	```bash
-	sudo nano /etc/turnserver/turnusers.txt
+	sudo service coturn start
 	```
 
-	```data
-	...
-	edgevpnuser:password:<public-ip-of-turnserver>:authorized
-	...
-	```
-	Note: entries must be of the form: `<username>:<password>:<public-ip-of-turnserver>:<authorizatization level>`
-
-7. Run turnserver
-
-	```bash
-	sudo turnserver -c /etc/turnserver/turnserver.conf
-	```
-
-8. Verify that turnserver is running; by default it runs on port 3478, which can be changed in the turnserver.conf file
+5. Verify that turnserver is running; by default it runs on port 3478, which can be changed in the turnserver.conf file
 
 	```bash
 	netstat -aupn | grep 3478
 	```
   
-9. Configure EdgeVPN
+6. Configure EdgeVPN
 
 You should now be able to configure your EdgeVPN nodes to use the TURN service, by replacing the <public-ip-of-turnserver>, <username> and <password> parameters with your own (without the <, > characters). See below for an example:
 
@@ -128,4 +112,8 @@ You should now be able to configure your EdgeVPN nodes to use the TURN service, 
     }
   },
 ```
+
+7. Managing users and other TURN parameters
+
+coturn provides a rich set of parameters you can configure for your system, and several ways to manage users, including time-limited credentials. It is beyond the scope of this tutorial to cover all of these, as they will vary depending on your setup/goals - please refer to the coturn documentation
 
