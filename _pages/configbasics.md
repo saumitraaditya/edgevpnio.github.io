@@ -141,15 +141,57 @@ For this deployment, you need to configure the IP4 address of the node, and Pref
   }
 ```
 
-## Bridge with no IP address
+## Configuring EdgeVPN deployment without the patch bridge
 
-This configuration is currently not supported, and will be added in a later release
+In your deployment, you may be able to configure EdgeVPN to expose an OVS virtual switch without an IP address to your leaf devices. For this configuration, leave out the _AppBridge_ dictionary in your configuration file. Here's how the configuration file above would look like if you don't need the patch bridge:
+
+```
+  "BridgeController": {
+    "Dependencies": [
+      "Logger",
+      "LinkManager"
+    ],
+    "BoundedFlood": {
+      "OverlayId": "E1492DC",
+      "LogDir": "/var/log/edge-vpn/",
+      "LogFilename": "bf.log",
+      "LogLevel": "INFO",
+      "BridgeName": "edgbr",
+      "DemandThreshold": "100M",
+      "FlowIdleTimeout": 60,
+      "FlowHardTimeout": 60,
+      "MulticastBroadcastInterval": 60,
+      "MaxBytes": 10000000,
+      "BackupCount": 0,
+      "ProxyListenAddress": "",
+      "ProxyListenPort": 5802,
+      "MonitorInterval": 60,
+      "MaxOnDemandEdges": 0
+    },
+    "Overlays": {
+      "E1492DC": {
+        "NetDevice": {
+          "AutoDelete": true,
+          "Type": "OVS",
+          "SwitchProtocol": "BF",
+          "NamePrefix": "edgbr",
+          "MTU": 1410,
+        },
+        "SDNController": {
+          "ConnectionType": "tcp",
+          "HostName": "127.0.0.1",
+          "Port": "6633"
+        }
+      }
+    }
+  }
+```
 
 # Configure NAT traversal
 
-EdgerVPN requires at least one STUN server in order to traverse the most common types of [NATs - the "cone" type (full, address-, or port-restricted)](https://en.wikipedia.org/wiki/Network_address_translation). If EdgeVPN nodes are behind symmetric NATs, you will also need a TURN server.
+EdgerVPN requires at least one STUN server in order to traverse the most common types of [NATs - the "cone" type (full, address-, or port-restricted)](https://en.wikipedia.org/wiki/Network_address_translation). Unless you can be sure that EdgeVPN devices are all behind "cone" NATs, you will need to also use TURN server(s).
 
-If you use STUN only, you will be able to use existing, freely-available STUN servers on the Internet (see example below), or deploy your own STUN server(s). If you plan to use TURN as well, you need to either deploy and manage your own TURN server, or use a TURN service - commercial TURN-as-a-service options exist, e.g. [Xirsys](http://www.xirsys.com). [This document provides information on how to deploy STUN/TURN services](/stunturn)
+If you use STUN only, you will be able to use existing, freely-available STUN servers on the Internet (see example below), or deploy your own STUN server(s). If you plan to use TURN as well, you need to either deploy and manage your own TURN server (e.g. on a cloud provider such as Amazon EC2), or use a TURN service. [This document provides information on how to deploy open-source STUN/TURN services](/stunturn), including on EC2. Commercial TURN-as-a-service options are also an option; for example, EdgeVPN has been tested and works with [Xirsys](http://www.xirsys.com).
 
 The setup in the configuration file is simple. An example with STUN only, configured with a list of two freely-available Google STUN servers (you may add your own STUN servers to this list if you wish):
 
@@ -173,7 +215,7 @@ The setup in the configuration file is simple. An example with STUN only, config
   },
 ```
 
-An example with a TURN server added (in this example, a TURN server hosted by Xirsys - substitute username and password as appropriate):
+An example with a TURN server added (substitute endpoint, username and password as appropriate):
 
 ```
   "LinkManager": {
@@ -187,9 +229,9 @@ An example with a TURN server added (in this example, a TURN server hosted by Xi
       "stun1.l.google.com:19302"
     ],
     "Turn": [{
-      "Address": "w2.xirsys.com:80",
-      "User": "your-user-id-string",
-      "Password": "your-password-string"
+      "Address": "A.B.C.D:3478",
+      "User": "turnuser",
+      "Password": "turnpassword"
      }],
     "Overlays": {
       "101000F": {
