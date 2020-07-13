@@ -215,7 +215,7 @@ The setup in the configuration file is simple. An example with STUN only, config
   },
 ```
 
-An example with a TURN server added (substitute endpoint, username and password as appropriate):
+An example with a TURN server added (substitute _Address_, _User_ and _Password_ appropriately for your server):
 
 ```
   "LinkManager": {
