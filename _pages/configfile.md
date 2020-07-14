@@ -8,15 +8,15 @@ header:
 
 # Introduction
 
-The EdgeVPN configuration file uses the JSON format, and specifies the parameterized options for the various controller modules that make up the EdgeVPN controller. A valid config.json file is required to run EdgeVPN, with contents as described below. Each section describes one of the main configuration file's modules, with snippets of JSON. At the end of this document, a complete configuration file example is shown.
+The EdgeVPN.io configuration file uses the JSON format, and specifies the parameterized options for the various  modules that make up the controller. A valid config.json file is required to run the software, with contents as described below. Each section describes one of the main configuration file's modules, with snippets of JSON. At the end of this document, a complete configuration file example is shown.
 
 ## CFx module
 
-This module is used to configure the overall EdgeVPN controller framework. It configures unique identifiers for the overlay and the node. Currently, only an EdgeVPN node can be bound to a single overlay ID
+This module is used to configure the overall controller framework. It configures unique identifiers for the overlay and the node. Currently, a node can be bound to a single overlay ID
 
 * _Model_ specifies a mnemonic to describe customized IPOP controllers. You can develop and add your own modules, or remove or replace existing modules. For the vast majority of uses, set it to "Default" 
 
-* _Overlays_ specifies the overlay ID, a 28-bit number encoded in hexadecimal format. *Note: currently, EdgeVPN only supports a single overlay*
+* _Overlays_ specifies the overlay ID, a 28-bit number encoded in hexadecimal format. *Note: currently, EdgeVPN.io only supports a single overlay*
 
 * _NodeId_ specifies the node's unique ID. NodeId is a 128-bit number also in hexadecimal format. You may specify a unique ID, or, if left blank, the framework will generate a random ID. The example below shows an overlay with ID "101000F" and NodeID "a100001feb6040628e5fb7e70b04f001"
 
@@ -44,7 +44,7 @@ The controller logger module. Used by all other modules for logging. Supports di
 
 * _Directory_ specifies the directory where logs are to be stored
 
-* _CtrlLogFileName_ specifies the name of the log file for the EdgeVPN controller
+* _CtrlLogFileName_ specifies the name of the log file for the controller
 
 * _TincanLogFileName_ specifies the name of the log file for the TinCan WebRTC tunnel datapath
 
@@ -66,7 +66,7 @@ The controller logger module. Used by all other modules for logging. Supports di
 
 ## TincanInterface module
 
-This module configures parameters relevant to the connection between EdgeVPN controller and TinCan module. These are not needed to be modified from defaults for the vast majority of use cases.
+This module configures parameters relevant to the connection between the controller and the TinCan module. These are not needed to be modified from defaults for the vast majority of use cases.
 
 * _MaxReadSize_ specifies the maximum buffer size for Tincan Messages
 
@@ -151,9 +151,9 @@ Example:
 
 ## Topology module
 
-Module that defines and enforces the overlay's topology. Currently, EdgeVPN supports a Symphony-based structured peer-to-peer topology for its tunnels
+Module that defines and enforces the overlay's topology. Currently, EdgeVPN.io supports a Symphony-based structured peer-to-peer topology for its tunnels
 
-* _Overlays_ specifies a configuration for each overlay being managed by this controller. Each overlay is specified by its UUID - a hexadecimal value matching one in the CFx Overlays list (see above). *Note*: currently, EdgeVPN supports only a single overlay. 
+* _Overlays_ specifies a configuration for each overlay being managed by this controller. Each overlay is specified by its UUID - a hexadecimal value matching one in the CFx Overlays list (see above). *Note*: currently, the system supports only a single overlay. 
 
 * _Name_ a mnemonic string to name the overlay
 
@@ -194,7 +194,7 @@ Example:
 
 This module creates and manages the WebRTC based tunnels, which are the overlay edges between peers
 
-* _Stun_ specifies a list of one or more STUN servers for NAT traversal. EdgeVPN needs at least one STUN server configured in order to support NAT traversal. STUN server endpoints are specifies in the format address:port
+* _Stun_ specifies a list of one or more STUN servers for NAT traversal. A deployment needs at least one STUN server configured in order to support NAT traversal. STUN server endpoints are specifies in the format address:port
 
 * _Turn_ specifies a list of dictionaries, which specify the TURN server(s) and corresponding credentials. TURN servers are needed to allow nodes behind symmetric NATs to communicate, when STUN-based NAT traversal fails.
 
@@ -204,11 +204,11 @@ _User_ specifies the TURN user name
 
 _Password_ specifies a corresponding TURN password for _User_
 
-* _Overlays_ specifies a configuration for each overlay being managed by this controller, starting with the UUID (a hexadecimal value matching one in the CFx Overlays list (see above) *Note*: currently, EdgeVPN only supports a single overlay.
+* _Overlays_ specifies a configuration for each overlay being managed by this controller, starting with the UUID (a hexadecimal value matching one in the CFx Overlays list (see above) *Note*: currently, the system only supports a single overlay.
 
 * _Type_ currently, the only value allowed is TUNNEL
 
-* _TapName_ specifies the prefix used for creating the EdgeVPN tap virtual network interface devices. Each EdgeVPN tunnel created by the link manager is bound to a tap device of the operating system; the full name of the tap device consists of this prefix, appended with the first 7 characters of the link ID (e.g. *tnl-1234567*)
+* _TapName_ specifies the prefix used for creating the tap virtual network interface devices. Each tunnel created by the link manager is bound to a tap device of the operating system; the full name of the tap device consists of this prefix, appended with the first 7 characters of the link ID (e.g. *tnl-1234567*)
 
 * _IgnoredNetInterfaces_ specifies a list of TAP device names that should not be used for tunneling. No tunnel endpoints points to these network interfaces will be generated
 
@@ -247,9 +247,9 @@ This module configures information for an (optional) overlay visualizer service
 
 * _WebServiceAddress_ specifies the IP:port endpoint of the visualizer's Web service
 
-* _GeoCoordinate_ specifies the geographical coordinates (lat,lon) of this EdgeVPN node for display in the user interface
+* _GeoCoordinate_ specifies the geographical coordinates (lat,lon) of this node for display in the user interface
 
-* _NodeName_ specifies the name of this EdgeVPN node for display in the user interface
+* _NodeName_ specifies the name of this node for display in the user interface
 
 ```
   "OverlayVisualizer": {
@@ -263,9 +263,9 @@ This module configures information for an (optional) overlay visualizer service
 
 ## BridgeController module
 
-This module manages the network bridge interaction with the EdgeVPN tap devices
+This module manages the network bridge interaction with the tap devices
 
-* _Dependencies_ lists EdgeVPN controller modules the BridgeController depends on. Currently, it depends on "Logger" and "LinkManager"
+* _Dependencies_ lists controller modules the BridgeController depends on. Currently, it depends on "Logger" and "LinkManager"
 
 ### BoundedFlood
 
@@ -297,25 +297,25 @@ Under BoundedFlood, you configure parameters related to the implementation of br
 
 * _MulticastBroadcastInterval_ interval in which a multicast sender will send broadcasts to program multicast trees
 
-* _ProxyListenAddress_ listening address of the bridge module in the EdgeVPN controller - the SDN controller uses this to send requests to the EdgeVPN overlay controller
+* _ProxyListenAddress_ listening address of the bridge module in the controller - the SDN controller uses this to send requests to the EdgeVPN.io overlay controller
 
-* _ProxyListenPort_ listening TCP port of the bridge module in the EdgeVPN controller - the SDN controller uses this to send requests to the EdgeVPN overlay controller
+* _ProxyListenPort_ listening TCP port of the bridge module in the controller - the SDN controller uses this to send requests to the EdgeVPN overlay controller
 
 
 
 ### Overlays
 
-* _Overlays_ specifies a configuration for each overlay being managed by this controller, starting with the UUID (a hexadecimal value matching one in the CFx Overlays list (see above). It holds configurations for the network interface device (NetDevice) and the SDN controller (SDNController) *Note*: currently, EdgeVPN only supports a single overlay.
+* _Overlays_ specifies a configuration for each overlay being managed by this controller, starting with the UUID (a hexadecimal value matching one in the CFx Overlays list (see above). It holds configurations for the network interface device (NetDevice) and the SDN controller (SDNController) *Note*: currently, the system only supports a single overlay.
 
 #### NetDevice
 
-* _AutoDelete_ specifies whether to remove the bridge device that was specified when the controller shuts down. Possible values: True, False. Setting this to False is useful if you want EdgeVPN to attach to an existing bridge device.
+* _AutoDelete_ specifies whether to remove the bridge device that was specified when the controller shuts down. Possible values: True, False. Setting this to False is useful if you want the software to attach to an existing bridge device.
 
-* _Type_ specifies the type of network bridge to instantiate. Supported values are OVS (for Open vSwitch), VNIC (virtual NIC), and LXBR (Linux bridge). For most use cases, OVS is used - a node connected to an EdgeVPN in Switch tole structured overlay requires OVS. You should only use VNIC if Topology’s Role is set to _Leaf_. You should onlye use LXBR when you have an overlay that is "hardwired" with _ManualTopology_ (see Topology module section)
+* _Type_ specifies the type of network bridge to instantiate. Supported values are OVS (for Open vSwitch), VNIC (virtual NIC), and LXBR (Linux bridge). For most use cases, OVS is used - a node connected in Switch role structured overlay requires OVS. You should only use VNIC if Topology’s Role is set to _Leaf_. You should onlye use LXBR when you have an overlay that is "hardwired" with _ManualTopology_ (see Topology module section)
 
 * _SwitchProtocol_ Use BF for Bounded Flood (default for Type OVS), STP for Spanning Tree Protocol (default for Type LXBR)
 
-* _NamePrefix_ is the prefix used to name the primary bridge/switch used by EdgeVPN; the prefix is appended with the Overlay ID string
+* _NamePrefix_ is the prefix used to name the primary bridge/switch; the prefix is appended with the Overlay ID string
 
 * _IP4_ specifies the IPv4 address to assign to the bridge. This is an optional parameter; if your deployment does not require assigning an IP configuration to the bridge, it can be omitted
 
@@ -325,7 +325,7 @@ Under BoundedFlood, you configure parameters related to the implementation of br
 
 #### AppBridge
 
-This optional section configures a secondary "patch through" bridge that is connected to the primary EdgeVPN bridge in a configuration where the EdgeVPN node runs an endpoint with its own IP address
+This optional section configures a secondary "patch through" bridge that is connected to the primary bridge in a configuration where the node runs an endpoint with its own IP address
 
 * _AutoDelete_ specifies whether to remove the bridge device that was specified when the controller shuts down. Possible values: True, False (default)
 
@@ -401,4 +401,4 @@ Example:
 
 ## Additional information
 
-The configuration file tells the controller framework which modules to load and with what parameters. If a module is not specified in the configuration, it is not loaded. Certain keys occur in multiple modules with the same meaning and effect. Each module has an Enabled key that, when set to false, will cause the controller framework to skip loading it. TimerInterval specifies how often a module’s timer event fires in seconds. Dependencies specify which modules are used a module and must be loaded before hand. In your installed EdgeVPN package, you will find in controller/framework/fxlib.py a file that contains the full set of default values in the CONFIG dictionary. This dictionary is loaded first, and any values specified in config file will override them. Therefore, changes should always be made to the config.json file and not the fxlib.py file. 
+The configuration file tells the controller framework which modules to load and with what parameters. If a module is not specified in the configuration, it is not loaded. Certain keys occur in multiple modules with the same meaning and effect. Each module has an Enabled key that, when set to false, will cause the controller framework to skip loading it. TimerInterval specifies how often a module’s timer event fires in seconds. Dependencies specify which modules are used a module and must be loaded before hand. In your installed EdgeVPN.io package, you will find in controller/framework/fxlib.py a file that contains the full set of default values in the CONFIG dictionary. This dictionary is loaded first, and any values specified in config file will override them. Therefore, changes should always be made to the config.json file and not the fxlib.py file. 
