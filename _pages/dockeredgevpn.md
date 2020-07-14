@@ -1,6 +1,6 @@
 ---
 permalink: /dockeredgevpn/
-title: "Deploy EdgeVPN with Docker"
+title: "Deploy EdgeVPN.io with Docker"
 header:
   overlay_color: "#303030"
   overlay_image: /assets/images/texture.png
@@ -8,7 +8,7 @@ header:
 
 ## Introduction
 
-This tutorial guides you through the process of deploying two EdgeVPN nodes using Docker - it is intended to be the first-time guide for users getting started with EdgeVPN. 
+This tutorial guides you through the process of deploying two nodes using Docker - it is intended to be the first-time guide for users getting started with EdgeVPN.io. 
 
 ## Dependences
 
@@ -155,7 +155,7 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
 }      
 ```
 
-To configure the second container, copy config-001.json to config-002.json, **and replace the following entries in the json file**. These entries reflect the different user ID, password, and EdgeVPN IP address:
+To configure the second container, copy config-001.json to config-002.json, **and replace the following entries in the json file**. These entries reflect the different user ID, password, and EdgeVPN.io IP address:
 
 ```
         "Username": "test2@openfire.local",
@@ -164,7 +164,7 @@ To configure the second container, copy config-001.json to config-002.json, **an
         "IP4": "10.10.10.22",
 ```
 
-## Start the EdgeVPN containers
+## Start the containers
 
 Now you will run two containers, named edgevpn001 and edgevpn002, mapping the different configuration file and the log directories to different mount points:
 
