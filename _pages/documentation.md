@@ -6,21 +6,21 @@ header:
   overlay_image: /assets/images/texture.png
 ---
 
-## Try EdgeVPN using Docker
+## Try EdgeVPN.io using Docker
 
-[Deploy a quick demo EdgeVPN on your own computer using Docker](/edgevpninabox)
+[Deploy a quick demo on your own computer using Docker](/edgevpninabox)
 
-[Configure and deploy your own Openfire XMPP server for EdgeVPN](/openfiredocker)
+[Configure and deploy your own Openfire XMPP server](/openfiredocker)
 
-[Deploy EdgeVPN nodes using Docker](/dockeredgevpn)
+[Deploy nodes using Docker](/dockeredgevpn)
 
-## Setup and configure an EdgeVPN
+## Setup and configure 
 
-[Installing EdgeVPN nodes](/install)
+[Installing nodes](/install)
 
-[Configuring EdgeVPN nodes - basic configuration](/configbasics) 
+[Configuring nodes - basic configuration](/configbasics) 
 
-[Configuring EdgeVPN nodes - complete description](/configfile)
+[Configuring nodes - complete description](/configfile)
 
 [Configuring Openfire XMPP server with password or certificate-based authentication](/openfireconfig)
 
@@ -28,17 +28,17 @@ header:
 
 ## Understand the basics 
 
-[EdgeVPN architecture overview](/architecture)
+[EdgeVPN.io architecture overview](/architecture)
 
-## Troubleshoot EdgeVPN
+## Troubleshooting
 
-Set up EdgeVPN visualization service
+Set up visualization service
 
 Retrieving log files
 
 ## Additional documentation and helpful resources
 
-[The EdgeVPN wiki](https://github.com/EdgeVPN/edgevpn.github.io/wiki)
+[The EdgeVPN.io wiki](https://github.com/EdgeVPN/edgevpn.github.io/wiki)
 
 [An introduction to NAT traversal and STUN/TURN](https://temasys.io/webrtc-ice-sorcery/)
 
