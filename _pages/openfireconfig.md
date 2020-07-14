@@ -8,20 +8,20 @@ header:
 
 # Introduction
 
-One of the open-source XMPP servers that can be used to configure EdgeVPN groups is [Openfire](https://www.igniterealtime.org/projects/openfire/). You may deploy Openfire in manhy different ways, such as installing on a physical host, [using a Docker container](https://hub.docker.com/r/quantumobject/docker-openfire), or [deploying on a cloud provider](https://bitnami.com/stack/openfire/cloud/aws). An XMPP server is necessary for EdgeVPN to work - nodes in an EdgeVPN virtual network use an XMPP server for the following purposes:
+One of the open-source XMPP servers that can be used to configure EdgeVPN.io groups is [Openfire](https://www.igniterealtime.org/projects/openfire/). You may deploy Openfire in manhy different ways, such as installing on a physical host, [using a Docker container](https://hub.docker.com/r/quantumobject/docker-openfire), or [deploying on a cloud provider](https://bitnami.com/stack/openfire/cloud/aws). An XMPP server is necessary for the system to work - nodes in a virtual network use an XMPP server for the following purposes:
 
-1. Network membership: the XMPP server holds identities to authenticate EdgeVPN nodes, and also groups them together to specify which nodes are allowed to join the EdgeVPN. A single XMPP server can be used to create multiple users (individual EdgeVPN endpoints) and groups (the set of nodes that form an EdgeVPN network).
-2. Peer discovery: EdgeVPN nodes use XMPP "presence" messages to advertise themselves to other nodes. These are short messages that are sent periodically to the XMPP server, and forwarded to nodes belonging to a group
-3. Signalling to create tunnels: EdgeVPN uses XMPP short messages to exchange information that is needed to create Internet tunnels. These include the set of candidate endpoints (IP:port of the local node, as well as STUN and TURN endpoints), and certificate fingerprints to establish a private, encrypted tunnel
+1. Network membership: the XMPP server holds identities to authenticate nodes, and also groups them together to specify which nodes are allowed to join the virtual network. A single XMPP server can be used to create multiple users (individual endpoints) and groups (the set of nodes that form a network).
+2. Peer discovery: nodes use XMPP "presence" messages to advertise themselves to other nodes. These are short messages that are sent periodically to the XMPP server, and forwarded to nodes belonging to a group
+3. Signalling to create tunnels: EdgeVPN.io uses XMPP short messages to exchange information that is needed to create Internet tunnels. These include the set of candidate endpoints (IP:port of the local node, as well as STUN and TURN endpoints), and certificate fingerprints to establish a private, encrypted tunnel
 
-This document explains steps to configure an Openfire XMPP server for EdgeVPN use. As far as configuring an XMPP server, the main configuration steps boil down to the creation of users and groups, and the configuration of passwords or x509 certificates, depending on which authentication method you use
+This document explains steps to configure an Openfire XMPP server for use with the software. As far as configuring an XMPP server, the main configuration steps boil down to the creation of users and groups, and the configuration of passwords or x509 certificates, depending on which authentication method you use
 
 # Creating users and groups
 
-Openfire exposes a Web-based admin interface to configure users and groups. The suggested configuration for an EdgeVPN network is as follows:
+Openfire exposes a Web-based admin interface to configure users and groups. The suggested configuration for a network is as follows:
 
-* Create a user for each node that joins an EdgeVPN. User names can be made unique by convention - for instance, evpn_XX_user_YY, where XX identifies an EdgeVPN group, and YY identifies an EdgeVPN node
-* Create a group for each EdgeVPN, and add users to this group - for instance, a group evpn_XX that has all users evpn_XX_user_YY added to it
+* Create a user for each node that joins a network. User names can be made unique by convention - for instance, evpn_XX_user_YY, where XX identifies a group, and YY identifies a node
+* Create a group for each virtual network, and add users to this group - for instance, a group evpn_XX that has all users evpn_XX_user_YY added to it
 
 Once you authenticate to the Openfire admin interface, creating users and groups in Openfire is fairly straightforward - [please refer to steps 3 and 4 of this document for isntructions](/openfiredocker)
 
@@ -68,7 +68,7 @@ openssl x509 -req -in myusername.csr -CA myCA.pem -CAkey myCA.key -CAcreateseria
 
 ## Server-side configuration
 
-Once you have a CA and have issued certificates for your EdgeVPN nodes (each node should have its own unique XMPP user name and certificate as explained above), you need to 1) configure the XMPP server to support certificate auth, and 2) upload the CA's certificate.
+Once you have a CA and have issued certificates for your nodes (each node should have its own unique XMPP user name and certificate as explained above), you need to 1) configure the XMPP server to support certificate auth, and 2) upload the CA's certificate.
 
 Step 1: Your Openfire XMPP server needs to be configured for certificate-based authentication, by ensuring the following properties are set. 
 
@@ -92,9 +92,9 @@ In the section "Trust store used for connections from clients", navigate to "Man
 
 Then, copy over the CA's certificate (the myCA.pem file as described above). Set the CA's common name as the alias, and save
 
-## EdgeVPN configuration
+## EdgeVPN.io configuration
 
-Each EdgeVPN node needs to be configured, in the JSON file, with its certificate and private key. In summary, *AuthenticationMethod* needs to be set to x509, *CertDirectory* with the name of a local directory with the user's certificate and key, *CertFile* with the file name of the certificate (e.g. myusername.crt), and *KeyFile* with the file name of the private key (e.g. myusername.key)
+Each node needs to be configured, in the JSON file, with its certificate and private key. In summary, *AuthenticationMethod* needs to be set to x509, *CertDirectory* with the name of a local directory with the user's certificate and key, *CertFile* with the file name of the certificate (e.g. myusername.crt), and *KeyFile* with the file name of the private key (e.g. myusername.key)
 
 Please refer to the [configuration file documentation](/configfile) for more detailed information.
 
