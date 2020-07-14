@@ -8,11 +8,11 @@ header:
 
 # Introduction
 
-The EdgeVPN package is released with a sample configuration file that serves as a good starting point for many use cases. This document describes basic configuration parameters that you need to configure for your deployment, as well as the typical parameters you might want to tweak for your deployment. [Please refer to this document for a full description of configuration parameteres](/configfile)
+The EdgeVPN.io package is released with a sample configuration file that serves as a good starting point for many use cases. This document describes basic configuration parameters that you need to configure for your deployment, as well as the typical parameters you might want to tweak for your deployment. [Please refer to this document for a full description of configuration parameteres](/configfile)
 
 # Configure your XMPP server endpoint and user credentials
 
-This is a required configuration for your deployment - you must setup every EdgeVPN node to connect to an XMPP server. This is part of the _Signal_ module, and includes the IP address and port (typically 5222) of the server. The simplest approach uses password-based authentication, where you must add the username and password:
+This is a required configuration for your deployment - you must setup every node to connect to an XMPP server. This is part of the _Signal_ module, and includes the IP address and port (typically 5222) of the server. The simplest approach uses password-based authentication, where you must add the username and password:
 
 
 ```
@@ -30,7 +30,7 @@ This is a required configuration for your deployment - you must setup every Edge
   },
 ```
 
-Certificate-based authentication requires additional steps to [create a CA, sign certificates, and configure the server](/openfireconfig). As far as EdgeVPN configuration goes, in the _Signal_ module you must specify the user's certificate and private key files. Note that the typical port for certificate-based authentication is 5223, rathar than 5222:
+Certificate-based authentication requires additional steps to [create a CA, sign certificates, and configure the server](/openfireconfig). As far as the configuration goes, in the _Signal_ module you must specify the user's certificate and private key files. Note that the typical port for certificate-based authentication is 5223, rathar than 5222:
 
 ```
   "Signal": {
@@ -50,20 +50,20 @@ Certificate-based authentication requires additional steps to [create a CA, sign
 
 # Configure your bridge 
 
-When you deploy an EdgeVPN node, it creates an SDN Open vSwitch (OVS) in your computer; ports of this OVS are like ports of an Ethernet switch, and WebRTC TinCan links are like virtual cables that terminate on these ports through a tap interface. There are two types of deployment you may consider. 
+When you deploy a node, it creates an SDN Open vSwitch (OVS) in your computer; ports of this OVS are like ports of an Ethernet switch, and WebRTC TinCan links are like virtual cables that terminate on these ports through a tap interface. There are two types of deployment you may consider. 
 
 ## Bridge with IP address
 
-The first type of deployment "patches" the OVS switch to a Linux bridge that is set up with its own IPv4 address. This is useful, for instance, when the EdgeVPN node is a single node (physical machine, VM, container) that is added to the network. The configuration is as follows:
+The first type of deployment "patches" the OVS switch to a Linux bridge that is set up with its own IPv4 address. This is useful, for instance, when the node is a single node (physical machine, VM, container) that is added to the network. The configuration is as follows:
 
 An example of the console output of _ip address_ of how such a deployment would look like in a node is pasted below. In this example:
 
 * lo is the loopback interface
 * eth0 is the main network interface
 * ovs-system is the Open vSwitch
-* edgbr101000F is the EdgeVPN bridge (the name is a concatenation of the prefix and overlay ID from the configuration)
+* edgbr101000F is the EdgeVPN.io bridge (the name is a concatenation of the prefix and overlay ID from the configuration)
 * brl10100F is the bridge configured with an IP address
-* tnl-* are the tap devices from which EdgeVPN packets are picked/injected from/into the virtual network
+* tnl-* are the tap devices from which EdgeVPN.io packets are picked/injected from/into the virtual network
 
 ```
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
@@ -88,7 +88,7 @@ An example of the console output of _ip address_ of how such a deployment would 
        valid_lft forever preferred_lft forever
 ```
 
-For this deployment, you need to configure the IP4 address of the node, and PrefixLen to match the subnet your EdgeVPN virtual network uses. In the example below, we configure a 24-bit subnet, and IP4 address 10.10.10.1 for Linux bridge _edgbr_. Additional parameters under "BoundedFlood" configure various timeouts used by the node - please refer to the complete configuration documentation for more information.
+For this deployment, you need to configure the IP4 address of the node, and PrefixLen to match the subnet your virtual network uses. In the example below, we configure a 24-bit subnet, and IP4 address 10.10.10.1 for Linux bridge _edgbr_. Additional parameters under "BoundedFlood" configure various timeouts used by the node - please refer to the complete configuration documentation for more information.
 
 ```
   "BridgeController": {
@@ -140,9 +140,9 @@ For this deployment, you need to configure the IP4 address of the node, and Pref
   }
 ```
 
-## Configuring EdgeVPN deployment without the patch bridge
+## Configuring deployment without the patch bridge
 
-In your deployment, you may be able to configure EdgeVPN to expose an OVS virtual switch without an IP address to your leaf devices. For this configuration, leave out the _AppBridge_ dictionary in your configuration file. Here's how the configuration file above would look like if you don't need the patch bridge:
+In your deployment, you may be able to configure EdgeVPN.io to expose an OVS virtual switch without an IP address to your leaf devices. For this configuration, leave out the _AppBridge_ dictionary in your configuration file. Here's how the configuration file above would look like if you don't need the patch bridge:
 
 ```
   "BridgeController": {
@@ -188,9 +188,9 @@ In your deployment, you may be able to configure EdgeVPN to expose an OVS virtua
 
 # Configure NAT traversal
 
-EdgerVPN requires at least one STUN server in order to traverse the most common types of [NATs - the "cone" type (full, address-, or port-restricted)](https://en.wikipedia.org/wiki/Network_address_translation). Unless you can be sure that EdgeVPN devices are all behind "cone" NATs, you will need to also use TURN server(s).
+EdgerVPN requires at least one STUN server in order to traverse the most common types of [NATs - the "cone" type (full, address-, or port-restricted)](https://en.wikipedia.org/wiki/Network_address_translation). Unless you can be sure that all devices will be behind "cone" NATs, you will need to also use TURN server(s).
 
-If you use STUN only, you will be able to use existing, freely-available STUN servers on the Internet (see example below), or deploy your own STUN server(s). If you plan to use TURN as well, you need to either deploy and manage your own TURN server (e.g. on a cloud provider such as Amazon EC2), or use a TURN service. [This document provides information on how to deploy open-source STUN/TURN services](/stunturn), including on EC2. Commercial TURN-as-a-service options are also an option; for example, EdgeVPN has been tested and works with [Xirsys](http://www.xirsys.com).
+If you use STUN only, you will be able to use existing, freely-available STUN servers on the Internet (see example below), or deploy your own STUN server(s). If you plan to use TURN as well, you need to either deploy and manage your own TURN server (e.g. on a cloud provider such as Amazon EC2), or use a TURN service. [This document provides information on how to deploy open-source STUN/TURN services](/stunturn), including on EC2. Commercial TURN-as-a-service options are also an option; for example, the software has been tested and works with [Xirsys](http://www.xirsys.com).
 
 The setup in the configuration file is simple. An example with STUN only, configured with a list of two freely-available Google STUN servers (you may add your own STUN servers to this list if you wish):
 
@@ -243,7 +243,7 @@ An example with a TURN server added (substitute _Address_, _User_ and _Password_
 
 # Configure P2P Topology
 
-The structured peer-to-peer topology used in your EdgeVPN deployment can be configured under "Topology", The key parameters you may modify are MaxSuccessors (maximum number of immediate successors a node has in the ring) and MaxOnDemandEdges (maximum number of on-demand edges that can be created in response to large flows measured between two nodes).
+The structured peer-to-peer topology used in your deployment can be configured under "Topology", The key parameters you may modify are MaxSuccessors (maximum number of immediate successors a node has in the ring) and MaxOnDemandEdges (maximum number of on-demand edges that can be created in response to large flows measured between two nodes).
 
 ```
   "Topology": {
