@@ -1,17 +1,17 @@
 ---
 permalink: /install/
-title: "Installing EdgeVPN"
+title: "Installing EdgeVPN.io"
 header:
   overlay_color: "#303030"
   overlay_image: /assets/images/texture.png
 ---
 
-# Install and Run EdgeVPN on Ubuntu Linux
+# Install and Run on Ubuntu Linux
 
 Tested on Ubuntu 18.04 x64
 
 ## Get deb Package
-Download the latest release of EdgeVPN from [GitHub](https://github.com/EdgeVPN/Downloads/releases).
+Download the latest release from [GitHub](https://github.com/EdgeVPN/Downloads/releases).
 
 ## Install deb Package
 
@@ -20,10 +20,10 @@ sudo apt install -y <path/to>/edgevpn_*.deb
 ```
 On Desktop Environments, you can install the deb package by double click.
 
-## Edit EdgeVPN Configuration File
-After installation, but before starting EdgeVPN, configure your node by editing `/etc/opt/edgevpn/config.json` [by adding the XMPP credentials, setting the IP address, and applying other configurations as needed](/configbasics) 
+## Edit Configuration File
+After installation, but before starting, configure your node by editing `/etc/opt/edgevpn/config.json` [by adding the XMPP credentials, setting the IP address, and applying other configurations as needed](/configbasics) 
 
-## Run EdgeVPN Service
+## Run Service
 ```shell
 sudo systemctl start edgevpn
 ``` 
@@ -43,7 +43,7 @@ By default, the following files and directories are created:
 5. `/var/logs/edgevpn/tincan_log`
 6. `/var/logs/edgevpn/ctrl.log`
 
-## Disabling or removing EdgeVPN
+## Disabling or removing the software
 
 ### To disable Start on Boot
 ```shell
