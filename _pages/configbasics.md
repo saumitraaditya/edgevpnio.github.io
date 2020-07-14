@@ -40,7 +40,6 @@ Certificate-based authentication requires additional steps to [create a CA, sign
         "HostAddress": "A.B.C.B",
         "Port": "5223",
         "AuthenticationMethod": "x509",
-        "Username": "user@xmppsite.com",
         "CertDirectory": "/home/user/edgevpn/cacerts/",
         "CertFile": "edgevpn.crt",
         "KeyFile": "edgevpn.key"
