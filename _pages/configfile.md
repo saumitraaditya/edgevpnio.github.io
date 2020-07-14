@@ -141,7 +141,6 @@ Example:
         "HostAddress": "A.B.C.D",
         "Port": "5223",
         "AuthenticationMethod": "x509",
-        "Username": "user@xmppsite.com",
         "CertDirectory": "/home/user/edgevpn/cacerts/",
         "CertFile": "edgevpn.crt",
         "KeyFile": "edgevpn.key"
