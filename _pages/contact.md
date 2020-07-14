@@ -6,7 +6,7 @@ header:
   overlay_image: /assets/images/texture.png
 ---
 
-[Join the EdgeVPN user's group](https://groups.io/g/EdgeVPN) to ask questions and for important announcements
+[Join the EdgeVPN.io user's group](https://groups.io/g/EdgeVPN) to ask questions and for important announcements
 
 Join our developer’s Slack channel if you are interested in contributing to the project - instructions are available in the user's group
 
@@ -14,10 +14,10 @@ Join our developer’s Slack channel if you are interested in contributing to th
 
 Send an email to the project development leads if you have other inquiries:
 
-Renato Figueiredo
+Dr. Renato Figueiredo
 
 ![Email](/assets/images/email_snapshot_rf.png)
 
-Kensworth Subratie
+Dr. Kensworth Subratie
 
 ![Email](/assets/images/email_snapshot_ks.png)
