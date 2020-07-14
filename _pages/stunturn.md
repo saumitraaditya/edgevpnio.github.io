@@ -8,11 +8,11 @@ header:
 
 # Introduction
 
-EdgeVPN supports NAT traversal using two mechanisms: [STUN](https://en.wikipedia.org/wiki/STUN) (Session Traversal Utilities for NAT), and [TURN](https://en.wikipedia.org/wiki/Traversal_Using_Relays_around_NAT) (Traversal Using Relays around NAT). 
+EdgeVPN.io supports NAT traversal using two mechanisms: [STUN](https://en.wikipedia.org/wiki/STUN) (Session Traversal Utilities for NAT), and [TURN](https://en.wikipedia.org/wiki/Traversal_Using_Relays_around_NAT) (Traversal Using Relays around NAT). 
 
 STUN works for the majority of deployed NATs: the [cone-type NATs, including full-cone, port-restricted cone, and address-restricted cone](https://en.wikipedia.org/wiki/Network_address_translation). If your deployment only has cone-type NATs, STUN is sufficient. However, if your nodes are behind symmetric NATs, you will need also TURN.
 
-This document describes a couple of possible ways you can deploy your own STUN and TURN servers - they assume you are using Ubuntu Linux 14.04 or later. You may also use existing Internet services - free STUN servers are available (such as the Google STUN servers EdgeVPN is configured with by default), and pay-per-use TURN services also exist, e.g. [Xirsys](http://www.xirsys.com).
+This document describes a couple of possible ways you can deploy your own STUN and TURN servers - they assume you are using Ubuntu Linux 14.04 or later. You may also use existing Internet services - free STUN servers are available (such as the Google STUN servers EdgeVPN.io is configured with by default), and pay-per-use TURN services also exist, e.g. [Xirsys](http://www.xirsys.com).
 
 Open-source XMPP servers [eJabberd](https://www.ejabberd.im/) and [Openfire](https://www.igniterealtime.org/projects/openfire/) both offer STUN services, facilitating deployment if you are using either of these as your XMPP servers. eJabberd also offers a TURN service.
 
@@ -84,9 +84,9 @@ TURNSERVER_ENABLED=1
 	netstat -aupn | grep 3478
 	```
   
-6. Configure EdgeVPN
+6. Configure
 
-You should now be able to configure your EdgeVPN nodes to use the TURN service, by replacing the <public-ip-of-turnserver>, <username> and <password> parameters with your own (without the <, > characters). See below for an example:
+You should now be able to configure your nodes to use the TURN service, by replacing the <public-ip-of-turnserver>, <username> and <password> parameters with your own (without the <, > characters). See below for an example:
 
 ```
   "LinkManager": {
