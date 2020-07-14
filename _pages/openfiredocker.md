@@ -8,7 +8,7 @@ header:
 
 ## Introduction
 
-EdgeVPN relies on XMPP services to bootstrap nodes into the VPN. This how-to guides you through the process of deploying an Openfire XMPP server using Docker. 
+EdgeVPN.io relies on XMPP services to bootstrap nodes into the VPN. This how-to guides you through the process of deploying an Openfire XMPP server using Docker. 
 
 **Note**: this how-to deploys Openfire with an embedded database in a Docker container and is meant to be used as a starting point for testing - not to host a persistent MySQL and XMPP server. There are several options to host persistent Openfire services on cloud providers, such as https://bitnami.com/stack/openfire
 
@@ -16,7 +16,7 @@ EdgeVPN relies on XMPP services to bootstrap nodes into the VPN. This how-to gui
 
 Make sure you have Docker installed in your system. 
 
-You may [follow a guide on how to install Docker for your system](https://docs.docker.com/engine/install/ubuntu/), or you may follow the instructions below to install Docker (and other EdgeVPN dependences) if you are using Ubuntu 18.04:
+You may [follow a guide on how to install Docker for your system](https://docs.docker.com/engine/install/ubuntu/), or you may follow the instructions below to install Docker (and other dependences) if you are using Ubuntu 18.04:
 
 ```
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -61,7 +61,7 @@ docker run --name openfire -d -p 9090:9090 -p 5222:5222 -p 5269:5269 -p 5223:522
 
 ### Step 4: Let’s add test users and group them
 
-You will now use the Web admin interface to create two test users - *test1* and *test2* - and assign them to a group (i.e. they will join the same EdgeVPN) 
+You will now use the Web admin interface to create two test users - *test1* and *test2* - and assign them to a group (i.e. they will join the same network) 
 
 Start by creating the two users:
 
@@ -75,6 +75,6 @@ Then, create a group:
 2. Select “Enable contact list group sharing”, and share group with “Users of the same group”
 3. Scroll down the interface to add users test1 and test2 to this group
 
-### Step 5: Configure EdgeVPN
+### Step 5: Configure
 
-You are now ready to configure EdgeVPN to use this XMPP server. [Follow the instructions on how to install EdgeVPN using Docker](/dockeredgevpn) to setup two containers for users test1 and test2
+You are now ready to configure the system to use this XMPP server. [Follow the instructions on how to install EdgeVPN.io using Docker](/dockeredgevpn) to setup two containers for users test1 and test2
