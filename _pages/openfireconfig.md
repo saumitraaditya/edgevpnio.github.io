@@ -23,7 +23,7 @@ Openfire exposes a Web-based admin interface to configure users and groups. The 
 * Create a user for each node that joins a network. User names can be made unique by convention - for instance, evpn_XX_user_YY, where XX identifies a group, and YY identifies a node
 * Create a group for each virtual network, and add users to this group - for instance, a group evpn_XX that has all users evpn_XX_user_YY added to it
 
-Once you authenticate to the Openfire admin interface, creating users and groups in Openfire is fairly straightforward - [please refer to steps 3 and 4 of this document for isntructions](/openfiredocker)
+Once you authenticate to the Openfire admin interface, creating users and groups in Openfire is fairly straightforward - [please refer to steps 3 and 4 of this document for instructions](/openfiredocker)
 
 # Setting up certificates
 
