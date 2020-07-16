@@ -27,7 +27,7 @@ Once you authenticate to the Openfire admin interface, creating users and groups
 
 # Setting up certificates
 
-This step is not necessary if you use password-based authentication; it is necessary if you use x509-based authentication.
+This step is not necessary if you use password-based authentication; they provide a template for you to follow if you plan to use x509-based authentication.
 
 ## Certificate Authority
 
@@ -36,7 +36,8 @@ You will need a Certificate Authority (CA) in order to issue certificates for yo
 Step 1: Create a directory to hold the certificates and keys:
 
 ```
-mkdir cacerts ; cd cacerts/ 
+mkdir cacerts
+cd cacerts 
 ```
 
 Step 2: Create a certificate signing authority and key pair:
@@ -46,36 +47,42 @@ openssl genrsa -des3 -out myCA.key 2048
 openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1825 -out myCA.pem
 ```
 
-Step 3: Create private key for own certificate:
+Step 3: Create a private key for the user certificate. In this example, we'll create a certificate for a user called _test1_
 
 ```
-openssl genrsa -out myusername.key 2048
+openssl genrsa -out test1.key 2048
 ```
 
 Step 4: Prepare a certificate signing request
 
-Here, the common name **must** be your username on the XMPP server. This should be just the user name part of the full XMPP name@domain string. For instance, for "myusername@local", where "local" is the domain portion, the common name in the certificate request should be just "myusername"
+Here, the goal is to generate a request to have a certificate for the user signed by the CA.
+
+Note that this command asks for various bits of information (e.g. country, state) to go in the certificate. While most of those fields can be configured arbitrarily, the "Common Name" in the certificate request **must** match a username on the XMPP server - for instance, _test1_ in this tutorial. **Furthermore** the string that goes in the "Common Name" in the certificate must have just the user name part of the full XMPP name@domain string. For instance, whereas you'd use _test1@local_ for user name under password-based authentication (where _local_ is the domain portion), for x509-based authentication the common name in the certificate request is just _test1_ and does **not** include _@local_
+
+This command below generates a certificate signing request (test1.csr) for the CA to sign. Enter the information for the certificate request, as per the screenshot below, and type _Enter_ when asked for a password:
 
 ```
-openssl req -new -key myusername.key -out myusername.csr
+openssl req -new -key test1.key -out test1.csr
 ```
 
 Step 5: Sign and create a certificate using the CA credentials
 
+Here, you'll use the CA's password to sign the certificate signing request. This will generate the _test1.crt_ certificate file as an output:
+
 ```
-openssl x509 -req -in myusername.csr -CA myCA.pem -CAkey myCA.key -CAcreateserial -out myusername.crt -days 1825 -sha256
+openssl x509 -req -in test1.csr -CA myCA.pem -CAkey myCA.key -CAcreateserial -out test1.crt -days 1825 -sha256
 ```
 
 ## Server-side configuration
 
-Once you have a CA and have issued certificates for your nodes (each node should have its own unique XMPP user name and certificate as explained above), you need to 1) configure the XMPP server to support certificate auth, and 2) upload the CA's certificate.
+Once you have a CA and have issued certificates for your users (each node should have its own unique XMPP user name and a certificate generated as explained above), you need to: 1) configure the OpenFire XMPP server to support certificate-based authentication, and 2) upload the CA's certificate (myCA.pem above) to OpenFire.
 
 Step 1: Your Openfire XMPP server needs to be configured for certificate-based authentication, by ensuring the following properties are set. 
 
-You can set properties by navigating, in the admin Web interface, to: Server->Server Manager->System properties
+You can set properties by navigating (in the admin Web interface) to _Server->Server Manager->System properties_ and manually adding the following properties, one by one, with the following values (clicking the _Save Property_ button each time you do, as per the screenshots below). You may want to copy+paste from this tutorial to ensure there are no typos:
 
 ```
-Property                                       Value
+Property:                                      Value:
 xmpp.client.cert.policy                     -> needed
 xmpp.client.certificate.accept-selfsigned   -> true
 xmpp.client.certificate.verify              -> true
@@ -90,7 +97,7 @@ In the Openfire admin Web interface, navigate to Server -> TLS/SSL certificates
 
 In the section "Trust store used for connections from clients", navigate to "Manage store contents", then click on "import form"
 
-Then, copy over the CA's certificate (the myCA.pem file as described above). Set the CA's common name as the alias, and save
+Then, copy and paste the CA's certificate (the myCA.pem file as described above). Set the CA's common name (e.g. EdgeVPN.io in this example) as the alias, and save
 
 ## EdgeVPN.io configuration
 
