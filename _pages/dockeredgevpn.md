@@ -8,7 +8,7 @@ header:
 
 ## Introduction
 
-This tutorial guides you through the process of deploying two nodes using Docker - it is intended to be the first-time guide for users getting started with EdgeVPN.io. 
+This tutorial guides you through the process of deploying two nodes using Docker - it is intended to be the first-time guide for users getting started with EdgeVPN.io.
 
 ## Dependences
 
@@ -176,7 +176,7 @@ docker run -d -v /home/$USER/edgevpn/config/config-002.json:/etc/opt/edge-vpn/co
 
 ## Test your connection
 
-Log into the container edgevpn001 (virtual IP address 10.10.10.21), and ping the edgevpn002 node (virtual IP 10.10.10.22):
+You can open a shell into the container edgevpn001 (virtual IP address 10.10.10.21), and ping the edgevpn002 node (virtual IP 10.10.10.22):
 
 ```
 docker exec -it edgevpn001 /bin/bash
