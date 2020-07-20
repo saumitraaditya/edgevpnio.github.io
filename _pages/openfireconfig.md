@@ -86,7 +86,7 @@ Once you have a CA and have issued certificates for your users (each node should
 
 Step 1: Your Openfire XMPP server needs to be configured for certificate-based authentication, by ensuring the following properties are set. 
 
-You can set properties by navigating (in the admin Web interface) to _Server->Server Manager->System properties_ and manually adding the following properties, one by one, with the following values (clicking the _Save Property_ button each time you do, as per the screenshots below). You may want to copy+paste from this tutorial to ensure there are no typos:
+You can set properties by navigating (in the admin Web interface) to _Server->Server Manager->System properties_ and manually adding the following properties, one by one, with the following values (clicking the _Save Property_ button each time you do, as per the screenshot below). **Note** you may want to copy+paste from this tutorial to ensure there are no typos:
 
 ```
 Property:                                      Value:
@@ -98,13 +98,47 @@ xmpp.client.certificate.verify.root         -> true
 sasl.mechs                                  -> EXTERNAL
 ```
 
+![Adding a system property in Openfire](/assets/images/openfire_add_property.png)
+
+Once you add system properties, double-check that they are correct:
+
+![Openfire properties added](/assets/images/openfire_properties_added.png)
+
+![Openfire properties added](/assets/images/openfire_properties_added_2.png)
+
 Step 2: Upload CA certificate:
 
-In the Openfire admin Web interface, navigate to Server -> TLS/SSL certificates
+In the Openfire admin Web interface, navigate to _Server -> TLS/SSL certificates_
 
-In the section "Trust store used for connections from clients", navigate to "Manage store contents", then click on "import form"
+In the section _Trust store used for connections from clients_, navigate to _Manage Store Contents_
 
-Then, copy and paste the CA's certificate (the myCA.pem file as described above). Set the CA's common name (e.g. EdgeVPN.io in this example) as the alias, and save
+![Openfire client trust store](/assets/images/openfire_client_trust_store.png)
+
+Then, click on _import form_ (it's an orange text link)
+
+Then, copy and paste the CA's certificate (the myCA.pem file as described above). Set the CA's common name (e.g. EdgeVPN.io in this example) as the alias, and click _Save_:
+
+![Adding CA certificate to Openfire](/assets/images/openfire_add_ca.png)
+
+Once you add the CA, you can verify its contents by clicking on the alias you just added:
+
+![Showing CA certificate contents](/assets/images/openfire_ca_contents.png)
+
+## Restart the Openfire server
+
+**Note: you must restart the Openfire server for the changes above to take effect**
+
+This has to be done through a command-line (not the Web interface). If you are using the Openfire Docker container, you can restart it with (replace _openfire_ with the name of your container, and PID with the process ID that runs the Openfire java server):
+
+```
+docker exec -it openfire /bin/bash
+# ps -axj|grep java
+# kill PID
+```
+
+Check that the server restarted by logging back in to the Web admin interface http://A.B.C.D:9090 - the server uptime should reflect it has recently started:
+
+![Restarted Openfire](/assets/images/openfire_server_restarted.png)
 
 ## EdgeVPN.io configuration
 
