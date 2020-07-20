@@ -183,4 +183,10 @@ docker exec -it edgevpn001 /bin/bash
 # ping 10.10.10.22
 ```
 
+Or, the other way around:
+
+```
+docker exec -it edgevpn002 /bin/bash
+# ping 10.10.10.21
+```
 
