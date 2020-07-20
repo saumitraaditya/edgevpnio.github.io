@@ -22,7 +22,7 @@ header:
 
 [Configuring nodes - complete description](/configfile)
 
-[Configuring Openfire XMPP server with password or certificate-based authentication](/openfireconfig)
+[Configuring Openfire XMPP and EdgeVPN.io with x509 certificate-based authentication](/openfireconfig)
 
 [Set up STUN and TURN servers](/stunturn)
 
