@@ -142,7 +142,29 @@ Check that the server restarted by logging back in to the Web admin interface ht
 
 ## EdgeVPN.io configuration
 
-Each node needs to be configured, in the JSON file, with its certificate and private key. In summary, *AuthenticationMethod* needs to be set to x509, *CertDirectory* with the name of a local directory with the user's certificate and key, *CertFile* with the file name of the certificate (e.g. myusername.crt), and *KeyFile* with the file name of the private key (e.g. myusername.key)
+Each node needs to be configured, in the JSON file, with its certificate and private key. In summary, *AuthenticationMethod* needs to be set to x509, *CertDirectory* with the name of a local directory with the user's certificate and key, *CertFile* with the file name of the certificate (e.g. test1.crt), and *KeyFile* with the file name of the private key (e.g. test1.key). Here is a snippet of the relevant part of the configuration:
+
+```
+  "Signal": {
+    "Enabled": true,
+    "Overlays": {
+      "1234567": {
+        "HostAddress": "A.B.C.D",
+        "Port": "5223",
+        "AuthenticationMethod": "x509",
+        "CertDirectory": "/etc/opt/edge-vpn",
+        "CertFile": "test1.crt",
+        "KeyFile": "test1.key"
+      }
+    }
+  },
+```
+
+**Note:** the configuration above assumes the key and certificate are in _/etc/opt/edge-vpn_ ; if you are running EdgeVPN.io in our distribution Docker container, you need to mount those files as additional volumes, as in the example below:
+
+```
+docker run -d -v /home/osboxes/edgevpn/config/config-001.json:/etc/opt/edge-vpn/config.json -v /home/osboxes/edgevpn/logs/001:/var/log/edge-vpn/ -v /home/osboxes/edgevpn/cacerts/test1.key:/etc/opt/edge-vpn/test1.key -v /home/osboxes/edgevpn/cacerts/test1.crt:/etc/opt/edge-vpn/test1.crt --rm --privileged --name edgevpn001 --network dkrnet edgevpnio/node /sbin/init
+```
 
 Please refer to the [configuration file documentation](/configfile) for more detailed information.
 
