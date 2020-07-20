@@ -10,7 +10,9 @@ header:
 
 EdgeVPN.io relies on XMPP services to bootstrap nodes into the VPN. This how-to guides you through the process of deploying an Openfire XMPP server using Docker. 
 
-**Note**: this how-to deploys Openfire with an embedded database in a Docker container and is meant to be used as a starting point for testing - not to host a persistent MySQL and XMPP server. There are several options to host persistent Openfire services on cloud providers, such as https://bitnami.com/stack/openfire
+**Note 1**: this how-to deploys Openfire with an embedded database in a Docker container and is meant to be used as a starting point for testing. This how-to is **not** intended to guide you through a process to configure/host a persistent MySQL and XMPP server - there are additional steps you'd need to do that are specific to your domain. There are also several options to host persistent Openfire services on cloud providers, such as https://bitnami.com/stack/openfire
+
+**Note 2**: This how-to has been tested with Openfire version 4.5.1
 
 ### Step 1: Install Docker
 
@@ -45,19 +47,23 @@ docker run --name openfire -d -p 9090:9090 -p 5222:5222 -p 5269:5269 -p 5223:522
 
 ### Step 3: Configure Openfire
 
-1. Point your browser to A.B.C.D:9090, where A.B.C.D is the IP address of the Docker host
+1. Point your browser to http://A.B.C.D:9090, where A.B.C.D is the IP address of the Docker host
 
-2. Select your language, continue
+2. Select your language, and continue
 
-3. For both XMPP domain and server host name, use openfire.local
+3. Set both XMPP domain and server host name as local:
 
-4. Select “Embedded database” and continue
+![Set domain for XMPP](/assets/images/openfire_set_domain.png)
 
-5. Select “default” for profile settings
+4. Select “Embedded database” and continue:
 
-6. Enter your email address, and a password for the admin
+![Set used database for XMPP](/assets/images/openfire_set_db.png)
 
-7. Login with user “admin”, and the password you just created
+5. Select “default” for profile settings and continue
+
+6. Enter your email address, and a password for the _admin_ user
+
+7. A prompt to "Login to the admin console" appears; when you click on it, log in with user _admin_ and the password you just created
 
 ### Step 4: Let’s add test users and group them
 
@@ -66,14 +72,22 @@ You will now use the Web admin interface to create two test users - *test1* and 
 Start by creating the two users:
 
 1. Navigate the user interface to Users/Groups -> Users -> Create New User
-2. Select username and password - we’ll use (test1, password_test1) and (test2, password_test2) for the (user, password) pairs in the examples below; you may leave name and email blank
-3. Repeat creating the user test2 
+2. Select username and password - we’ll use (test1, password_test1) and (test2, password_test2) for the (user, password) pairs in the examples below. Once a user is created, you'll see that it's been added:
+
+![User added to XMPP database](/assets/images/openfire_added_user.png)
+
+3. Repeat, creating the user test2 
 
 Then, create a group:
 
-1. Navigate the user interface to Users/Groups -> Groups -> Create New Group, and create grouptest1
-2. Select “Enable contact list group sharing”, and share group with “Users of the same group”
+1. Navigate the user interface to Users/Groups -> Groups -> Create New Group, and create _grouptest1_
+2. Select “Enable contact list group sharing”, select share group with “Users of the same group”, and click on "Save contact list sharing":
+
+![Enable contact list sharing](/assets/images/openfire_share_contact.png)
+
 3. Scroll down the interface to add users test1 and test2 to this group
+
+![Add users to group](/assets/images/openfire_add_users_group.png)
 
 ### Step 5: Configure
 
