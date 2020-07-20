@@ -144,6 +144,8 @@ Check that the server restarted by logging back in to the Web admin interface ht
 
 Each node needs to be configured, in the JSON file, with its certificate and private key. In summary, *AuthenticationMethod* needs to be set to x509, *CertDirectory* with the name of a local directory with the user's certificate and key, *CertFile* with the file name of the certificate (e.g. test1.crt), and *KeyFile* with the file name of the private key (e.g. test1.key). Here is a snippet of the relevant part of the configuration:
 
+**Note: the Openfire port for x509-based auth is 5223, not 5222**
+
 ```
   "Signal": {
     "Enabled": true,
