@@ -14,7 +14,9 @@ One of the open-source XMPP servers that can be used to configure EdgeVPN.io gro
 2. Peer discovery: nodes use XMPP "presence" messages to advertise themselves to other nodes. These are short messages that are sent periodically to the XMPP server, and forwarded to nodes belonging to a group
 3. Signalling to create tunnels: EdgeVPN.io uses XMPP short messages to exchange information that is needed to create Internet tunnels. These include the set of candidate endpoints (IP:port of the local node, as well as STUN and TURN endpoints), and certificate fingerprints to establish a private, encrypted tunnel
 
-This document explains steps to configure an Openfire XMPP server for use with the software. As far as configuring an XMPP server, the main configuration steps boil down to the creation of users and groups, and the configuration of passwords or x509 certificates, depending on which authentication method you use
+This document explains steps to configure an Openfire XMPP server for use with the software. As far as configuring an XMPP server, the main configuration steps boil down to the creation of users and groups, and the configuration of passwords or x509 certificates, depending on which authentication method you use.
+
+A password-based authentication scheme is simpler, but less secure and manageable. **Note:** there are many different ways to configure an x509-based authentication infrastructure - the instructions below serve as a template and starting point, but you will need to adjust based on your own setup.
 
 # Creating users and groups
 
@@ -46,6 +48,7 @@ Step 2: Create a certificate signing authority and key pair:
 openssl genrsa -des3 -out myCA.key 2048
 openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1825 -out myCA.pem
 ```
+![Command-line output after creating a CA](/assets/images/create_ca_for_openfire.png)
 
 Step 3: Create a private key for the user certificate. In this example, we'll create a certificate for a user called _test1_
 
@@ -65,6 +68,8 @@ This command below generates a certificate signing request (test1.csr) for the C
 openssl req -new -key test1.key -out test1.csr
 ```
 
+![Command-line output after creating a certificate request](/assets/images/create_user_cert_request_for_openfire.png)
+
 Step 5: Sign and create a certificate using the CA credentials
 
 Here, you'll use the CA's password to sign the certificate signing request. This will generate the _test1.crt_ certificate file as an output:
@@ -72,6 +77,8 @@ Here, you'll use the CA's password to sign the certificate signing request. This
 ```
 openssl x509 -req -in test1.csr -CA myCA.pem -CAkey myCA.key -CAcreateserial -out test1.crt -days 1825 -sha256
 ```
+
+![Command-line output after signing a certificate request](/assets/images/sign_user_cert_for_openfire.png)
 
 ## Server-side configuration
 
