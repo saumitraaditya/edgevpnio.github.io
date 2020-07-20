@@ -11,11 +11,11 @@ excerpt: "Seamlessly connect edge resources with a scalable virtual Ethernet"
 {::nomarkdown}<div class="background-white"><div class="center">{:/nomarkdown}
 ### EdgeVPN.io is an open-source software for deploying scalable VPNs across distributed edge resources 
 
-It groups distributed nodes into a logical Ethernet. EdgeVPN.io (or EVio, for short) has built-in support for packet capture, encryption, tunneling, forwarding, and NAT traversal, It builds on standard protocols, flexible software-defined networking, and a scalable overlay network architecture suitable for containerized applications
+It groups distributed nodes into a logical Ethernet. EdgeVPN.io (also referred to as EVio, for short) has built-in support for packet capture, encryption, tunneling, forwarding, and NAT traversal, It builds on standard protocols, flexible software-defined networking, and a scalable overlay network architecture suitable for containerized applications
 
 
 
-**Scalable and self-configuring:** EVio is designed based on principles used in scalable, ring-structured key/value stores and peer-to-peer overlays, there are no central VPN traffic bottlenecks, and the network scales and configures itself as nodes are added/removed
+**Scalable and self-configuring:** EdgeVPN.io is designed based on principles used in scalable, ring-structured key/value stores and peer-to-peer overlays, there are no central VPN traffic bottlenecks, and the network scales and configures itself as nodes are added/removed
 
 
 **Run existing software:** EVio exposes virtual Ethernet network interfaces and private IP addresses allowing existing and future Ethernet/IP based software stacks to run, unmodified. It can provide a virtual cluster of Docker containers across edge/cloud resources
