@@ -131,6 +131,8 @@ Example:
 
 * _KeyFile_ specifies the name of the file storing the user's private key
 
+**Note: the port typically used for x509-based auth is 5223, not 5222**
+
 Example:
 
 ```
