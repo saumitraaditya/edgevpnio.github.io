@@ -6,11 +6,15 @@ header:
   overlay_image: /assets/images/texture.png
 ---
 
+# Repositories
+The main code repository is under [the EdgeVPNio organization in GitHub](https://github.com/edgevpnio)
+Docker containers can be found in the [EdgeVPNio organization in DockerHub](https://hub.docker.com/u/edgevpnio)
+
 # How to Contribute
 We welcome community involvement and participation in all aspects of the EdgeVPN.io project. There are several meaningful ways for external participants to contribute. Below we discuss the ways that we can benefit from your contributions and effective ways of going about this.
 
 ## Finding and Submitting Bugs
-The two main software projects are [the controller](https://github.com/edgevpn/controllers/issues) and [tincan](https://github.com/edgevpn/tincan/issues). If you encounter any bugs while testing, evaluating or in your everyday use the software, please create a GitHub issue to report it. If you can determine which component is at fault, then create the bug there, otherwise either is fine; we look at both.
+The two main software projects are [the controller](https://github.com/edgevpnio/evio/controllers/issues) and [tincan](https://github.com/edgevpnio/evio/tincan/issues). If you encounter any bugs while testing, evaluating or in your everyday use the software, please create a GitHub issue to report it. If you can determine which component is at fault, then create the bug there, otherwise either is fine; we look at both.
 Of course submitting the relevant information that will help us reproduce and diagnose the fault is important. If you run into errors/crashes, please proceed as follows:
 
 * Set the [logging level in the configuration file to DEBUG](/configfile), and try to recreate the problem
