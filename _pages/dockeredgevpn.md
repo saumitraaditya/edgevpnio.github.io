@@ -169,9 +169,9 @@ To configure the second container, copy config-001.json to config-002.json, **an
 Now you will run two containers, named edgevpn001 and edgevpn002, mapping the different configuration file and the log directories to different mount points:
 
 ```
-docker run -d -v /home/$USER/edgevpn/config/config-001.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/edgevpn/logs/001:/var/log/edge-vpnio/ -v --rm --privileged --name edgevpnio001 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
+docker run -d -v /home/$USER/edgevpn/config/config-001.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/edgevpn/logs/001:/var/log/edge-vpnio/ --rm --privileged --name edgevpnio001 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
 
-docker run -d -v /home/$USER/edgevpn/config/config-002.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/edgevpn/logs/002:/var/log/edge-vpnio/ -v --rm --privileged --name edgevpnio002 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
+docker run -d -v /home/$USER/edgevpn/config/config-002.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/edgevpn/logs/002:/var/log/edge-vpnio/ --rm --privileged --name edgevpnio002 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
 ```
 
 ## Test your connection
