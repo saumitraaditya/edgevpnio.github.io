@@ -27,11 +27,11 @@ Now, create directories in the host to hold configuration files and logs for you
 
 ```
 cd
-mkdir edgevpn
-mkdir edgevpn/config
-mkdir edgevpn/logs
-mkdir edgevpn/logs/edgevpn001
-mkdir edgevpn/logs/edgevpn002
+mkdir edgevpnio
+mkdir edgevpnio/config
+mkdir edgevpnio/logs
+mkdir edgevpnio/logs/001
+mkdir edgevpnio/logs/002
 ```
 
 ## Setup configuration files
@@ -51,7 +51,7 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
   "Logger": {
     "LogLevel": "DEBUG",
     "Device": "File",
-    "Directory": "/var/log/edge-vpn/",
+    "Directory": "/var/log/edge-vpnio/",
     "CtrlLogFileName": "ctrl.log",
     "TincanLogFileName": "tincan_log",
     "MaxFileSize": 10000000,
@@ -169,9 +169,9 @@ To configure the second container, copy config-001.json to config-002.json, **an
 Now you will run two containers, named edgevpn001 and edgevpn002, mapping the different configuration file and the log directories to different mount points:
 
 ```
-docker run -d -v /home/$USER/edgevpn/config/config-001.json:/etc/opt/edge-vpn/config.json -v /home/$USER/edgevpn/logs/edgevpn001:/var/log/edge-vpn/ -v --rm --privileged --name edgevpn001 --network dkrnet edgevpnio/evio-node /sbin/init
+docker run -d -v /home/$USER/edgevpn/config/config-001.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/edgevpn/logs/001:/var/log/edge-vpnio/ -v --rm --privileged --name edgevpnio001 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
 
-docker run -d -v /home/$USER/edgevpn/config/config-002.json:/etc/opt/edge-vpn/config.json -v /home/$USER/edgevpn/logs/edgevpn002:/var/log/edge-vpn/ -v --rm --privileged --name edgevpn002 --network dkrnet edgevpnio/evio-node /sbin/init
+docker run -d -v /home/$USER/edgevpn/config/config-002.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/edgevpn/logs/002:/var/log/edge-vpnio/ -v --rm --privileged --name edgevpnio002 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
 ```
 
 ## Test your connection
@@ -179,14 +179,14 @@ docker run -d -v /home/$USER/edgevpn/config/config-002.json:/etc/opt/edge-vpn/co
 You can open a shell into the container edgevpn001 (virtual IP address 10.10.10.21), and ping the edgevpn002 node (virtual IP 10.10.10.22):
 
 ```
-docker exec -it edgevpn001 /bin/bash
+docker exec -it edgevpnio001 /bin/bash
 # ping 10.10.10.22
 ```
 
 Or, the other way around:
 
 ```
-docker exec -it edgevpn002 /bin/bash
+docker exec -it edgevpnio002 /bin/bash
 # ping 10.10.10.21
 ```
 
