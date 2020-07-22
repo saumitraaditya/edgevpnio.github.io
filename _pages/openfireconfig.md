@@ -162,10 +162,10 @@ Each node needs to be configured, in the JSON file, with its certificate and pri
   },
 ```
 
-**Note:** the configuration above assumes the key and certificate are in _/etc/opt/edge-vpn_ ; if you are running EdgeVPN.io in our distribution Docker container, you need to mount those files as additional volumes, as in the example below:
+**Note:** the configuration above assumes the key and certificate are in _/etc/opt/edge-vpnio_ ; if you are running EdgeVPN.io in our distribution Docker container, you need to mount those files as additional volumes, following the pattern in the example below:
 
 ```
-docker run -d -v /home/osboxes/edgevpn/config/config-001.json:/etc/opt/edge-vpn/config.json -v /home/osboxes/edgevpn/logs/001:/var/log/edge-vpn/ -v /home/osboxes/edgevpn/cacerts/test1.key:/etc/opt/edge-vpn/test1.key -v /home/osboxes/edgevpn/cacerts/test1.crt:/etc/opt/edge-vpn/test1.crt --rm --privileged --name edgevpn001 --network dkrnet edgevpnio/evio-node /sbin/init
+docker run -d -v /home/osboxes/edgevpn/config/config-001.json:/etc/opt/edge-vpnio/config.json -v /home/osboxes/edgevpnio/logs/001:/var/log/edge-vpnio/ -v /home/osboxes/edgevpnio/cacerts/test1.key:/etc/opt/edge-vpnio/test1.key -v /home/osboxes/edgevpnio/cacerts/test1.crt:/etc/opt/edge-vpnio/test1.crt --rm --privileged --name edgevpnio001 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
 ```
 
 Please refer to the [configuration file documentation](/configfile) for more detailed information.
