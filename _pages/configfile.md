@@ -401,6 +401,27 @@ Example:
   }
 ```
 
+## UsageReport module
+
+This configures an opt-in usage report module of a node. The usage report is a periodic event that posts non-identifying usage information to a service, and helps the EdgeVPN.io team collect gather information about usage of the software. The anonymized information reported is as follows:
+
+* The sha1 hash of the overlay ID
+* The sha1 hashes of the node ID of the reporting node, and of the node IDs of its peers
+* A monitonically increasing report ID
+
+With this information, the EdgeVPN.io team can assess how many different networks and nodes have been deployed, and estimate uptimes. The use of cryptographic hashes ensures that overlay/node ID information is anonymized; the service **does not log any information that can be used to identify a node**, such as IP addresses. 
+
+By default, the usage report is not enabled. To enable it, the configuration file needs to explicitly set _Enabled_ to true in this module. The _TimerInterval_ (in seconds) specifies the period in which reports are posted to the endpoint specified in _WebService_
+
+```
+  "UsageReport": {
+    "Enabled": true,
+    "TimerInterval": 3600,
+    "WebService": "https://qdscz6pg37.execute-api.us-west-2.amazonaws.com/default/EvioUsageReport"
+  }
+```
+
+
 ## Additional information
 
 The configuration file tells the controller framework which modules to load and with what parameters. If a module is not specified in the configuration, it is not loaded. Certain keys occur in multiple modules with the same meaning and effect. Each module has an Enabled key that, when set to false, will cause the controller framework to skip loading it. TimerInterval specifies how often a module’s timer event fires in seconds. Dependencies specify which modules are used a module and must be loaded before hand. In your installed EdgeVPN.io package, you will find in controller/framework/fxlib.py a file that contains the full set of default values in the CONFIG dictionary. This dictionary is loaded first, and any values specified in config file will override them. Therefore, changes should always be made to the config.json file and not the fxlib.py file. 
