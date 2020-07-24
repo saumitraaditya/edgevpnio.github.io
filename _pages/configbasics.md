@@ -10,6 +10,125 @@ header:
 
 The EdgeVPN.io package is released with a sample configuration file that serves as a good starting point for many use cases. This document describes basic configuration parameters that you need to configure for your deployment, as well as the typical parameters you might want to tweak for your deployment. [Please refer to this document for a full description of configuration parameteres](/configfile)
 
+# A basic configuration file template
+
+Before jumping into details, here is a configuration file template that is sufficient to get started with EdgeVPN.io - just replace XMPP _HostAddress_, _Username_ and _Password_ in the _Signal_ module, and _IP4_ and _NetworkAddress_ in the _BridgeController_ module: 
+
+```
+{
+  "CFx": {
+    "Model": "Default",
+    "Overlays": [
+      "101000F"
+    ]
+  },
+  "Logger": {
+    "LogLevel": "DEBUG",
+    "Device": "File",
+    "Directory": "/var/log/edge-vpn/",
+    "CtrlLogFileName": "ctrl.log",
+    "TincanLogFileName": "tincan_log",
+    "MaxFileSize": 10000000,
+    "MaxArchives": 1
+  },
+  "Signal": {
+    "Enabled": true,
+    "Overlays": {
+      "101000F": {
+        "HostAddress": "A.B.C.D",
+        "Port": "5222",
+        "Username": "test1@openfire.local",
+        "Password": "password_test1",
+        "AuthenticationMethod": "PASSWORD"
+      }
+    }
+  },
+  "Topology": {
+    "PeerDiscoveryCoalesce": 1,
+    "Overlays": {
+      "101000F": {
+        "Name": "SymphonyRing",
+        "Description": "Scalable Symphony Ring Overlay for Bounded Flooding.",
+        "MaxSuccessors": 2,
+        "MaxOnDemandEdges": 1,
+        "MaxConcurrentEdgeSetup": 5,
+        "Role": "Switch"
+      }
+    }
+  },
+  "LinkManager": {
+    "Dependencies": [
+      "Logger",
+      "TincanInterface",
+      "Signal"
+    ],
+    "Stun": [
+      "stun.l.google.com:19302",
+      "stun1.l.google.com:19302"
+    ],
+    "Overlays": {
+      "101000F": {
+        "Type": "TUNNEL",
+        "TapName": "tnl-"
+      }
+    }
+  },
+  "UsageReport": {
+    "Enabled": true,
+    "TimerInterval": 3600,
+    "WebService": "https://qdscz6pg37.execute-api.us-west-2.amazonaws.com/default/EvioUsageReport"
+  },
+  "BridgeController": {
+    "Dependencies": [
+      "Logger",
+      "LinkManager"
+    ],
+    "BoundedFlood": {
+      "OverlayId": "101000F",
+      "LogDir": "/var/log/edge-vpn/",
+      "LogFilename": "bf.log",
+      "LogLevel": "INFO",
+      "BridgeName": "edgbr",
+      "DemandThreshold": "100M",
+      "FlowIdleTimeout": 60,
+      "FlowHardTimeout": 60,
+      "MulticastBroadcastInterval": 60,
+      "MaxBytes": 10000000,
+      "BackupCount": 0,
+      "ProxyListenAddress": "",
+      "ProxyListenPort": 5802,
+      "MonitorInterval": 60,
+      "MaxOnDemandEdges": 0
+    },
+    "Overlays": {
+      "101000F": {
+        "NetDevice": {
+          "AutoDelete": true,
+          "Type": "OVS",
+          "SwitchProtocol": "BF",
+          "NamePrefix": "edgbr",
+          "MTU": 1410,
+          "AppBridge": {
+            "AutoDelete": true,
+            "Type": "OVS",
+            "NamePrefix": "brl",
+            "IP4": "10.10.100.1",
+            "PrefixLen": 24,
+            "MTU": 1410,
+            "NetworkAddress": "10.10.100.0/24"
+          }
+        },
+        "SDNController": {
+          "ConnectionType": "tcp",
+          "HostName": "127.0.0.1",
+          "Port": "6633"
+        }
+      }
+    }
+  }
+}
+```
+
 # Configure your XMPP server endpoint and user credentials
 
 This is a required configuration for your deployment - you must setup every node to connect to an XMPP server. This is part of the _Signal_ module, and includes the IP address and port (typically 5222) of the server. The simplest approach uses password-based authentication, where you must add the username and password:
@@ -97,7 +216,7 @@ For this deployment, you need to configure the IP4 address of the node, and Pref
       "LinkManager"
     ],
     "BoundedFlood": {
-      "OverlayId": "E1492DC",
+      "OverlayId": "101000F",
       "LogDir": "/var/log/edge-vpn/",
       "LogFilename": "bf.log",
       "LogLevel": "INFO",
@@ -114,7 +233,7 @@ For this deployment, you need to configure the IP4 address of the node, and Pref
       "MaxOnDemandEdges": 0
     },
     "Overlays": {
-      "E1492DC": {
+      "101000F": {
         "NetDevice": {
           "AutoDelete": true,
           "Type": "OVS",
@@ -151,7 +270,7 @@ In your deployment, you may be able to configure EdgeVPN.io to expose an OVS vir
       "LinkManager"
     ],
     "BoundedFlood": {
-      "OverlayId": "E1492DC",
+      "OverlayId": "101000F",
       "LogDir": "/var/log/edge-vpn/",
       "LogFilename": "bf.log",
       "LogLevel": "INFO",
@@ -168,7 +287,7 @@ In your deployment, you may be able to configure EdgeVPN.io to expose an OVS vir
       "MaxOnDemandEdges": 0
     },
     "Overlays": {
-      "E1492DC": {
+      "101000F": {
         "NetDevice": {
           "AutoDelete": true,
           "Type": "OVS",
@@ -249,7 +368,7 @@ The structured peer-to-peer topology used in your deployment can be configured u
   "Topology": {
     "PeerDiscoveryCoalesce": 1,
     "Overlays": {
-      "E1492DC": {
+      "101000F": {
         "Name": "SymphonyRing",
         "Description": "Scalable Symphony Ring Overlay for Bounded Flooding.",
         "MaxSuccessors": 2,
