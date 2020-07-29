@@ -12,15 +12,38 @@ This tutorial guides you through a quick deployment of an OpenFire XMPP server a
 
 You need at least one Linux computer with Docker and Open vSwitch installed
 
-## Deploy an XMPP server using Docker
+## Install dependences
 
-We have created a Docker container pre-configured with two XMPP users test1, test2 for this tutorial, following the [instructions on deploying an XMPP server using Docker](/openfiredocker) (the OpenFire admin password for this container is *edgevpn_demo*). Deploy the XMPP server with this command:
+Make sure you have Docker installed in your system. 
+
+You may [follow a guide on how to install Docker for your system](https://docs.docker.com/engine/install/ubuntu/), or you may follow the instructions below to install Docker (and other dependences) if you are using Ubuntu 18.04:
+
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+sudo apt-get update -y
+sudo apt-get install -y openvswitch-switch \
+                        python3 python3-pip python3-venv \
+                        apt-transport-https \
+                        ca-certificates \
+                        curl git \
+                        software-properties-common \
+                        containerd.io \
+                        docker-ce-cli \
+                        docker-ce 
+groupadd -f docker
+sudo usermod -a -G docker $USER
+```
+
+## Deploy pre-configured demo XMPP server
+
+We have created a Docker container pre-configured with two XMPP users test1, test2 for this tutorial. The OpenFire admin password for this container is *edgevpn_demo*. Deploy the XMPP server with this command:
 
 ```
 docker run --name openfire -d -p 9090:9090 -p 5222:5222 -p 5269:5269 -p 5223:5223 -p 7443:7443 -p 7777:7777 -p 7070:7070 -p 5229:5229 -p 5275:5275 edgevpnio/openfire_edgevpn_demo
 ```
 
-## Deploy two nodes running Docker
+## Deploy two EdgeVPN.io nodes 
 
 Now deploy two nodes by following the [instructions on deploying EdgeVPN.io Docker containers](/dockeredgevpn). 
 
