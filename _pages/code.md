@@ -7,7 +7,8 @@ header:
 ---
 
 # Repositories
-The main code repository is under [the EdgeVPNio organization in GitHub](https://github.com/edgevpnio)
+The main code repository is under [the EdgeVPNio organization in GitHub](https://github.com/edgevpnio), where you can also find [code releases and packages](https://github.com/EdgeVPNio/evio/releases)
+
 Docker containers can be found in the [EdgeVPNio organization in DockerHub](https://hub.docker.com/u/edgevpnio)
 
 # How to Contribute
