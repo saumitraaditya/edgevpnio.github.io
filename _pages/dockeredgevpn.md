@@ -8,7 +8,7 @@ header:
 
 ## Introduction
 
-This tutorial guides you through the process of deploying two nodes using Docker - it is intended to be the first-time guide for users getting started with EdgeVPN.io.
+This tutorial guides you through the process of deploying two EdgeVPN.io nodes using Docker
 
 ## Dependences
 
@@ -37,7 +37,7 @@ mkdir logs/002
 
 ## Setup configuration files
 
-First, let's create a configuration file for a container for XMPP user test1.
+First, let's create a configuration file for a container that uses XMPP user test1.
 
 Copy and save this as /home/$USER/evio/config/config-001.json (the directory you created in the previous step) - *make sure you replace A.B.C.D with the IP address of your XMPP host:*
 
