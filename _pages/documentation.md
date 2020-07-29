@@ -6,29 +6,35 @@ header:
   overlay_image: /assets/images/texture.png
 ---
 
-## Try EdgeVPN.io using Docker
+## Quick demo
 
-[Deploy a quick demo on your own computer using Docker](/edgevpninabox)
+[Deploy a quick demo using Docker](/edgevpninabox)
 
-[Configure and deploy your own Openfire XMPP server](/openfiredocker)
+## Deploy with Docker
 
-[Deploy nodes using Docker](/dockeredgevpn)
+[Configure and deploy Docker Openfire XMPP server](/openfiredocker)
 
-## Setup and configure 
-
-[Installing nodes](/install)
-
-[Configuring nodes - basic configuration](/configbasics) 
-
-[Configuring nodes - complete description](/configfile)
-
-[Configuring Openfire XMPP and EdgeVPN.io with x509 certificate-based authentication](/openfireconfig)
-
-[Set up STUN and TURN servers](/stunturn)
+[Configure and deploy Docker EVio nodes](/dockeredgevpn)
 
 ## Understand the basics 
 
 [EdgeVPN.io architecture overview](/architecture)
+
+## Understanding the configuration
+
+[Configuring EVio nodes - template and basic configuration](/configbasics) 
+
+[Configuring EVio nodes - complete description](/configfile)
+
+## Additional deployment and configuration options 
+
+[Install EVio nodes from Debian package](/install)
+
+[Set up STUN and TURN servers](/stunturn)
+
+[Configuring Openfire XMPP and EdgeVPN.io with x509 certificate-based authentication](/openfireconfig)
+
+[Building EdgeVPN.io from source](/build)
 
 ## Troubleshooting
 
@@ -37,8 +43,6 @@ Set up visualization service
 Retrieving log files
 
 ## Additional documentation and helpful resources
-
-[Building EdgeVPN.io from source](/build)
 
 [The EdgeVPN.io wiki](https://github.com/EdgeVPN/edgevpn.github.io/wiki)
 
