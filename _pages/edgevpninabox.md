@@ -49,7 +49,7 @@ cd testbed
 vi template-config.json
 ```
 
-### Deploy evio nodes
+### Deploy EVio nodes
 
 The following commands enter a Python venv and configure and run two containers named evio-dkr001 and evio-dkr002 (note again that it may take a while to download):
 
