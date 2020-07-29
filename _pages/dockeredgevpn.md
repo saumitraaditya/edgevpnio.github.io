@@ -156,18 +156,15 @@ Copy and save this as /home/$USER/evio/config/config-001.json (the directory you
 }
 ```
 
-To configure the second container, copy config-001.json to config-002.json, **and replace the following entries in the json file**. These entries reflect the different user ID, password, and EdgeVPN.io IP address:
+To configure the second container, copy config-001.json to config-002.json, **and replace the following entry in the json file** to set up another EdgeVPN.io IP address:
 
 ```
-        "Username": "test2@openfire.local",
-        "Password": "password_test2",
-...
         "IP4": "10.10.10.22",
 ```
 
 ## Start the containers
 
-Now you will run two containers, named edgevpn001 and edgevpn002, mapping the different configuration file and the log directories to different mount points:
+Now you will run two containers, named evio001 and evio002, mapping the different configuration file and the log directories to different mount points:
 
 ```
 docker run -d -v /home/$USER/evio/config/config-001.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/evio/logs/001:/var/log/edge-vpnio/ --rm --privileged --name evio001 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
