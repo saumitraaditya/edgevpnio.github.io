@@ -46,11 +46,13 @@ If you'd like to run coturn on an Amazon EC2 instance, [it's relatively straight
 
 2. Install coturn
 
+```
 sudo apt-get install coturn
+```
 
 3. Setup your configuration file
 
-sudo vi /etc/turnserver.conf to configure:
+Edit /etc/turnserver.conf to configure as follows:
 
 ```
 realm=yourdomain.com
@@ -66,7 +68,7 @@ user=<username>:<password> # replace with username and password for TURN user
 
 3. Setup coturn service
 
-sudo vi /etc/default/coturn and uncomment the following line
+Edit /etc/default/coturn and uncomment the following line:
 
 ```
 TURNSERVER_ENABLED=1
@@ -74,19 +76,19 @@ TURNSERVER_ENABLED=1
 
 4. Start the service
 
-	```bash
-	sudo service coturn start
-	```
+```bash
+sudo service coturn start
+```
 
 5. Verify that turnserver is running; by default it runs on port 3478, which can be changed in the turnserver.conf file
 
-	```bash
-	netstat -aupn | grep 3478
-	```
+```bash
+netstat -aupn | grep 3478
+```
   
 6. Configure
 
-You should now be able to configure your nodes to use the TURN service, by replacing the <public-ip-of-turnserver>, <username> and <password> parameters with your own (without the <, > characters). See below for an example:
+You should now be able to [configure your EVio nodes](/configfile) to use the TURN service, by replacing the <public-ip-of-turnserver>, <username> and <password> parameters with your own (without the <, > characters). See below for an example of the LinkManager configuration snippet:
 
 ```
   "LinkManager": {
