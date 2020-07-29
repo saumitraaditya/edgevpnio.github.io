@@ -27,25 +27,26 @@ Now, create directories in the host to hold configuration files and logs for you
 
 ```
 cd
-mkdir edgevpnio
-mkdir edgevpnio/config
-mkdir edgevpnio/logs
-mkdir edgevpnio/logs/001
-mkdir edgevpnio/logs/002
+mkdir evio
+cd evio
+mkdir config
+mkdir logs
+mkdir logs/001
+mkdir logs/002
 ```
 
 ## Setup configuration files
 
 First, let's create a configuration file for a container for XMPP user test1.
 
-Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory you created in the previous step) - *make sure you replace A.B.C.D with the IP address of your XMPP host:*
+Copy and save this as /home/$USER/evio/config/config-001.json (the directory you created in the previous step) - *make sure you replace A.B.C.D with the IP address of your XMPP host:*
 
 ```json
 {
   "CFx": {
     "Model": "Default",
     "Overlays": [
-      "1234567"
+      "101000F"
     ]
   },
   "Logger": {
@@ -60,7 +61,7 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
   "Signal": {
     "Enabled": true,
     "Overlays": {
-      "1234567": {
+      "101000F": {
         "HostAddress": "A.B.C.D",
         "Port": "5222",
         "Username": "test1@openfire.local",
@@ -72,14 +73,14 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
   "Topology": {
     "PeerDiscoveryCoalesce": 1,
     "Overlays": {
-      "1234567": {
+      "101000F": {
         "Name": "SymphonyRing",
         "Description": "Scalable Symphony Ring Overlay for Bounded Flooding.",
         "MaxSuccessors": 2,
         "MaxOnDemandEdges": 1,
         "MaxConcurrentEdgeSetup": 5,
         "Role": "Switch"
-     }
+      }
     }
   },
   "LinkManager": {
@@ -93,17 +94,16 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
       "stun1.l.google.com:19302"
     ],
     "Overlays": {
-      "1234567": {
+      "101000F": {
         "Type": "TUNNEL",
         "TapName": "tnl-"
       }
     }
   },
-  "OverlayVisualizer": {
-    "Enabled": false,
-    "TimerInterval": 25,
-    "WebServiceAddress": "",
-    "NodeName": "n1"
+  "UsageReport": {
+    "Enabled": true,
+    "TimerInterval": 3600,
+    "WebService": "https://qdscz6pg37.execute-api.us-west-2.amazonaws.com/default/EvioUsageReport"
   },
   "BridgeController": {
     "Dependencies": [
@@ -111,8 +111,8 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
       "LinkManager"
     ],
     "BoundedFlood": {
-      "OverlayId": "1234567",
-      "LogDir": "/var/log/edge-vpn/",
+      "OverlayId": "101000F",
+      "LogDir": "/var/log/edge-vpnio/",
       "LogFilename": "bf.log",
       "LogLevel": "INFO",
       "BridgeName": "edgbr",
@@ -128,7 +128,7 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
       "MaxOnDemandEdges": 0
     },
     "Overlays": {
-      "1234567": {
+      "101000F": {
         "NetDevice": {
           "AutoDelete": true,
           "Type": "OVS",
@@ -141,7 +141,8 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
             "NamePrefix": "brl",
             "IP4": "10.10.10.21",
             "PrefixLen": 24,
-            "MTU": 1410
+            "MTU": 1410,
+            "NetworkAddress": "10.10.10.0/24"
           }
         },
         "SDNController": {
@@ -152,7 +153,7 @@ Copy and save this as /home/$USER/edgevpn/config/config-001.json (the directory 
       }
     }
   }
-}      
+}
 ```
 
 To configure the second container, copy config-001.json to config-002.json, **and replace the following entries in the json file**. These entries reflect the different user ID, password, and EdgeVPN.io IP address:
@@ -169,24 +170,24 @@ To configure the second container, copy config-001.json to config-002.json, **an
 Now you will run two containers, named edgevpn001 and edgevpn002, mapping the different configuration file and the log directories to different mount points:
 
 ```
-docker run -d -v /home/$USER/edgevpn/config/config-001.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/edgevpn/logs/001:/var/log/edge-vpnio/ --rm --privileged --name edgevpnio001 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
+docker run -d -v /home/$USER/evio/config/config-001.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/evio/logs/001:/var/log/edge-vpnio/ --rm --privileged --name evio001 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
 
-docker run -d -v /home/$USER/edgevpn/config/config-002.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/edgevpn/logs/002:/var/log/edge-vpnio/ --rm --privileged --name edgevpnio002 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
+docker run -d -v /home/$USER/evio/config/config-002.json:/etc/opt/edge-vpnio/config.json -v /home/$USER/evio/logs/002:/var/log/edge-vpnio/ --rm --privileged --name evio002 --network dkrnet edgevpnio/evio-node:20.7 /sbin/init
 ```
 
 ## Test your connection
 
-You can open a shell into the container edgevpn001 (virtual IP address 10.10.10.21), and ping the edgevpn002 node (virtual IP 10.10.10.22):
+You can open a shell into the container evio001 (virtual IP address 10.10.10.21), and ping the evio002 node (virtual IP 10.10.10.22):
 
 ```
-docker exec -it edgevpnio001 /bin/bash
+docker exec -it evio001 /bin/bash
 # ping 10.10.10.22
 ```
 
 Or, the other way around:
 
 ```
-docker exec -it edgevpnio002 /bin/bash
+docker exec -it evio002 /bin/bash
 # ping 10.10.10.21
 ```
 
