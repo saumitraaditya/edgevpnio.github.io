@@ -11,7 +11,7 @@ header:
 Tested on Ubuntu 18.04 x64
 
 ## Get deb Package
-Download the latest release from [GitHub](https://github.com/EdgeVPNio/Downloads/releases).
+Download the latest release from [the GitHub repository](https://github.com/EdgeVPNio/evio).
 
 ## Install deb Package
 
