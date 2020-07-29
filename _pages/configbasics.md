@@ -25,7 +25,7 @@ Before jumping into details, here is a configuration file template that is suffi
   "Logger": {
     "LogLevel": "DEBUG",
     "Device": "File",
-    "Directory": "/var/log/edge-vpn/",
+    "Directory": "/var/log/edge-vpnio/",
     "CtrlLogFileName": "ctrl.log",
     "TincanLogFileName": "tincan_log",
     "MaxFileSize": 10000000,
@@ -85,7 +85,7 @@ Before jumping into details, here is a configuration file template that is suffi
     ],
     "BoundedFlood": {
       "OverlayId": "101000F",
-      "LogDir": "/var/log/edge-vpn/",
+      "LogDir": "/var/log/edge-vpnio/",
       "LogFilename": "bf.log",
       "LogLevel": "INFO",
       "BridgeName": "edgbr",
@@ -217,7 +217,7 @@ For this deployment, you need to configure the IP4 address of the node, and Pref
     ],
     "BoundedFlood": {
       "OverlayId": "101000F",
-      "LogDir": "/var/log/edge-vpn/",
+      "LogDir": "/var/log/edge-vpnio/",
       "LogFilename": "bf.log",
       "LogLevel": "INFO",
       "BridgeName": "edgbr",
@@ -271,7 +271,7 @@ In your deployment, you may be able to configure EdgeVPN.io to expose an OVS vir
     ],
     "BoundedFlood": {
       "OverlayId": "101000F",
-      "LogDir": "/var/log/edge-vpn/",
+      "LogDir": "/var/log/edge-vpnio/",
       "LogFilename": "bf.log",
       "LogLevel": "INFO",
       "BridgeName": "edgbr",
