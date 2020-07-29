@@ -39,8 +39,8 @@ By default, the following files and directories are created:
 2. `/opt/edge-vpnio/controller/`
 3. `/etc/opt/edge-vpnio/config.json`
 4. `/etc/systemd/system`
-5. `/var/logs/edge-vpnio/tincan_log`
-6. `/var/logs/edge-vpnio/ctrl.log`
+5. `/var/logs/edge-vpn/tincan_log`
+6. `/var/logs/edge-vpn/ctrl.log`
 
 ## Disabling or removing the software
 
