@@ -20,7 +20,7 @@ sudo apt install -y <path/to>/edge-vpnio_*.deb
 ```
 
 ## Edit Configuration File
-After installation, but before starting, configure your node by editing `/etc/opt/edge-vpnio/config.json` [by adding the XMPP credentials, setting the IP address, and applying other configurations as needed](/configbasics) 
+After installation, but before starting, configure your node by editing `/etc/opt/edge-vpnio/config.json`. [You can use the template from this page and add XMPP credentials, setting the IP address, and applying other configurations as needed](/configbasics) 
 
 ## Run Service
 ```shell
