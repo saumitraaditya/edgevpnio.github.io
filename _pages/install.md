@@ -11,14 +11,13 @@ header:
 Tested on Ubuntu 18.04 x64
 
 ## Get deb Package
-Download the latest release from [the GitHub repository](https://github.com/EdgeVPNio/evio).
+Download the latest release from [the GitHub repository](https://github.com/EdgeVPNio/evio/releases/).
 
 ## Install deb Package
 
 ```shell
 sudo apt install -y <path/to>/edge-vpnio_*.deb
 ```
-On Desktop Environments, you can install the deb package by double click.
 
 ## Edit Configuration File
 After installation, but before starting, configure your node by editing `/etc/opt/edge-vpnio/config.json` [by adding the XMPP credentials, setting the IP address, and applying other configurations as needed](/configbasics) 
