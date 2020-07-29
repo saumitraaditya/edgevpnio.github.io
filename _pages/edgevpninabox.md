@@ -8,43 +8,70 @@ header:
 
 ## Introduction
 
-This tutorial guides you through a quick deployment of an OpenFire XMPP server and a couple of nodes using Docker.
+This tutorial guides you through a quick demo deployment including a preconfigured OpenFire XMPP server and a couple of EdgeVPN.io nodes using Docker.
 
-You need at least one Linux computer with Docker and Open vSwitch installed
+**Prerequisite:** This demo assumes you are running Ubuntu 18.04. This has been tested on the Amazon Ubuntu Server 18.04 LTS AMI, and on the [OSboxes Ubuntu Server 18.04.3 Bionic image](https://www.osboxes.org/ubuntu-server/)
 
-## Install dependences
+### Setup your environment
 
-Make sure you have Docker installed in your system. 
-
-You may [follow a guide on how to install Docker for your system](https://docs.docker.com/engine/install/ubuntu/), or you may follow the instructions below to install Docker (and other dependences) if you are using Ubuntu 18.04:
+Clone the evio/tools repository (which has several tools and template configuration file needed for this demo) and set up your dependence pre-requisites as follows:
 
 ```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-sudo apt-get update -y
-sudo apt-get install -y openvswitch-switch \
-                        python3 python3-pip python3-venv \
-                        apt-transport-https \
-                        ca-certificates \
-                        curl git \
-                        software-properties-common \
-                        containerd.io \
-                        docker-ce-cli \
-                        docker-ce 
-groupadd -f docker
-sudo usermod -a -G docker $USER
+git clone http://github.com/edgevpnio/tools
+cd tools
+./setup testbed
+./setup venv
 ```
 
-## Deploy pre-configured demo XMPP server
+### Setup a Docker network
 
-We have created a Docker container pre-configured with the Openfire XMPP server and user test1, password password_test1 for this tutorial. The OpenFire admin password for this container is *edgevpn_demo*. Deploy the XMPP server with this command:
+**Log out and log back in** to ensure your user is able to use Docker, then run the following command to create a Docker network:
 
 ```
-docker run --name openfire -d -p 9090:9090 -p 5222:5222 -p 5269:5269 -p 5223:5223 -p 7443:7443 -p 7777:7777 -p 7070:7070 -p 5229:5229 -p 5275:5275 edgevpnio/openfire_edgevpn_demo
+docker network create dkrnet
 ```
 
-## Deploy two EdgeVPN.io nodes 
+### Deploy demo XMPP server
 
-Now deploy two nodes by following the [instructions on deploying EdgeVPN.io Docker containers](/dockeredgevpn). 
+This will download and run a pre-configured XMPP server Docker container - note that it may take a while to download.
 
-You may deploy the two nodes in the same host, or in different hosts. Make sure to replace A.B.C.D with the IP address of the computer where you deployed the XMPP server in the previous step (the XMPP user names and passwords are configured to with with this tutorial).
+```
+cd tools
+./setup xmpp
+```
+
+### Add IP address of XMPP server to template file
+
+Edit the template-config.json file in the testbed directory, replacing _*.*.*.*_ in _HostAddress_ with the IP address of your host (the XMPP container maps port 5222 of your host)
+
+```
+cd testbed
+vi template-config.json
+```
+
+### Deploy evio nodes
+
+The following commands enter a Python venv and configure and run two containers named evio-dkr001 and evio-dkr002 (note again that it may take a while to download):
+
+```
+source venv/bin/activate
+python testbed.py -v --configure --range=1,3 --run
+```
+
+### Test
+
+You may now open a shell in the first container, and ping the second:
+
+```
+docker exec -it evio-dkr001 /bin/bash
+ping 10.10.100.2
+```
+
+Or vice-versa:
+
+```
+docker exec -it evio-dkr002 /bin/bash
+ping 10.10.100.1
+```
+
+
