@@ -1,5 +1,5 @@
 ---
-permalink: /dockeredgevpn/
+permalink: /build/
 title: "Build EdgeVPN.io"
 header:
   overlay_color: "#303030"
