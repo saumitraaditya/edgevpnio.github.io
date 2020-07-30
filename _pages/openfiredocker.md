@@ -51,7 +51,7 @@ docker run --name openfire -d -p 9090:9090 -p 5222:5222 -p 5269:5269 -p 5223:522
 
 2. Select your language, and continue
 
-3. Set both XMPP domain and server host name as local:
+3. Set both XMPP domain and server host name as _local_
 
 ![Set domain for XMPP](/assets/images/openfire_set_domain.png)
 
