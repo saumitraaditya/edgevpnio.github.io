@@ -7,7 +7,7 @@ main:
   - title: "Code"
     url: /code/
   - title: "Releases"
-    url: https://github.com/EdgeVPNio/evio/releases/
+    url: /releases/
   - title: "Community"
     url: /community/    
   - title: "Contact"

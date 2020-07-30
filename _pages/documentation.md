@@ -6,27 +6,27 @@ header:
   overlay_image: /assets/images/texture.png
 ---
 
-## Quick demo
+## <i class="fab fa-docker"></i> Quick demo
 
 [Deploy a quick demo using Docker](/edgevpninabox)
 
-## Deploy with Docker
+## <i class="fab fa-docker"></i> Deploy with Docker
 
 [Configure and deploy Docker Openfire XMPP server](/openfiredocker)
 
 [Configure and deploy Docker EVio nodes](/dockeredgevpn)
 
-## Understand the basics 
+## <i class="fas fa-lightbulb"></i> Understand the basics
 
 [EdgeVPN.io architecture overview](/architecture)
 
-## Understanding the configuration
+## <i class="fas fa-cog"></i> Understanding the configuration
 
 [Configuring EVio nodes - template and basic configuration](/configbasics) 
 
 [Configuring EVio nodes - complete description](/configfile)
 
-## Additional deployment and configuration options 
+## <i class="fas fa-cogs"></i> Additional deployment and configuration options 
 
 [Install EVio nodes from Debian package](/install)
 
@@ -36,16 +36,14 @@ header:
 
 [Building EdgeVPN.io from source](/build)
 
-## Troubleshooting
+## <i class="fas fa-tools"></i> Troubleshooting
 
 Set up visualization service
 
 Retrieving log files
 
-## Additional documentation and helpful resources
+## <i class="fas fa-book"></i> Additional documentation and helpful resources
 
 [The EdgeVPN.io wiki](https://github.com/EdgeVPN/edgevpn.github.io/wiki)
 
 [An introduction to NAT traversal and STUN/TURN](https://temasys.io/webrtc-ice-sorcery/)
-
-

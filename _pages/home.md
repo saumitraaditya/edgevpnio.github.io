@@ -5,11 +5,14 @@ title: "Open-source VPN for Edge Computing"
 header:
   overlay_color: "#303030"
   overlay_image: /assets/images/texture.png
-excerpt: "Seamlessly connect edge resources with a scalable virtual Ethernet"  
+  actions:
+    - label: "<i class='fas fa-download'></i> Latest Release: EdgeVPNio 20.7.2, July 2020"
+      url: "/releases/"
+excerpt: "Seamlessly connect edge resources with a scalable virtual Ethernet"
 ---
 
 {::nomarkdown}<div class="background-white"><div class="center">{:/nomarkdown}
-### EdgeVPN.io is an open-source software for deploying scalable VPNs across distributed edge resources 
+### <i class="fas fa-cubes"></i> EdgeVPN.io is an open-source software for deploying scalable VPNs across distributed edge resources 
 
 It groups distributed nodes into a logical Ethernet. EdgeVPN.io (also referred to as EVio, for short) has built-in support for packet capture, encryption, tunneling, forwarding, and NAT traversal, It builds on standard protocols, flexible software-defined networking, and a scalable overlay network architecture suitable for containerized applications
 
@@ -26,7 +29,7 @@ It groups distributed nodes into a logical Ethernet. EdgeVPN.io (also referred t
 
 
 {::nomarkdown}<div class="background-grey"><div class="center">{:/nomarkdown}
-### Key features
+### <i class="fas fa-cubes"></i> Key features
 
 **Structured topology:** 
 EdgeVPN.io implements a structured peer-to-peer overlay topology where nodes self-organize into a ring ordered by unique node IDs, and with randomly-assigned “long-distance” links, based on the approach described in [Symphony](http://infolab.stanford.edu/~bawa/Pub/symphony.pdf). *This topology is scalable:* the average distance between two nodes can scale as a log(N) function, where N is the number of nodes. Topology handling is modular, such that other topologies can be implemented.
