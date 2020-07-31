@@ -6,7 +6,7 @@ header:
   overlay_image: /assets/images/texture.png
 ---
 
-EdgeVPN.io is an active research project that builds upon a body of research in overlay and virtual networks that has resulted in several publications, including:
+EdgeVPN.io is an active research and development project. It builds upon a body of research in overlay and virtual networks that has resulted in several publications, including:
 
 K. Subratie, S. Aditya, V. Daneshmand, K. Ichikawa, R. Figueiredo, ["On the Design and Implementation of IP-over-P2P Overlay Virtual Private Networks", IEICE Trans. Commmun., Vol.E103–B, No.1, January 2020](https://search.ieice.org/bin/pdf_link.php?category=B&lang=E&year=2020&fname=e103-b_1_2&abst=)
 
