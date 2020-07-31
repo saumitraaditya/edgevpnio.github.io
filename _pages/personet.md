@@ -53,9 +53,14 @@ AR2 and AR1; Carol communicates with Maya via a common friend (John) via his soc
 
 ### Key publications produced as part of the project
 
-[1]. Saumitra Aditya, Kensworth Subratie, and Renato J. Figueiredo, “PerSoNet: Software-defined Overlay Virtual Networks Spanning Personal Devices Across Social Network Users”, 2018 IEEE International Conference on Cloud Computing Technology and Science (CloudCom)
+[1]. Saumitra Aditya, "Software Defined Overlay Network and Workload Orchestration in Social Network Based Edge Infrastructure for Smart Communities", Ph.D. Dissertation, ECE Department, University of Florida, July 2020.
 
-[2]. Saumitra Aditya, Renato Figueiredo, "SocialEdge: Enabling Trusted Data Processing Workflow in Smart Communities", 2019 IEEE International Conference on Cloud Computing Technology and Science (CloudCom)
+[2]. Saumitra Aditya, Kensworth Subratie, and Renato J. Figueiredo, [“PerSoNet: Software-defined Overlay Virtual Networks Spanning Personal Devices Across Social Network Users”](https://ieeexplore.ieee.org/abstract/document/8591012), 2018 IEEE International Conference on Cloud Computing Technology and Science (CloudCom)
 
-[3]. Saumitra Aditya, Renato Figueiredo. "Frugal: Building degree-constrained overlay topology from social graphs", Proceedings of IEEE International Conference on Fog and Edge Computing (IEEE ICFEC), 2017.
+[3]. Saumitra Aditya, Renato Figueiredo, ["SocialEdge: Enabling Trusted Data Processing Workflow in Smart Communities"](https://ieeexplore.ieee.org/abstract/document/8968844), 2019 IEEE International Conference on Cloud Computing Technology and Science (CloudCom)
 
+[4]. Saumitra Aditya, Renato Figueiredo. ["Frugal: Building degree-constrained overlay topology from social graphs"](https://ieeexplore.ieee.org/abstract/document/8014355), Proceedings of IEEE International Conference on Fog and Edge Computing (IEEE ICFEC), 2017.
+
+### Acknowledgments
+
+PerSoNet is based upon work supported in part by the National Science Foundation under Grant No. 1527415. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author and do not necessarily reflect the views of the National Science Foundation.
